@@ -1,0 +1,7 @@
+a.anchor {
+    display: block;
+    position: relative;
+    /*top: -60px; FOR MATERIY*/
+    top: -38px;
+    visibility: hidden;
+}
