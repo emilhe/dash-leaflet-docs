@@ -5,3 +5,25 @@ a.anchor {
     top: -38px;
     visibility: hidden;
 }
+
+iframe.full{
+    width: 100%;
+    height: 100vh;
+    display: block;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    margin-bottom: -45vh;
+}
+
+body {
+  margin: 0; /* NOTE: This was 8px be Dash default */
+  /*font-size: 1.5em; !* currently ems cause chrome bug misinterpreting rems on body element *!*/
+  /*line-height: 1.6;*/
+  /*font-weight: 400;*/
+  /*font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;*/
+  /*color: #323232ff;*/
+  /*background-color: #F4F5F5ff;*/
+  /*height: 100%;*/
+  /*overflow-y: hidden;*/
+}

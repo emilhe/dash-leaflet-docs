@@ -14,34 +14,41 @@ def sz():
     return dict(sm=12, md={"size": 8, "offset": 2})
 
 
-def render_example(app, key):
+def render_example(key):
     # Render markdown description.
     with open("examples/{}.md".format(key), 'r') as f:
         info = dcc.Markdown(f.read())
     # Render app code.
     with open("examples/{}.py".format(key), 'r') as f:
         code = dcc.Markdown("````\n{}\n````".format(f.read()))
+
     # TODO: Maybe prefix component IDs? Needs to be BOTH in callback and in
     # Render the example itself.
-    class AppProxy:
+    class AppProxy(dash.Dash):
 
-        def __init__(self):
-            self.layout = None
+        def __init__(self, *args, **kwargs):
+            super(AppProxy, self).__init__(*args, server=server, url_base_pathname='/{}/'.format(key), **kwargs)
 
-        def callback(self, *args):
-            return app.callback(*args)
     # Apply temporary monkey patch.
     dash_real = dash.Dash
     dash.Dash = AppProxy
     mod = importlib.import_module('examples.{}'.format(key))
-    example = getattr(mod, "app").layout
-    dash.Dash = dash_real
-    # TODO: Render example.
-    return html.Div([
+    example_app = getattr(mod, "app")
+    example_app.config.external_stylesheets = app.config.external_stylesheets
+    example_app.layout = html.Div([
         dbc.Row(dbc.Col(info)),
-        dbc.Row(dbc.Col(example, **sz())),
+        dbc.Row(dbc.Col(example_app.layout, **sz())),
         dbc.Row(dbc.Col(code))
     ])
+
+    dash.Dash = dash_real
+    return html.Div()
+
+    # return html.Div([
+    #     dbc.Row(dbc.Col(info)),
+    #     dbc.Row(dbc.Col(html.Iframe(src="/{}/".format(key), className="full"), **sz(), )),
+    #     dbc.Row(dbc.Col(code))
+    # ])
 
 
 # region Elements
@@ -80,7 +87,7 @@ def examples():
     rows = [dbc.Row(dbc.Col(dcc.Markdown(content)))]
     # Load examples.
     for key in ["map_click"]:
-        rows.append(render_example(app, key))
+        rows.append(render_example(key))
     return rows
 
 
@@ -105,7 +112,7 @@ def get_nav():
 # Create app.
 server = Flask(__name__)
 app = dash.Dash(server=server, external_stylesheets=[dbc.themes.CERULEAN])
-app.layout = html.Div([get_nav(), dbc.Container(get_content())])
+app.layout = html.Div([get_nav(), dbc.Container(get_content(), id="content")])
 
 if __name__ == '__main__':
     app.run_server(debug=False, port=8051)
