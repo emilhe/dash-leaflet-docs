@@ -1,0 +1,1 @@
+The `MarkerClusterGroup` component performs dynamic grouping of markers. When a large amount of markers are present, the clustering simplifies the visualization and makes it coherent across zoom levels. See the [documentation for the underlying component](https://github.com/Leaflet/Leaflet.markercluster) for details.

@@ -1,17 +1,74 @@
 import importlib
-import os
+from collections import OrderedDict
 
 import dash
-import dash_html_components as html
 import dash_bootstrap_components as dbc
-import dash_leaflet as dl
 import dash_core_components as dcc
-
+import dash_html_components as html
+import dash_leaflet as dl
+from dash.dependencies import Output, Input
+from dash.exceptions import PreventUpdate
 from flask import Flask
 
+# Example index.
+example_labels = OrderedDict(
+    map_click="Map click events",
+    locate_control="Geolocation",
+    marker_cluster="Markercluster",
+)
+example_keys = list(example_labels.keys())
+example_layouts = {}
+
+
+# region Util methods
 
 def sz():
     return dict(sm=12, md={"size": 8, "offset": 2})
+
+
+def prefix_id(arg, key):
+    if hasattr(arg, 'component_id'):
+        arg.component_id = "{}-{}".format(key, arg.component_id)
+    if hasattr(arg, '__len__'):
+        for entry in arg:
+            entry.component_id = "{}-{}".format(key, entry.component_id)
+
+
+def prefix_id_recursively(item, key):
+    if hasattr(item, "id"):
+        item.id = "{}-{}".format(key, item.id)
+    if hasattr(item, "children"):
+        children = item.children
+        if hasattr(children, "id"):
+            children.id = "{}-{}".format(key, children.id)
+        if hasattr(children, "__len__"):
+            for child in children:
+                prefix_id_recursively(child, key)
+
+
+def register_example(app, key):
+    # Proxy that attaches callback to main app (with prefix).
+    class AppProxy:
+
+        def __init__(self, external_stylesheets=None):
+            self.layout = None
+            self.external_stylesheets = external_stylesheets
+
+        def callback(self, *args):
+            for arg in list(args):
+                prefix_id(arg, key)
+            return app.callback(*args)
+
+    # Apply temporary monkey patch.
+    dash_real = dash.Dash
+    dash.Dash = AppProxy
+    mod = importlib.import_module('examples.{}'.format(key))
+    example = getattr(mod, "app")
+    prefix_id_recursively(example.layout, key)
+    example_layouts[key] = example.layout
+    dash.Dash = dash_real
+
+    return example.external_stylesheets
 
 
 def render_example(key):
@@ -21,35 +78,17 @@ def render_example(key):
     # Render app code.
     with open("examples/{}.py".format(key), 'r') as f:
         code = dcc.Markdown("````\n{}\n````".format(f.read()))
+    # Put everything together.
+    return [html.A(id=key, className="anchor"), html.Hr()] + \
+           [
+               dbc.Row(dbc.Col(html.H3(example_labels[key]))),
+               dbc.Row(dbc.Col(info)),
+               dbc.Row(dbc.Col(example_layouts[key], **sz())),
+               dbc.Row(dbc.Col(code))
+           ]
 
-    # TODO: Maybe prefix component IDs? Needs to be BOTH in callback and in
-    # Render the example itself.
-    class AppProxy(dash.Dash):
 
-        def __init__(self, *args, **kwargs):
-            super(AppProxy, self).__init__(*args, server=server, url_base_pathname='/{}/'.format(key), **kwargs)
-
-    # Apply temporary monkey patch.
-    dash_real = dash.Dash
-    dash.Dash = AppProxy
-    mod = importlib.import_module('examples.{}'.format(key))
-    example_app = getattr(mod, "app")
-    example_app.config.external_stylesheets = app.config.external_stylesheets
-    example_app.layout = html.Div([
-        dbc.Row(dbc.Col(info)),
-        dbc.Row(dbc.Col(example_app.layout, **sz())),
-        dbc.Row(dbc.Col(code))
-    ])
-
-    dash.Dash = dash_real
-    return html.Div()
-
-    # return html.Div([
-    #     dbc.Row(dbc.Col(info)),
-    #     dbc.Row(dbc.Col(html.Iframe(src="/{}/".format(key), className="full"), **sz(), )),
-    #     dbc.Row(dbc.Col(code))
-    # ])
-
+# endregion
 
 # region Elements
 
@@ -84,11 +123,13 @@ def examples():
     # Load intro.
     with open("content/examples.md", 'r') as f:
         content = f.read()
-    rows = [dbc.Row(dbc.Col(dcc.Markdown(content)))]
     # Load examples.
-    for key in ["map_click"]:
-        rows.append(render_example(key))
-    return rows
+    example_bullets = []
+    for key in example_keys:
+        example_bullets.append("* [{}](/{})".format(example_labels[key], key))
+        # rows.append(render_example(app, key))
+
+    return [dbc.Row(dbc.Col(dcc.Markdown(content))), dbc.Row(dbc.Col(dcc.Markdown("\n".join(example_bullets))))]
 
 
 # endregion
@@ -101,18 +142,55 @@ def get_content():
 
 
 def get_nav():
+    examples_links = [dbc.NavItem(dbc.NavLink(example_labels[key],
+                                              href="/#{}".format(key), external_link=True)) for key in example_keys]
     return dbc.NavbarSimple(
-        dbc.Nav([dbc.NavItem(dbc.NavLink("Home", href="#", external_link=True, active=True)),
-                 dbc.NavItem(dbc.NavLink("Getting started", href="#start", external_link=True)),
-                 dbc.NavItem(dbc.NavLink("Components", href="#components", external_link=True)),
-                 dbc.NavItem(dbc.NavLink("Examples", href="#examples", external_link=True))],
+        dbc.Nav([dbc.NavItem(dbc.NavLink("Home", href="/#", external_link=True)),
+                 dbc.NavItem(dbc.NavLink("Getting started", href="/#start", external_link=True)),
+                 dbc.NavItem(dbc.NavLink("Components", href="/#components", external_link=True)),
+                 dbc.DropdownMenu(
+                     label="Examples", children=examples_links, in_navbar=True, nav=True,
+                     style={"margin-left": "100px", "margin-right": "30px"}
+                 )
+                 ],
                 fill=True), fluid=True, sticky="top")
 
 
+ext_css = [dbc.themes.CERULEAN, 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css']
 # Create app.
 server = Flask(__name__)
-app = dash.Dash(server=server, external_stylesheets=[dbc.themes.CERULEAN])
-app.layout = html.Div([get_nav(), dbc.Container(get_content(), id="content")])
+app = dash.Dash(server=server, external_stylesheets=ext_css)
+# Register examples.
+for key in example_keys:
+    es = register_example(app, key)
+    # Check that the example stylesheets are there.
+    if not es:
+        continue
+    for item in es:
+        if item not in app.config["external_stylesheets"]:
+            raise ValueError("External stylesheet missing: {}".format(es))
+# Setup layout.
+app.layout = html.Div([get_nav(), dbc.Container(id="content"), dcc.Location(id="url")])
+
+
+# Index callbacks
+@app.callback(Output('content', 'children'),
+              [Input('url', 'pathname')])
+def display_page(pathname):
+    if not pathname:
+        raise PreventUpdate
+    # Main pages.
+    if pathname == "/":
+        base_page = get_content()
+        for key in example_keys:
+            base_page += render_example(key)
+        return base_page
+    # Example pages.
+    key = pathname.split("/")[1]
+    if key in example_keys:
+        return render_example(key)
+    return "Page not found ({})".format(pathname)
+
 
 if __name__ == '__main__':
     app.run_server(debug=False, port=8051)
