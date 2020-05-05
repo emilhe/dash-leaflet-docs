@@ -15,6 +15,8 @@ example_labels = OrderedDict(
     map_click="Map click events",
     locate_control="Geolocation",
     marker_cluster="Markercluster",
+    wsm_tile_layer="WMSTileLayer",
+    image_overlay="ImageOverlay"
 )
 example_keys = list(example_labels.keys())
 example_layouts = {}
@@ -111,7 +113,7 @@ def getting_started():
     example = dl.Map(dl.TileLayer(), style={'width': '100%', 'height': '50vh', 'margin': "auto", "display": "block"})
     return [
         dbc.Row(dbc.Col([dcc.Markdown(content)])),
-        dbc.Row(dbc.Col(example)) #, sm=12, md={"size": 10, "offset": 1})),
+        dbc.Row(dbc.Col(example))  # , sm=12, md={"size": 10, "offset": 1})),
     ]
 
 
@@ -122,7 +124,6 @@ def components():
 
 
 def examples():
-
     # TODO: What about this block?
 
     # Load intro.
