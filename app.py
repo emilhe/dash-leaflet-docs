@@ -22,9 +22,6 @@ example_layouts = {}
 
 # region Util methods
 
-def sz():
-    return dict(sm=12, md={"size": 8, "offset": 2})
-
 
 def prefix_id(arg, key):
     if hasattr(arg, 'component_id'):
@@ -79,12 +76,17 @@ def render_example(key):
     with open("examples/{}.py".format(key), 'r') as f:
         code = dcc.Markdown("````\n{}\n````".format(f.read()))
     # Put everything together.
-    return [html.A(id=key, className="anchor"), html.Hr()] + \
+    return [html.A(id=key, className="anchor"), html.Br()] + \
            [
-               dbc.Row(dbc.Col(html.H3(example_labels[key]))),
+               dbc.Row(dbc.Col(html.H4(example_labels[key]))),
                dbc.Row(dbc.Col(info)),
-               dbc.Row(dbc.Col(example_layouts[key], **sz())),
-               dbc.Row(dbc.Col(code))
+               html.Div([example_layouts[key], code], className="frame")
+               # )
+               # dbc.Container([
+               #     dbc.Row(dbc.Col(example_layouts[key])), #, sm=12, md={"size": 10, "offset": 1})),
+               #     dbc.Row(dbc.Col(html.Br())),
+               #     dbc.Row(dbc.Col(code))
+               # ],  className="frame")
            ]
 
 
@@ -100,7 +102,7 @@ def landing_page():
         dcc.Markdown("""The syntax is similar to other [Dash](https://plotly.com/dash/) components, with naming 
         conventions following [React-Leaflet](https://react-leaflet.js.org/). """)
     ])
-    return [dbc.Row(dbc.Col(content, **sz()))]
+    return [dbc.Row(dbc.Col(content, sm=12, md={"size": 8, "offset": 2}))]
 
 
 def getting_started():
@@ -109,7 +111,7 @@ def getting_started():
     example = dl.Map(dl.TileLayer(), style={'width': '100%', 'height': '50vh', 'margin': "auto", "display": "block"})
     return [
         dbc.Row(dbc.Col([dcc.Markdown(content)])),
-        dbc.Row(dbc.Col(example, **sz())),
+        dbc.Row(dbc.Col(example)) #, sm=12, md={"size": 10, "offset": 1})),
     ]
 
 
@@ -120,6 +122,9 @@ def components():
 
 
 def examples():
+
+    # TODO: What about this block?
+
     # Load intro.
     with open("content/examples.md", 'r') as f:
         content = f.read()
@@ -127,8 +132,6 @@ def examples():
     example_bullets = []
     for key in example_keys:
         example_bullets.append("* [{}](/{})".format(example_labels[key], key))
-        # rows.append(render_example(app, key))
-
     return [dbc.Row(dbc.Col(dcc.Markdown(content))), dbc.Row(dbc.Col(dcc.Markdown("\n".join(example_bullets))))]
 
 
@@ -148,10 +151,12 @@ def get_nav():
         dbc.Nav([dbc.NavItem(dbc.NavLink("Home", href="/#", external_link=True)),
                  dbc.NavItem(dbc.NavLink("Getting started", href="/#start", external_link=True)),
                  dbc.NavItem(dbc.NavLink("Components", href="/#components", external_link=True)),
+                 # Example links.
+                 dbc.NavItem(dbc.NavLink("Examples", href="/#examples", external_link=True,
+                                         style={"margin-left": "100px"})),
                  dbc.DropdownMenu(
-                     label="Examples", children=examples_links, in_navbar=True, nav=True,
-                     style={"margin-left": "100px", "margin-right": "30px"}
-                 )
+                     label="", children=examples_links, in_navbar=True, nav=True, direction="left",
+                     style={"margin-left": "0px"})
                  ],
                 fill=True), fluid=True, sticky="top")
 
