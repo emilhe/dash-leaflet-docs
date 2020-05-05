@@ -1,0 +1,1 @@
+Example demonstrating the syntax of creating a `VideoOverlay` component. Note that the video could also have been loaded from the assets folder, in which case the url would be `"/assets/patricia_nasa.webm"`.

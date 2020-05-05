@@ -16,7 +16,8 @@ example_labels = OrderedDict(
     locate_control="Geolocation",
     marker_cluster="Markercluster",
     wsm_tile_layer="WMSTileLayer",
-    image_overlay="ImageOverlay"
+    image_overlay="ImageOverlay",
+    video_overlay="VideoOverlay"
 )
 example_keys = list(example_labels.keys())
 example_layouts = {}
