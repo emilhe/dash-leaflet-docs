@@ -3,7 +3,7 @@ import dash_html_components as html
 import dash_leaflet as dl
 from dash.dependencies import Input, Output
 
-video_url = "https://raw.githubusercontent.com/thedirtyfew/dash-leaflet/master/assets/patricia_nasa.webm"
+video_url = "https://dash-leaflet.herokuapp.com/assets/patricia_nasa.webm"
 video_bounds = [[32, -130], [13, -100]]
 app = dash.Dash()
 app.layout = html.Div([dl.Map([dl.TileLayer(),
