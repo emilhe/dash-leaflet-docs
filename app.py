@@ -131,7 +131,7 @@ def examples():
     # Load examples.
     example_bullets = []
     for key in example_keys:
-        example_bullets.append("* [{}](/{})".format(example_labels[key], key))
+        example_bullets.append("* [{}](/#{})".format(example_labels[key], key))
     return [dbc.Row(dbc.Col(dcc.Markdown(content))), dbc.Row(dbc.Col(dcc.Markdown("\n".join(example_bullets))))]
 
 
