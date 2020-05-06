@@ -1,8 +1,9 @@
 ## Getting started
 
-The easiest way to get started is to install the latest version of Dash Leaflet via pip.
+The easiest way to get started is to install the latest version of Dash and Dash Leaflet via pip.
 
 ```
+pip install dash==1.12.0
 pip install dash-leaflet
 ```
 
