@@ -4,7 +4,7 @@ import dash_leaflet as dl
 
 from dash.dependencies import Input, Output
 
-app = dash.Dash()
+app = dash.Dash(prevent_initial_callbacks=True)
 app.layout = html.Div([
     dl.Map([dl.TileLayer(), dl.LayerGroup(id="layer")],
            id="map", style={'width': '100%', 'height': '50vh', 'margin': "auto", "display": "block"}),

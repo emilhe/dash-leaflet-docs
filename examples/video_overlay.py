@@ -6,7 +6,7 @@ from dash.dependencies import Input, Output
 video_urls = ["https://dash-leaflet.herokuapp.com/assets/patricia_nasa.mp4",
               "https://dash-leaflet.herokuapp.com/assets/patricia_nasa.webm"]
 video_bounds = [[32, -130], [13, -100]]
-app = dash.Dash()
+app = dash.Dash(prevent_initial_callbacks=True)
 app.layout = html.Div([dl.Map([dl.TileLayer(),
                                dl.VideoOverlay(id="video", opacity=0.5, url=video_urls, bounds=video_bounds)],
                               bounds=[[32, -130], [13, -100]],
