@@ -10,6 +10,8 @@ from dash.dependencies import Output, Input
 from dash.exceptions import PreventUpdate
 from flask import Flask
 
+print(dash.__version__)
+
 # Example index.
 example_labels = OrderedDict(
     map_click="Map click events",
@@ -26,22 +28,32 @@ example_layouts = {}
 
 # region Util methods
 
+def apply_prefix(prefix, component_id):
+    if isinstance(component_id, dict):
+        # TODO: How to implement this?
+        # for key in component_id:
+        #     if key == "index":
+        #         continue
+        #     component_id[key] = "{}-{}".format(prefix, component_id[key])
+        return component_id
+    return "{}-{}".format(prefix, component_id)
+
 
 def prefix_id(arg, key):
     if hasattr(arg, 'component_id'):
-        arg.component_id = "{}-{}".format(key, arg.component_id)
+        arg.component_id = apply_prefix(key, arg.component_id)
     if hasattr(arg, '__len__'):
         for entry in arg:
-            entry.component_id = "{}-{}".format(key, entry.component_id)
+            entry.component_id = apply_prefix(key, entry.component_id)
 
 
 def prefix_id_recursively(item, key):
     if hasattr(item, "id"):
-        item.id = "{}-{}".format(key, item.id)
+        item.id = apply_prefix(key, item.id)
     if hasattr(item, "children"):
         children = item.children
         if hasattr(children, "id"):
-            children.id = "{}-{}".format(key, children.id)
+            children.id = apply_prefix(key, children.id)
         if hasattr(children, "__len__"):
             for child in children:
                 prefix_id_recursively(child, key)
@@ -51,7 +63,7 @@ def register_example(app, key):
     # Proxy that attaches callback to main app (with prefix).
     class AppProxy:
 
-        def __init__(self, external_stylesheets=None):
+        def __init__(self, external_stylesheets=None, *args, **kwargs):
             self.layout = None
             self.external_stylesheets = external_stylesheets
 
@@ -167,7 +179,7 @@ def get_nav():
 ext_css = [dbc.themes.CERULEAN, 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css']
 # Create app.
 server = Flask(__name__)
-app = dash.Dash(server=server, external_stylesheets=ext_css)
+app = dash.Dash(server=server, external_stylesheets=ext_css, prevent_initial_callbacks=True)
 # Register examples.
 for key in example_keys:
     es = register_example(app, key)
@@ -185,8 +197,6 @@ app.layout = html.Div([get_nav(), dbc.Container(id="content"), dcc.Location(id="
 @app.callback(Output('content', 'children'),
               [Input('url', 'pathname')])
 def display_page(pathname):
-    if not pathname:
-        raise PreventUpdate
     # Main pages.
     if pathname == "/":
         base_page = get_content()

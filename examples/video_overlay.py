@@ -16,7 +16,7 @@ app.layout = html.Div([dl.Map([dl.TileLayer(),
 
 @app.callback(Output("video", "play"), [Input("play", 'n_clicks')])
 def play_pause(n):
-    return n is not None and n % 2 == 1
+    return n % 2 == 1
 
 
 if __name__ == '__main__':

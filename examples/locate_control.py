@@ -15,8 +15,7 @@ app.layout = html.Div([
 
 @app.callback(Output("text", "children"), [Input("map", "location_lat_lon_acc")])
 def update_location(location):
-    if location:
-        return "You are within {} meters of (lat,lon) = ({},{})".format(location[2], location[0], location[1])
+    return "You are within {} meters of (lat,lon) = ({},{})".format(location[2], location[0], location[1])
 
 
 if __name__ == '__main__':

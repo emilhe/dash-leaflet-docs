@@ -13,8 +13,7 @@ app.layout = html.Div([
 
 @app.callback(Output("layer", "children"), [Input("map", "click_lat_lng")])
 def map_click(click_lat_lng):
-    if click_lat_lng is not None:
-        return [dl.Marker(position=click_lat_lng, title="({:.3f}, {:.3f})".format(*click_lat_lng))]
+    return [dl.Marker(position=click_lat_lng, title="({:.3f}, {:.3f})".format(*click_lat_lng))]
 
 
 if __name__ == '__main__':

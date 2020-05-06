@@ -19,7 +19,7 @@ app.layout = html.Div([
 def map_click(click_lat_lng, n_clicks, data, polygons):
     trigger = dash.callback_context.triggered[0]["prop_id"]
     # The map was clicked, add a new point.
-    if trigger == "map.click_lat_lng":
+    if trigger.split(".")[1] == "click_lat_lng":
         data.append(click_lat_lng)
         markers = [dl.CircleMarker(center=pos, id={'role': 'marker', 'index': i}) for i, pos in enumerate(data)]
         polyline = dl.Polyline(positions=data)
