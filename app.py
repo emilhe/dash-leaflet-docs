@@ -13,8 +13,9 @@ from flask import Flask
 # Example index.
 example_labels = OrderedDict(
     map_click="Map click events",
+    draw_polygon="Drawing polygons",
     locate_control="Geolocation",
-    marker_cluster="Markercluster",
+    marker_cluster="Marker cluster",
     wsm_tile_layer="WMSTileLayer",
     image_overlay="ImageOverlay",
     video_overlay="VideoOverlay"

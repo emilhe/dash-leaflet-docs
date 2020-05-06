@@ -6,7 +6,7 @@ The easiest way to get started is to install the latest version of Dash Leaflet 
 pip install dash-leaflet
 ```
 
-Once the installation is completed, paste the following lines of code into a .py file a run it.
+Once the installation is completed, paste the following lines of code into a .py file and run it.
 
 ````
 import dash
@@ -19,5 +19,4 @@ if __name__ == '__main__':
     app.run_server()    
 ````
 
-That's it! You have now created your first interactive map with Dash Leaflet. If you visit http://127.0.0.1:8050/ in your browser, you should see a map similar to the one shown below.
-
+That's it! You have now created your first interactive map with Dash Leaflet. If you visit http://127.0.0.1:8050/ in your browser, you should see a map similar to the one shown below. 
