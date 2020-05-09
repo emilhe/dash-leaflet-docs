@@ -6,6 +6,7 @@ import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_leaflet as dl
+from dash.dependencies import Input
 from dash_extensions.snippets import fix_page_load_anchor_issue
 from flask import Flask
 
@@ -185,7 +186,8 @@ for key in example_keys:
             raise ValueError("External stylesheet missing: {}".format(es))
 # Setup layout.
 example_pages = [render_example(key) for key in example_keys]
-app.layout = html.Div([get_nav(), dbc.Container(get_content(), id="content")] + fix_page_load_anchor_issue(app))
+app.layout = html.Div([get_nav(), dbc.Container(get_content(), id="content")] +
+                      fix_page_load_anchor_issue(app, delay=200))
 
 if __name__ == '__main__':
     app.run_server(debug=False, port=8051)

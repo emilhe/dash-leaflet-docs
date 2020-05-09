@@ -38,7 +38,7 @@ info = html.Div(children=get_info(), id="info", className="info",
 app = dash.Dash(prevent_initial_callbacks=True,
                 external_stylesheets=["https://dash-leaflet.herokuapp.com/assets/geojson.css"])
 app.layout = html.Div([dl.Map(children=[dl.TileLayer(), geojson, colorbar, info], center=[39, -98], zoom=4)],
-                      style={'width': '100%', 'height': '50vh', 'margin': "auto", "display": "block"})
+                      style={'width': '100%', 'height': '50vh', 'margin': "auto", "display": "block"}, id="map")
 
 
 @app.callback(Output("info", "children"), [Input("geojson", "featureHover")])
