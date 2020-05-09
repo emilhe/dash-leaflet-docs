@@ -174,7 +174,8 @@ def get_nav():
                 fill=True), fluid=True, sticky="top")
 
 
-ext_css = [dbc.themes.CERULEAN, 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css']
+ext_css = [dbc.themes.CERULEAN, 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css',
+           "https://dash-leaflet.herokuapp.com/assets/geojson.css"]
 # Create app.
 server = Flask(__name__)
 app = dash.Dash(server=server, external_stylesheets=ext_css, prevent_initial_callbacks=True)
