@@ -1,13 +1,15 @@
 import dash
 import dash_html_components as html
-import requests
+import json
 import dash_leaflet as dl
 from dash.dependencies import Output, Input
 from dash_leaflet import express as dlx
 
 # Input data.
 
-data = requests.get("https://dash-leaflet.herokuapp.com/assets/us-states.json").json()
+# data = requests.get("https://dash-leaflet.herokuapp.com/assets/us-states.json").json()
+with open("assets/us-states.json", 'r') as f:
+    data = json.load(f)
 marks = [0, 10, 20, 50, 100, 200, 500, 1000]
 colorscale = ['#FFEDA0', '#FED976', '#FEB24C', '#FD8D3C', '#FC4E2A', '#E31A1C', '#BD0026', '#800026']
 
