@@ -26,9 +26,8 @@ def get_info(feature=None):
 
 
 # Create colorbar.
-categories = ["{}+".format(mark, marks[i + 1]) for i, mark in enumerate(marks[:-1])] + ["{}+".format(marks[-1])]
-colorbar = dlx.categorical_colorbar(categories=categories, colorscale=list(reversed(colorscale)), width=300, height=30,
-                                    position="bottomleft")
+ctg = ["{}+".format(mark, marks[i + 1]) for i, mark in enumerate(marks[:-1])] + ["{}+".format(marks[-1])]
+colorbar = dlx.categorical_colorbar(categories=ctg, colorscale=colorscale, width=300, height=30, position="bottomleft")
 # Create geojson.
 options = dict(hoverStyle=dict(weight=5, color='#666', dashArray=''), zoomToBoundsOnClick=True)
 geojson = dlx.geojson(data, id="geojson", options=options, style=get_style)
