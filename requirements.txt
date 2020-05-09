@@ -2,5 +2,5 @@ dash==1.12.0
 gunicorn
 flask
 requests
-dash-leaflet==0.0.10rc2
+dash-leaflet==0.0.10rc4
 dash-bootstrap-components

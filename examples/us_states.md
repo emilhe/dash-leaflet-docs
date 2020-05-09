@@ -1,0 +1,1 @@
+Example demonstrating the syntax of creating a `GeoJSON` component. 
