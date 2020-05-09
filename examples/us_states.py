@@ -6,8 +6,6 @@ from dash.dependencies import Output, Input
 from dash_leaflet import express as dlx
 
 # Input data.
-
-# data = requests.get("https://dash-leaflet.herokuapp.com/assets/us-states.json").json()
 with open("assets/us-states.json", 'r') as f:
     data = json.load(f)
 marks = [0, 10, 20, 50, 100, 200, 500, 1000]
