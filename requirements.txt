@@ -3,4 +3,5 @@ gunicorn
 flask
 requests
 dash-leaflet==0.0.10rc4
+dash-extensions==0.0.5
 dash-bootstrap-components

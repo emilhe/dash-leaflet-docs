@@ -6,7 +6,7 @@ import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_leaflet as dl
-from dash.dependencies import Output, Input
+from dash_extensions.snippets import fix_page_load_anchor_issue
 from flask import Flask
 
 # Example index.
@@ -95,12 +95,6 @@ def render_example(key):
                dbc.Row(dbc.Col(html.H4(example_labels[key]))),
                dbc.Row(dbc.Col(info)),
                html.Div([example_layouts[key], code], className="frame")
-               # )
-               # dbc.Container([
-               #     dbc.Row(dbc.Col(example_layouts[key])), #, sm=12, md={"size": 10, "offset": 1})),
-               #     dbc.Row(dbc.Col(html.Br())),
-               #     dbc.Row(dbc.Col(code))
-               # ],  className="frame")
            ]
 
 
@@ -136,8 +130,6 @@ def components():
 
 
 def examples():
-    # TODO: What about this block?
-
     # Load intro.
     with open("content/examples.md", 'r') as f:
         content = f.read()
@@ -151,10 +143,13 @@ def examples():
 # endregion
 
 def get_content():
-    return [html.A(id="home", className="anchor"), html.Br()] + landing_page() + \
-           [html.A(id="start", className="anchor"), html.Hr()] + getting_started() + \
-           [html.A(id="components", className="anchor"), html.Hr()] + components() + \
-           [html.A(id="examples", className="anchor"), html.Hr()] + examples()
+    content = [html.A(id="home", className="anchor"), html.Br()] + landing_page() + \
+                [html.A(id="start", className="anchor"), html.Hr()] + getting_started() + \
+                [html.A(id="components", className="anchor"), html.Hr()] + components() + \
+                [html.A(id="examples", className="anchor"), html.Hr()] + examples()
+    for key in example_keys:
+        content += render_example(key)
+    return content
 
 
 def get_nav():
@@ -189,25 +184,8 @@ for key in example_keys:
         if item not in app.config["external_stylesheets"]:
             raise ValueError("External stylesheet missing: {}".format(es))
 # Setup layout.
-app.layout = html.Div([get_nav(), dbc.Container(id="content"), dcc.Location(id="url")])
-
-
-# Index callbacks
-@app.callback(Output('content', 'children'),
-              [Input('url', 'pathname')])
-def display_page(pathname):
-    # Main pages.
-    if pathname == "/":
-        base_page = get_content()
-        for key in example_keys:
-            base_page += render_example(key)
-        return base_page
-    # Example pages.
-    key = pathname.split("/")[1]
-    if key in example_keys:
-        return render_example(key)
-    return "Page not found ({})".format(pathname)
-
+example_pages = [render_example(key) for key in example_keys]
+app.layout = html.Div([get_nav(), dbc.Container(get_content(), id="content")] + fix_page_load_anchor_issue(app))
 
 if __name__ == '__main__':
     app.run_server(debug=False, port=8051)
