@@ -30,13 +30,12 @@ ctg = ["{}+".format(mark, marks[i + 1]) for i, mark in enumerate(marks[:-1])] + 
 colorbar = dlx.categorical_colorbar(categories=ctg, colorscale=colorscale, width=300, height=30, position="bottomleft")
 # Create geojson.
 options = dict(hoverStyle=dict(weight=5, color='#666', dashArray=''), zoomToBoundsOnClick=True)
-geojson = dlx.geojson(data, id="geojson", options=options, style=get_style)
+geojson = dlx.geojson(data, id="geojson", defaultOptions=options, style=get_style)
 # Create info control.
 info = html.Div(children=get_info(), id="info", className="info",
                 style={"position": "absolute", "top": "10px", "right": "10px", "z-index": "1000"})
 # Create app.
-app = dash.Dash(prevent_initial_callbacks=True,
-                external_stylesheets=["https://dash-leaflet.herokuapp.com/assets/geojson.css"])
+app = dash.Dash(prevent_initial_callbacks=True)
 app.layout = html.Div([dl.Map(children=[dl.TileLayer(), geojson, colorbar, info], center=[39, -98], zoom=4)],
                       style={'width': '100%', 'height': '50vh', 'margin': "auto", "display": "block"}, id="map")
 
