@@ -1,2 +1,2 @@
-Map click events are exposed via the properties `click_lat_lng` (single_click), `dbl_click_lat_lng` (double click). In 
-this example, the `click_lat_lng` is used as input for a callback, in which a `Marker` component is created at the click position with the position as title (shown on hoover). By targeting the `children` property of a `LayerGroup` (that is part of the maps children) as output, the callback effectively adds the `Marker` component to the map.
+Map click events are exposed via the properties `click_lat_lng` (single_click) and `dbl_click_lat_lng` (double click). In 
+this example, the `click_lat_lng` is used as input for a callback, in which a `Marker` component is created at the click position with the position as title (shown on hover). By targeting the `children` property of a `LayerGroup` (that is part of the maps children) as output, the callback effectively adds the `Marker` component to the map.
