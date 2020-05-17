@@ -6,7 +6,6 @@ import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_leaflet as dl
-from dash.dependencies import Input
 from dash_extensions.snippets import fix_page_load_anchor_issue
 from flask import Flask
 
@@ -17,6 +16,7 @@ example_labels = OrderedDict(
     locate_control="Geolocation",
     marker_cluster="Marker cluster",
     us_states="GeoJSON",
+    polyline_decorator="PolylineDecorator",
     wsm_tile_layer="WMSTileLayer",
     image_overlay="ImageOverlay",
     video_overlay="VideoOverlay"
