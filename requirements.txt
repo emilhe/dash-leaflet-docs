@@ -1,9 +1,7 @@
-hypercorn
+dash==1.12.0
+gunicorn
+flask
 requests
-dash-leaflet==0.0.15
+dash-leaflet==0.0.14
 dash-extensions==0.0.11
 dash-bootstrap-components
-
-quart
-quart_compress
-git+https://github.com/thedirtyfew/dash
