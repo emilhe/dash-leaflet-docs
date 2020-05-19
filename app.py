@@ -10,6 +10,8 @@ from dash_extensions.snippets import fix_page_load_anchor_issue
 from flask import Flask
 
 # Example index.
+from quart import Quart
+
 example_labels = OrderedDict(
     map_click="Map click events",
     draw_polygon="Drawing polygons",
@@ -173,7 +175,7 @@ def get_nav():
 ext_css = [dbc.themes.CERULEAN, 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css',
            "https://dash-leaflet.herokuapp.com/assets/geojson.css"]
 # Create app.
-server = Flask(__name__)
+server = Quart(__name__)
 app = dash.Dash(server=server, external_stylesheets=ext_css, prevent_initial_callbacks=True)
 # Register examples.
 for key in example_keys:

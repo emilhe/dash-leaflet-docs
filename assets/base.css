@@ -31,3 +31,18 @@ body {
     max-width: none;
   }
 }
+
+/*.has-value.Select--single>.Select-control .Select-value .Select-value-label{*/
+/*        color: purple;*/
+/*}*/
+
+.has-value.Select--single>.Select-control .Select-value .Select-value-label,
+.has-value.is-pseudo-focused.Select--single>.Select-control .Select-value .Select-value-label{
+        color: purple;
+}
+
+/*.Select-multi-value-wrapper > .Select-value {*/
+/*  background-color: red;*/
+/*}*/
+
+
