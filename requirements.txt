@@ -1,4 +1,4 @@
-gunicorn
+hypercorn
 requests
 dash-leaflet==0.0.15
 dash-extensions==0.0.11
