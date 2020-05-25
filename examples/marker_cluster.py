@@ -7,7 +7,7 @@ import requests
 marker_data = requests.get("https://gist.githubusercontent.com/erdem/8c7d26765831d0f9a8c62f02782ae00d/raw"
                            "/248037cd701af0a4957cce340dabb0fd04e38f4c/countries.json").json()
 # Create marker cluster.
-markers = [dl.Marker(title=item["name"], position=item["latlng"]) for item in marker_data]
+markers = [dl.Marker(children=dl.Tooltip(item["name"]), position=item["latlng"]) for item in marker_data]
 cluster = dl.MarkerClusterGroup(id="markers", children=markers, options={"polygonOptions": {"color": "red"}})
 # Create app.
 app = dash.Dash()
