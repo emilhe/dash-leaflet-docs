@@ -19,7 +19,8 @@ example_labels = OrderedDict(
     polyline_decorator="PolylineDecorator",
     wsm_tile_layer="WMSTileLayer",
     image_overlay="ImageOverlay",
-    video_overlay="VideoOverlay"
+    video_overlay="VideoOverlay",
+    super_cluster="SuperCluster"
 )
 example_keys = list(example_labels.keys())
 example_layouts = {}
