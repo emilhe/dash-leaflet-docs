@@ -188,7 +188,7 @@ for key in example_keys:
 # Setup layout.
 example_pages = [render_example(key) for key in example_keys]
 app.layout = html.Div([get_nav(), dbc.Container(get_content(), id="content")] +
-                      fix_page_load_anchor_issue(app, delay=300))
+                      fix_page_load_anchor_issue(app, delay=500))
 
 if __name__ == '__main__':
     app.run_server(debug=False, port=8051)
