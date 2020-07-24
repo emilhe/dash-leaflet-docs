@@ -5,3 +5,4 @@ requests
 dash-leaflet==0.0.21
 dash-extensions==0.0.11
 dash-bootstrap-components
+geobuf
