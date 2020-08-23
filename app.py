@@ -14,13 +14,12 @@ example_labels = OrderedDict(
     map_click="Map click events",
     draw_polygon="Drawing polygons",
     locate_control="Geolocation",
-    marker_cluster="Marker cluster",
-    us_states="GeoJSON",
+    # us_states="GeoJSON",
     polyline_decorator="PolylineDecorator",
     wsm_tile_layer="WMSTileLayer",
     image_overlay="ImageOverlay",
     video_overlay="VideoOverlay",
-    super_cluster="SuperCluster"
+    super_cluster="Marker clustering"
 )
 example_keys = list(example_labels.keys())
 example_layouts = {}
