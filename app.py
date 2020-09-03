@@ -113,7 +113,7 @@ def render_example(key, label_map, wd):
     # Put everything together.
     elements = [
         html.A(id=key, className="anchor"), html.Br(),
-        dbc.Row(dbc.Col(html.H3(label_map[key]))),
+        dbc.Row(dbc.Col(html.H4(label_map[key]))),
         dbc.Row(dbc.Col(info)),
     ]
     # Check if code is there.
