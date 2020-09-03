@@ -2,10 +2,10 @@ dash==1.13.0
 gunicorn
 flask
 requests
-dash-leaflet==0.1.0rc1
+dash-leaflet==0.1.0rc31
+dash-transcrypt==0.0.5
 dash-extensions==0.0.30
 dash-bootstrap-components
 geobuf
-transcrypt
 pandas
 numpy
