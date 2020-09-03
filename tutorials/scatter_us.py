@@ -13,7 +13,7 @@ from dash_transcrypt import inject_js, module_to_props
 
 # region Data
 
-df = pd.read_csv("../dash-leaflet-examples/res/uscities.csv")  # data from https://simplemaps.com/data/us-cities
+df = pd.read_csv("assets/uscities.csv")  # data from https://simplemaps.com/data/us-cities
 color_prop = 'population'
 
 
@@ -89,4 +89,4 @@ def update(csc, state):
 
 
 if __name__ == '__main__':
-    app.run_server(port=7777)
+    app.run_server()

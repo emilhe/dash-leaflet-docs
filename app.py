@@ -246,9 +246,8 @@ app = dash.Dash(server=server, external_stylesheets=ext_css, external_scripts=ex
 build_layouts(example_keys, "examples")
 build_layouts(tutorial_keys, "tutorials")
 # Setup layout.
-# example_pages = [render_example(key) for key in example_keys]  # TODO: WHAT IS THIS?
 app.layout = html.Div([get_nav(), dbc.Container(get_content(), id="content")] +
-                      fix_page_load_anchor_issue(app, delay=500))
+                      fix_page_load_anchor_issue(app, delay=650))
 
 if __name__ == '__main__':
     app.run_server(debug=False, port=8051)

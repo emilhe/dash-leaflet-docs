@@ -27,7 +27,7 @@ The majority of components are light wrappers of their React-Leaflet counterpart
 
 For documentation on these components, the [React-Leaflet API component reference](https://react-leaflet.js.org/docs/en/components) is a great resource. For additional details, consider the [source code](https://github.com/thedirtyfew/dash-leaflet).
 
-### Leaflet plugins
+#### Leaflet plugins
 
 In addition to the core components, a vast amount of Leaflet plugins exists. A few on the more popular ones have been ported,
 

@@ -1,10 +1,17 @@
 ## Getting started
 
-The easiest way to get started is to install the latest version of Dash and Dash Leaflet via pip.
+The easiest way to get started is to install the latest version of Dash and Dash Leaflet via pip,
 
 ```
-pip install dash==1.12.0
-pip install dash-leaflet==0.0.13
+pip install dash==1.15.0
+pip install dash-leaflet==0.1.0
+```
+
+Additionally, if you plan on using the `GeoJSON` component, you'll also need geobuf and dash-transcrypt,
+
+```
+pip install dash-transcrypt==0.0.5
+pip install geobuf==1.1.1
 ```
 
 Once the installation is completed, paste the following lines of code into a .py file and run it.
