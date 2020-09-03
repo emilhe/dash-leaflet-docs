@@ -7,3 +7,5 @@ dash-extensions==0.0.30
 dash-bootstrap-components
 geobuf
 transcrypt
+pandas
+numpy

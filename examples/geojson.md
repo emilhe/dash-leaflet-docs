@@ -1,0 +1,3 @@
+The `GeoJSON` component enables visualization of geospatial data, either raw geojson or [geobuf](https://pypi.org/project/geobuf/) (controlled via the `format` property). The data can be passed directly via the `data` property, or more efficiently as a static asset via the `url` property. Options can be passed to the underlying [Leaflet component](https://leafletjs.com/reference-1.6.0.html#geojson) via the `options` property. Properties of type Function can be passed by supplying the [full path to the function](#func_props). 
+
+In the example below, the US state polygons are plotted along with markers indicating their capitals. Callback are added to the markers on click (via the `click_feature` property) and to the polygons on hover (via the `hover_feature` property).

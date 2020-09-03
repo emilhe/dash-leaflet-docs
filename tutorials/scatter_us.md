@@ -1,0 +1,1 @@
+Scatter plots be created using the `GeoJSON` component. 
