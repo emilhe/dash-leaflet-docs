@@ -3,7 +3,6 @@ gunicorn
 flask
 requests
 dash-leaflet==0.1.1rc3
-dash-transcrypt==0.0.6
 dash-extensions==0.0.31
 dash-bootstrap-components
 geobuf
