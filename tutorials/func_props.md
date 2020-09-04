@@ -95,7 +95,7 @@ For some function properties, a selection of functions that address some of the 
 	# Create geojson.  
 	geojson = dl.GeoJSON(data=data, options=dict(pointToLayer=dlx.scatter.point_to_layer))  
 	# Create the app.  
-	app = dash.Dash(external_scripts=["https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.1.0/chroma.min.js"])  # neede by t
+	app = dash.Dash(external_scripts=["https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.1.0/chroma.min.js"])
 	app.layout = html.Div([  
 	    dl.Map([dl.TileLayer(), geojson], center=(56, 10), zoom=8, style={'height': '50vh'}),  
 	])  
