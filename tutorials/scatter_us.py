@@ -63,7 +63,7 @@ geojson = dl.GeoJSON(data=get_data(default_state), id="geojson", format="geobuf"
 # Create a colorbar.
 colorbar = dl.Colorbar(colorscale=csc_map[default_csc], id="colorbar", width=20, height=150, **minmax)
 # Create the app.
-chroma = "https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.1.0/chroma.min.js"  # for dash_leaflet.geojson.scatter
+chroma = "https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.1.0/chroma.min.js"
 app = dash.Dash(external_scripts=[chroma], prevent_initial_callbacks=True)
 app.layout = html.Div([
     dl.Map([dl.TileLayer(), geojson, colorbar]), html.Div([dd_state, dd_csc],
