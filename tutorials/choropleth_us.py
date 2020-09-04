@@ -22,7 +22,7 @@ ctg = ["{}+".format(mark, marks[i + 1]) for i, mark in enumerate(marks[:-1])] + 
 colorbar = dlx.categorical_colorbar(categories=ctg, colorscale=colorscale, width=300, height=30, position="bottomleft")
 # Create geojson.
 geojson = dl.GeoJSON(url="/assets/us-states.json",  # url to geojson file
-                     options=dict(style="window.dlx.choropleth.discrete"),  # how to style each polygon
+                     options=dict(style=dlx.choropleth.discrete),  # how to style each polygon
                      zoomToBounds=True,  # when true, zooms to bounds when data changes (e.g. on load)
                      zoomToBoundsOnClick=True,  # when true, zooms to bounds of feature (e.g. polygon) on click
                      hoverStyle=dict(weight=5, color='#666', dashArray=''),  # special style applied on hover
@@ -43,4 +43,4 @@ def info_hover(feature):
 
 
 if __name__ == '__main__':
-    app.run_server(port=8445)
+    app.run_server()
