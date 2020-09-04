@@ -1,0 +1,1 @@
+The `TileLayer` component draws the map tiles. The default provider is Open Street Map is used, but any tile provider can be used. You You could even _make your own tiles_, e.g. using [Teracotta](https://terracotta-python.readthedocs.io/en/latest/). In the example below, the tile provider is changed dynamically via a callback targeting the `url` property.

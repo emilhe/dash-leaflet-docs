@@ -4,5 +4,5 @@ Scatter plots can be created using the `GeoJSON` component. The `geojson.scatter
 * Customization of the cluster rendering via the `clusterToLayer` prop (the cluster color is calculated based on the average value across the leaves)
 * Binding tooltips via the `onEachFeature` prop
 * Modifying the clustering behavior via the `superClusterOptions` prop (specifically, increasing the cluster radius)
-* Interactively changing the colormap (i.e. the marker rending) by modifying the `hideout` prop (in a callback)
+* Interactively changing the colormap (i.e. the marker rending) by modifying the `hideout` prop in a callback
 * Interactively changing the data via modification of the `data` prop

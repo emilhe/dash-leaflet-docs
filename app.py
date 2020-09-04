@@ -12,6 +12,7 @@ from flask import Flask
 
 # Example index.
 example_labels = OrderedDict(
+    tile_layer="TileLayer",
     map_click="Map click events",
     draw_polygon="Drawing polygons",
     locate_control="Geolocation",
@@ -250,4 +251,4 @@ app.layout = html.Div([get_nav(), dbc.Container(get_content(), id="content")] +
                       fix_page_load_anchor_issue(app, delay=650))
 
 if __name__ == '__main__':
-    app.run_server()
+    app.run_server(port=7779)

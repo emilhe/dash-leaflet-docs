@@ -81,7 +81,7 @@ The `module_to_props` function returns the path to a generated javascript index 
 
 ##### Dash leaflet functions
 
-For some function properties, Dash Leaflet contains a selection of functions that address some of the most common use cases. If one of these functions fit your needs, simply import the function and use it like any other function. For the `GeoJSON` component, these functions reside in the `geojson` module.  An an example, here is a full app code for a scatter plot,
+For some function properties, Dash Leaflet contains a selection of functions that address some of the most common use cases. If one of these functions fit your needs, simply import the function and use it like any other function. For the `GeoJSON` component, these functions reside in the `geojson` module.  As an example, here is a full app code for a scatter plot,
 
 	import random  
 	import dash  
@@ -99,7 +99,7 @@ For some function properties, Dash Leaflet contains a selection of functions tha
 	js = module_to_props(scatter)  
 	geojson = dl.GeoJSON(data=data, options=dict(pointToLayer=scatter.point_to_layer))  
 	# Create the app.  
-	app = dash.Dash(external_scripts=["https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.1.0/chroma.min.js"])  
+	app = dash.Dash(external_scripts=["https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.1.0/chroma.min.js"])  # neede by t
 	app.layout = html.Div([  
 	    dl.Map([dl.TileLayer(), geojson], center=(56, 10), zoom=8, style={'height': '50vh'}),  
 	])  
