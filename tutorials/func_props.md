@@ -79,9 +79,9 @@ The `module_to_props` function returns the path to a generated javascript index 
 	if __name__ == '__main__':  
 	    app.run_server()
 
-##### Dash leaflet functions
-
-For some function properties, Dash Leaflet contains a selection of functions that address some of the most common use cases. If one of these functions fit your needs, simply import the function and use it like any other function. For the `GeoJSON` component, these functions reside in the `geojson` module.  As an example, here is a full app code for a scatter plot,
+##### Dash leaflet express
+ 
+For some function properties, a selection of functions that address some of the most common use cases are included. The functions are written in JavaScript, but they are indexed in the `express` module. For the `GeoJSON` component, these functions reside in the `scatter` and `choropleth` objects.  As an example, here is a full app code for a scatter plot,
 
 	import random  
 	import dash  
@@ -89,26 +89,21 @@ For some function properties, Dash Leaflet contains a selection of functions tha
 	import dash_leaflet as dl  
 	import dash_leaflet.express as dlx  
 	  
-	from dash_leaflet.geojson import scatter  
-	from dash_transcrypt import inject_js, module_to_props  
-	  
 	# Create some markers.  
 	points = [dict(lat=55.5 + random.random(), lon=9.5 + random.random(), value=random.random()) for i in range(100)]  
 	data = dlx.dicts_to_geojson(points)  
 	# Create geojson.  
-	js = module_to_props(scatter)  
-	geojson = dl.GeoJSON(data=data, options=dict(pointToLayer=scatter.point_to_layer))  
+	geojson = dl.GeoJSON(data=data, options=dict(pointToLayer=dlx.scatter.point_to_layer))  
 	# Create the app.  
 	app = dash.Dash(external_scripts=["https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.1.0/chroma.min.js"])  # neede by t
 	app.layout = html.Div([  
 	    dl.Map([dl.TileLayer(), geojson], center=(56, 10), zoom=8, style={'height': '50vh'}),  
 	])  
-	inject_js(app, js)  
 	 
 	if __name__ == '__main__':  
 	    app.run_server()
 
-Note the import of the `chroma-js` library. Any JavaScript library used by the transpiled functions should be added as `external_scripts`, in this case the  `chroma-js` library.
+Note the import of the `chroma-js` library. Any JavaScript library used by the rendering functions should be added as `external_scripts`, in this case the  `chroma-js` library.
 
 ##### Passing additional arguments
 
