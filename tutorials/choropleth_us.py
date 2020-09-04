@@ -4,8 +4,6 @@ import dash_leaflet as dl
 import dash_leaflet.express as dlx
 
 from dash.dependencies import Output, Input
-from dash_leaflet.geojson import choropleth
-from dash_transcrypt import inject_js, module_to_props
 
 
 def get_info(feature=None):
@@ -23,12 +21,12 @@ style = dict(weight=2, opacity=1, color='white', dashArray='3', fillOpacity=0.7)
 ctg = ["{}+".format(mark, marks[i + 1]) for i, mark in enumerate(marks[:-1])] + ["{}+".format(marks[-1])]
 colorbar = dlx.categorical_colorbar(categories=ctg, colorscale=colorscale, width=300, height=30, position="bottomleft")
 # Create geojson.
-js = module_to_props(choropleth, colorscale=colorscale, marks=marks, style=style, color_prop="density")
 geojson = dl.GeoJSON(url="/assets/us-states.json",  # url to geojson file
-                     options=dict(style=choropleth.discrete),  # how to style each polygon
+                     options=dict(style="window.dlx.choropleth.discrete"),  # how to style each polygon
                      zoomToBounds=True,  # when true, zooms to bounds when data changes (e.g. on load)
                      zoomToBoundsOnClick=True,  # when true, zooms to bounds of feature (e.g. polygon) on click
                      hoverStyle=dict(weight=5, color='#666', dashArray=''),  # special style applied on hover
+                     hideout=dict(colorscale=colorscale, marks=marks, style=style, color_prop="density"),
                      id="geojson")
 # Create info control.
 info = html.Div(children=get_info(), id="info", className="info",
@@ -37,7 +35,6 @@ info = html.Div(children=get_info(), id="info", className="info",
 app = dash.Dash(prevent_initial_callbacks=True)
 app.layout = html.Div([dl.Map(children=[dl.TileLayer(), geojson, colorbar, info])],
                       style={'width': '100%', 'height': '50vh', 'margin': "auto", "display": "block"}, id="map")
-inject_js(app, js)
 
 
 @app.callback(Output("info", "children"), [Input("geojson", "hover_feature")])
@@ -46,4 +43,4 @@ def info_hover(feature):
 
 
 if __name__ == '__main__':
-    app.run_server()
+    app.run_server(port=8445)

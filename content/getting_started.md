@@ -7,13 +7,6 @@ pip install dash==1.15.0
 pip install dash-leaflet==0.1.0
 ```
 
-Additionally, if you plan on using the `GeoJSON` component, you'll also need geobuf and dash-transcrypt,
-
-```
-pip install dash-transcrypt==0.0.6
-pip install geobuf==1.1.1
-```
-
 Once the installation is completed, paste the following lines of code into a .py file and run it.
 
 ````

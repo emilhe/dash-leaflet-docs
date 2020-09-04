@@ -8,8 +8,6 @@ import pandas as pd
 import numpy as np
 
 from dash.dependencies import Output, Input
-from dash_leaflet.geojson import scatter
-from dash_transcrypt import inject_js, module_to_props
 
 # region Data
 
@@ -22,8 +20,12 @@ def get_data(state):
     df_state = df_state[['lat', 'lng', 'city', 'population', 'density']]  # drop irrelevant columns
     df_state = df_state[df_state[color_prop] > 0]  # drop abandoned cities
     df_state[color_prop] = np.log(df_state[color_prop])  # take log as the values varies A LOT
-    geojson = dlx.dicts_to_geojson(df_state.to_dict('rows'), lon="lng")  # convert to geojson
-    geobuf = dlx.geojson_to_geobuf(geojson)  # convert to geojson
+    dicts = df_state.to_dict('rows')
+    for item in dicts:
+        item["tooltip"] = "{:.1f}".format(item[color_prop])  # bind tooltip
+        item["popup"] = item["city"]  # bind popup
+    geojson = dlx.dicts_to_geojson(dicts, lon="lng")  # convert to geojson
+    geobuf = dlx.geojson_to_geobuf(geojson)  # convert to geobuf
     return geobuf
 
 
@@ -50,23 +52,14 @@ dd_state = dcc.Dropdown(options=state_options, value=default_state, id="dd_state
 
 minmax = get_minmax(default_state)
 # Create geojson.
-js = module_to_props(scatter)
 geojson = dl.GeoJSON(data=get_data(default_state), id="geojson", format="geobuf",
                      zoomToBounds=True,  # when true, zooms to bounds when data changes
                      cluster=True,  # when true, data are clustered
-                     clusterToLayer=scatter.cluster_to_layer,  # how to draw clusters
+                     clusterToLayer="window.dlx.scatter.cluster_to_layer",  # how to draw clusters
                      zoomToBoundsOnClick=True,  # when true, zooms to bounds of feature (e.g. cluster) on click
-                     options=dict(
-                         pointToLayer=scatter.point_to_layer,  # how to draw points
-                         onEachFeature=scatter.bind_popup  # bind a popup to each feature
-                     ),
+                     options=dict(pointToLayer="window.dlx.scatter.point_to_layer"),  # how to draw points
                      superClusterOptions=dict(radius=150),  # adjust cluster size
-                     hideout=dict(
-                         colorscale=csc_map[default_csc],  # what colorscale to use
-                         color_prop=color_prop,  # the property used to determine the color
-                         popup_prop='city',  # the property shown in the popup
-                         **minmax)
-                     )
+                     hideout=dict(colorscale=csc_map[default_csc], color_prop=color_prop, **minmax))
 # Create a colorbar.
 colorbar = dl.Colorbar(colorscale=csc_map[default_csc], id="colorbar", width=20, height=150, **minmax)
 # Create the app.
@@ -76,7 +69,6 @@ app.layout = html.Div([
     dl.Map([dl.TileLayer(), geojson, colorbar]), html.Div([dd_state, dd_csc],
              style={"position": "relative", "bottom": "80px", "left": "10px", "z-index": "1000", "width": "200px"})
 ], style={'width': '100%', 'height': '50vh', 'margin': "auto", "display": "block", "position": "relative"})
-inject_js(app, js)
 
 
 @app.callback([Output("geojson", "hideout"), Output("geojson", "data"), Output("colorbar", "colorscale"),
@@ -89,4 +81,4 @@ def update(csc, state):
 
 
 if __name__ == '__main__':
-    app.run_server()
+    app.run_server(port=4545)
