@@ -3,8 +3,8 @@
 The easiest way to get started is to install the latest version of Dash and Dash Leaflet via pip,
 
 ```
-pip install dash==1.15.0
-pip install dash-leaflet==0.1.1
+pip install dash==1.16.0
+pip install dash-leaflet==0.1.2
 ```
 
 Once the installation is completed, paste the following lines of code into a .py file and run it.
