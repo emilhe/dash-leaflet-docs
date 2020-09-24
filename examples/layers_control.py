@@ -3,7 +3,7 @@ import dash_html_components as html
 import dash_leaflet as dl
 
 # Some shapes.
-markers = [dl.Marker(position=[56, 10]), dl.CircleMarker(center=[55, 10]), dl.CircleMarker(center=[56, 9])]
+markers = [dl.Marker(position=[56, 10]), dl.CircleMarker(center=[55, 10])]
 polygon = dl.Polygon(positions=[[57, 10], [57, 11], [56, 11], [57, 10]])
 # Some tile urls.
 keys = ["watercolor", "toner", "terrain"]
