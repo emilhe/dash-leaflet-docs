@@ -15,6 +15,7 @@ example_labels = OrderedDict(
     tile_layer="TileLayer",
     map_click="Map click events",
     draw_polygon="Drawing polygons",
+    layers_control="LayersControl",
     locate_control="Geolocation",
     # us_states="GeoJSON",
     polyline_decorator="PolylineDecorator",
