@@ -17,8 +17,8 @@ app.layout = html.Div(dl.Map([
     dl.LayersControl(
         [dl.BaseLayer(dl.TileLayer(url=url_template.format(key), attribution=attribution),
                       name=key, checked=key == "toner") for key in keys] +
-        [dl.Overlay(dl.LayerGroup(markers), name="markers", checked=True)] +
-        [dl.Overlay(dl.LayerGroup(polygon), name="polygon", checked=True)]
+        [dl.Overlay(dl.LayerGroup(markers), name="markers", checked=True),
+         dl.Overlay(dl.LayerGroup(polygon), name="polygon", checked=True)]
     )
 ], zoom=7, center=(56, 10)), style={'width': '100%', 'height': '50vh', 'margin': "auto", "display": "block"})
 
