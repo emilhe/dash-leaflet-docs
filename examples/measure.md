@@ -1,0 +1,1 @@
+The `MeasureControl` is a wrapper of the [leaflet-measure](https://github.com/ljagis/leaflet-measure) control. It makes it easy to measures distances and areas.

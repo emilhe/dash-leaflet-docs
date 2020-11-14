@@ -34,6 +34,7 @@ In addition to the core components, a vast amount of Leaflet plugins exists. A f
 
 * [`PolylineDecorator`](https://github.com/bbecquet/Leaflet.PolylineDecorator)
 * [`LocateControl`](https://github.com/domoritz/leaflet-locatecontrol)
+* [`Measure`](https://github.com/ljagis/leaflet-measure)
 * `GeoTIFFOverlay` (custom component)
 * `ColorBar` (custom component)
 * `GeoJSON` (custom component, based on the [Leaflet GeoJSON component](https://leafletjs.com/reference-1.6.0.html#geojson) and [supercluster](https://github.com/mapbox/supercluster))

@@ -14,16 +14,17 @@ from flask import Flask
 example_labels = OrderedDict(
     tile_layer="TileLayer",
     map_click="Map click events",
-    draw_polygon="Drawing polygons",
+    # draw_polygon="Drawing polygons",
     layers_control="LayersControl",
+    geojson="GeoJSON",
+    super_cluster="Marker clustering",
     locate_control="Geolocation",
+    measure="MeasureControl",
     # us_states="GeoJSON",
     polyline_decorator="PolylineDecorator",
     wsm_tile_layer="WMSTileLayer",
     image_overlay="ImageOverlay",
     video_overlay="VideoOverlay",
-    geojson="GeoJSON",
-    super_cluster="Marker clustering"
 )
 example_keys = list(example_labels.keys())
 # Tutorial index.
