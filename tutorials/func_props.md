@@ -1,4 +1,4 @@
-In Dash Leaflet, some component properties are *functions*. A function handle cannot be passed directly as a property in Dash, but the `dash-extensions` library provides a few implicit options. As an example, we consider the `pointToLayer` option of the `GeoJSON` component.
+In Dash Leaflet, some component properties are *functions*. A function handle cannot be passed directly as a property in Dash, but the `dash-extensions` library provides a few implicit options. As an example, we consider the `GeoJSON` component of this package.
 
 ##### JavaScript variables
 
@@ -16,7 +16,6 @@ the `pointToLayer` function of the `myNamespace.mySubNamespace` namespace can be
 
     import dash_leaflet as dl
     from dash_extensions.javascript import Namespace
-    
     ns = Namespace("myNamespace", "mySubNamespace")
     geojson = dl.GeoJSON(data=data, options=dict(pointToLayer=ns("pointToLayer")))
 
@@ -43,6 +42,31 @@ For completeness, here is the full app,
 	  
 	if __name__ == '__main__':  
 	    app.run_server()
+	    
+##### Arrow functions
+
+In some case, it might be sufficient to wrap an object as an arrow function, i.e. a function that just returns the (constant) object. The `dash-extensions` library supports this use case with the following syntax,
+
+    from dash_extensions.javascript import arrow_function
+    geojson = dl.GeoJSON(hoverStyle=arrow_function(dict(weight=5, color='#666', dashArray='')), ...)
+
+For completeness, here is the full app,
+
+    import dash
+    import dash_html_components as html
+    import dash_leaflet as dl
+    from dash_extensions.javascript import arrow_function
+    
+    # Create geojson.
+    geojson = dl.GeoJSON(url="/assets/us-states.json", zoomToBounds=True,
+                         hoverStyle=arrow_function(dict(weight=5, color='#666', dashArray='')))
+    # Create app.
+    app = dash.Dash()
+    app.layout = html.Div([dl.Map(children=[dl.TileLayer(), geojson])],
+                          style={'width': '100%', 'height': '50vh', 'margin': "auto", "display": "block"}, id="map")
+    
+    if __name__ == '__main__':
+        app.run_server()
 
 ##### Dash leaflet express
 
@@ -70,4 +94,4 @@ For some function properties, a [selection of functions](https://github.com/thed
     if __name__ == '__main__':
         app.run_server()
 
-Note the import of the `chroma-js` library. Any external JavaScript library used by the rendering functions should be added as `external_scripts`, in this case the  `chroma-js` library.
+Note the import of the `chroma-js` library. Any external JavaScript library used by the rendering functions should be added as `external_scripts`, in this case the `chroma-js` library.
