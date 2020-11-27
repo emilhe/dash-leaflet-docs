@@ -2,7 +2,7 @@ dash==1.16.0
 gunicorn
 flask
 requests
-dash-leaflet==0.1.9
+dash-leaflet==0.1.10
 dash-extensions==0.0.32
 dash-bootstrap-components
 pandas

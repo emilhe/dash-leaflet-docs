@@ -57,11 +57,11 @@ ns = Namespace("dlx", "scatter")
 geojson = dl.GeoJSON(data=get_data(default_state), id="geojson", format="geobuf",
                      zoomToBounds=True,  # when true, zooms to bounds when data changes
                      cluster=True,  # when true, data are clustered
-                     clusterToLayer=ns("cluster_to_layer"),  # how to draw clusters
+                     clusterToLayer=ns("clusterToLayer"),  # how to draw clusters
                      zoomToBoundsOnClick=True,  # when true, zooms to bounds of feature (e.g. cluster) on click
-                     options=dict(pointToLayer=ns("point_to_layer")),  # how to draw points
+                     options=dict(pointToLayer=ns("pointToLayer")),  # how to draw points
                      superClusterOptions=dict(radius=150),  # adjust cluster size
-                     hideout=dict(colorscale=csc_map[default_csc], color_prop=color_prop, **minmax))
+                     hideout=dict(colorscale=csc_map[default_csc], colorProp=color_prop, **minmax))
 # Create a colorbar.
 colorbar = dl.Colorbar(colorscale=csc_map[default_csc], id="colorbar", width=20, height=150, **minmax)
 # Create the app.
@@ -78,7 +78,7 @@ app.layout = html.Div([
               [Input("dd_csc", "value"), Input("dd_state", "value")])
 def update(csc, state):
     csc, data, mm = json.loads(csc), get_data(state), get_minmax(state)
-    hideout = dict(colorscale=csc, color_prop=color_prop, popup_prop='city', **mm)
+    hideout = dict(colorscale=csc, colorProp=color_prop, **mm)
     return hideout, data, csc, mm["min"], mm["max"]
 
 

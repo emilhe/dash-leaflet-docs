@@ -4,7 +4,7 @@ import dash_leaflet as dl
 import dash_leaflet.express as dlx
 
 from dash.dependencies import Output, Input
-from dash_extensions.javascript import Namespace
+from dash_extensions.javascript import Namespace, arrow_function
 
 
 def get_info(feature=None):
@@ -27,8 +27,8 @@ geojson = dl.GeoJSON(url="/assets/us-states.json",  # url to geojson file
                      options=dict(style=ns("style")),  # how to style each polygon
                      zoomToBounds=True,  # when true, zooms to bounds when data changes (e.g. on load)
                      zoomToBoundsOnClick=True,  # when true, zooms to bounds of feature (e.g. polygon) on click
-                     hoverStyle=dict(weight=5, color='#666', dashArray=''),  # special style applied on hover
-                     hideout=dict(colorscale=colorscale, classes=classes, style=style, color_prop="density"),
+                     hoverStyle=arrow_function(dict(weight=5, color='#666', dashArray='')),  # special style applied on hover
+                     hideout=dict(colorscale=colorscale, classes=classes, style=style, colorProp="density"),
                      id="geojson")
 # Create info control.
 info = html.Div(children=get_info(), id="info", className="info",

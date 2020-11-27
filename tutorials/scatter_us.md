@@ -1,4 +1,4 @@
-Scatter plots can be created using the `GeoJSON` component. The `scatter` object in the `express` module provides a few standard scatter functions, e.g. coloring of a point based on the value of a feature property, but you can also [implement your own](#func_props). The example also covers a few other common patterns,
+Scatter plots can be created using the `GeoJSON` component. The `dlx.scatter` namespace provides a few standard scatter functions, e.g. coloring of a point based on the value of a feature property, but you can also [implement your own](#func_props). The example also covers a few other common patterns,
 
 * Creating geojson data (markers) from a pandas dataframe
 * Customization of the cluster rendering via the `clusterToLayer` prop (the cluster color is calculated based on the average value across the leaves)
