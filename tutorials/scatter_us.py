@@ -8,6 +8,7 @@ import pandas as pd
 import numpy as np
 
 from dash.dependencies import Output, Input
+from dash_extensions.javascript import Namespace
 
 # region Data
 
@@ -52,12 +53,13 @@ dd_state = dcc.Dropdown(options=state_options, value=default_state, id="dd_state
 
 minmax = get_minmax(default_state)
 # Create geojson.
+ns = Namespace("dlx", "scatter")
 geojson = dl.GeoJSON(data=get_data(default_state), id="geojson", format="geobuf",
                      zoomToBounds=True,  # when true, zooms to bounds when data changes
                      cluster=True,  # when true, data are clustered
-                     clusterToLayer=dlx.scatter.cluster_to_layer,  # how to draw clusters
+                     clusterToLayer=ns("cluster_to_layer"),  # how to draw clusters
                      zoomToBoundsOnClick=True,  # when true, zooms to bounds of feature (e.g. cluster) on click
-                     options=dict(pointToLayer=dlx.scatter.point_to_layer),  # how to draw points
+                     options=dict(pointToLayer=ns("point_to_layer")),  # how to draw points
                      superClusterOptions=dict(radius=150),  # adjust cluster size
                      hideout=dict(colorscale=csc_map[default_csc], color_prop=color_prop, **minmax))
 # Create a colorbar.
@@ -81,4 +83,4 @@ def update(csc, state):
 
 
 if __name__ == '__main__':
-    app.run_server(port=9999)
+    app.run_server()

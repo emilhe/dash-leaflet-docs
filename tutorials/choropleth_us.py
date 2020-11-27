@@ -4,6 +4,7 @@ import dash_leaflet as dl
 import dash_leaflet.express as dlx
 
 from dash.dependencies import Output, Input
+from dash_extensions.javascript import Namespace
 
 
 def get_info(feature=None):
@@ -21,8 +22,9 @@ style = dict(weight=2, opacity=1, color='white', dashArray='3', fillOpacity=0.7)
 ctg = ["{}+".format(cls, classes[i + 1]) for i, cls in enumerate(classes[:-1])] + ["{}+".format(classes[-1])]
 colorbar = dlx.categorical_colorbar(categories=ctg, colorscale=colorscale, width=300, height=30, position="bottomleft")
 # Create geojson.
+ns = Namespace("dlx", "choropleth")
 geojson = dl.GeoJSON(url="/assets/us-states.json",  # url to geojson file
-                     options=dict(style=dlx.choropleth.style),  # how to style each polygon
+                     options=dict(style=ns("style")),  # how to style each polygon
                      zoomToBounds=True,  # when true, zooms to bounds when data changes (e.g. on load)
                      zoomToBoundsOnClick=True,  # when true, zooms to bounds of feature (e.g. polygon) on click
                      hoverStyle=dict(weight=5, color='#666', dashArray=''),  # special style applied on hover
