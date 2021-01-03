@@ -1,3 +1,0 @@
-Note that all examples and tutorials use the `DashProxy`, `Input`, `State` and `Output` objects from the `enrich` module of [`dash-extensions`](https://github.com/thedirtyfew/dash-extensions/) in place of the `Dash` object from `dash` and the `Input`, `State` and `Output` objects from `dash.dependencies`. This substitution is what makes it possible to run the example apps as part of this web page - which is itself a Dash app. Cool, right? 
-
-However, if you don't need any [features of the `enrich` module](https://github.com/thedirtyfew/dash-extensions/#enrichments), simply revert these substitutions and the code will run just fine.

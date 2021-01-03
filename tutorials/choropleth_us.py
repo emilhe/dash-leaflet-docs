@@ -2,7 +2,8 @@ import dash_html_components as html
 import dash_leaflet as dl
 import dash_leaflet.express as dlx
 from dash_extensions.javascript import Namespace, arrow_function
-from dash_extensions.enrich import DashProxy, Output, Input
+from dash_extensions.enrich import DashProxy
+from dash.dependencies import Output, Input
 
 
 def get_info(feature=None):

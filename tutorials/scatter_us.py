@@ -6,7 +6,8 @@ import dash_leaflet.express as dlx
 import pandas as pd
 import numpy as np
 from dash_extensions.javascript import Namespace
-from dash_extensions.enrich import DashProxy, Output, Input
+from dash_extensions.enrich import DashProxy
+from dash.dependencies import Input, Output
 
 # region Data
 

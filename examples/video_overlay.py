@@ -1,6 +1,7 @@
 import dash_html_components as html
 import dash_leaflet as dl
-from dash_extensions.enrich import DashProxy, Input, Output
+from dash_extensions.enrich import DashProxy
+from dash.dependencies import Input, Output
 
 video_urls = ["https://dash-leaflet.herokuapp.com/assets/patricia_nasa.mp4",
               "https://dash-leaflet.herokuapp.com/assets/patricia_nasa.webm"]

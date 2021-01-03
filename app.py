@@ -70,16 +70,12 @@ def examples():
     # Load intro.
     with open("content/examples.md", 'r') as f:
         content = f.read()
-    # Load notes.
-    with open("content/notes.md", 'r') as f:
-        notes = f.read()
     # Load examples.
     example_bullets = []
     for key in example_keys:
         example_bullets.append("* [{}](/#{})".format(example_labels[key], key))
     return [dbc.Row(dbc.Col(dcc.Markdown(content))),
-            dbc.Row(dbc.Col(dcc.Markdown("\n".join(example_bullets)))),
-            dbc.Row(dbc.Col(dcc.Markdown(notes)))]
+            dbc.Row(dbc.Col(dcc.Markdown("\n".join(example_bullets))))]
 
 
 def tutorials():
@@ -115,7 +111,12 @@ def build_example(app, key, label_map, wd):
     page.callbacks(app)
     # Render app code.
     with open(code_path, 'r') as f:
-        code = dcc.Markdown("````python\n{}\n````".format(f.read()), className="python")
+        content = f.read()
+        # Replace enrich import.
+        content = content.replace("from dash_extensions.enrich import DashProxy", "from dash import Dash")
+        content = content.replace("DashProxy(", "Dash(")
+        # Format as Python code.
+        code = dcc.Markdown("````python\n{}\n````".format(content), className="python")
     # Put everything together.
     return elements + [html.Div([page.layout(), code], className="frame")]
 

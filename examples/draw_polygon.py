@@ -2,7 +2,8 @@ import dash
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_leaflet as dl
-from dash_extensions.enrich import DashProxy, Input, Output, State, ALL
+from dash_extensions.enrich import DashProxy
+from dash.dependencies import Input, Output, State, ALL
 
 app = DashProxy(prevent_initial_callbacks=True)
 app.layout = html.Div([
