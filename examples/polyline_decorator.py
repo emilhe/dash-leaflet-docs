@@ -1,6 +1,6 @@
-import dash
 import dash_html_components as html
 import dash_leaflet as dl
+from dash_extensions.enrich import DashProxy
 
 # Simple arrow.
 polyline = dl.Polyline(positions=[[57, -19], [60, -12]])
@@ -30,7 +30,7 @@ patterns = [dict(repeat='10', dash=dict(pixelSize=5, pathOptions=dict(color='#00
 rotated_markers = dl.PolylineDecorator(positions=[[42.9, -15], [44.18, -11.4], [45.77, -8.0], [47.61, -6.4],
                                                   [49.41, -6.1], [51.01, -7.2]], patterns=patterns)
 # Create app.
-app = dash.Dash()
+app = DashProxy()
 app.layout = html.Div(dl.Map([dl.TileLayer(), arrow, inner_ring, multi_pattern, marker_pattern, rotated_markers],
                              zoom=4, center=(52.0, -11.0)),
                       style={'width': '100%', 'height': '50vh', 'margin': "auto", "display": "block"})

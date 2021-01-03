@@ -1,6 +1,6 @@
-import dash
 import dash_html_components as html
 import dash_leaflet as dl
+from dash_extensions.enrich import DashProxy
 
 # Some shapes.
 markers = [dl.Marker(position=[56, 10]), dl.CircleMarker(center=[55, 10])]
@@ -12,7 +12,7 @@ attribution = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, ' \
               '<a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data ' \
               '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 # Create app.
-app = dash.Dash()
+app = DashProxy()
 app.layout = html.Div(dl.Map([
     dl.LayersControl(
         [dl.BaseLayer(dl.TileLayer(url=url_template.format(key), attribution=attribution),

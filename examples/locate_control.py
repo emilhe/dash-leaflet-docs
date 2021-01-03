@@ -1,11 +1,9 @@
-import dash
 import dash_html_components as html
 import dash_leaflet as dl
-
-from dash.dependencies import Input, Output
+from dash_extensions.enrich import DashProxy, Input, Output
 
 # The external stylesheet holds the location button icon.
-app = dash.Dash(external_stylesheets=['https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'],
+app = DashProxy(external_stylesheets=['https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'],
                 prevent_initial_callbacks=True)
 app.layout = html.Div([
     dl.Map([dl.TileLayer(), dl.LocateControl(options={'locateOptions': {'enableHighAccuracy': True}})],

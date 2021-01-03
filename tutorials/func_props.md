@@ -78,7 +78,7 @@ For some function properties, a [selection of functions](https://github.com/thed
     import dash_leaflet as dl
     import dash_leaflet.express as dlx
     from dash_extensions.javascript import Namespace
-    
+        
     # Create some markers.
     points = [dict(lat=55.5 + random.random(), lon=9.5 + random.random(), value=random.random()) for i in range(100)]
     data = dlx.dicts_to_geojson(points)

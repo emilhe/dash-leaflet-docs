@@ -1,10 +1,8 @@
-import dash
 import dash_html_components as html
 import dash_leaflet as dl
+from dash_extensions.enrich import DashProxy, Input, Output
 
-from dash.dependencies import Input, Output
-
-app = dash.Dash(prevent_initial_callbacks=True)
+app = DashProxy(prevent_initial_callbacks=True)
 app.layout = html.Div([
     dl.Map([dl.TileLayer(), dl.LayerGroup(id="layer")],
            id="map", style={'width': '100%', 'height': '50vh', 'margin': "auto", "display": "block"}),

@@ -2,10 +2,9 @@ import dash
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_leaflet as dl
+from dash_extensions.enrich import DashProxy, Input, Output, State, ALL
 
-from dash.dependencies import Input, Output, State, ALL
-
-app = dash.Dash(prevent_initial_callbacks=True)
+app = DashProxy(prevent_initial_callbacks=True)
 app.layout = html.Div([
     dl.Map([dl.TileLayer(), dl.LayerGroup(id="drawing"), dl.LayerGroup([], id="polygons")],
            id="map", style={'width': '100%', 'height': '50vh', 'margin': "auto", "display": "block"}),

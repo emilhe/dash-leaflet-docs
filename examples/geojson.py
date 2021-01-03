@@ -1,15 +1,14 @@
-import dash
 import dash_html_components as html
 import dash_leaflet as dl
 import dash_leaflet.express as dlx
-
-from dash.dependencies import Output, Input
+from dash_extensions.enrich import DashProxy, Output, Input
+from dash_extensions.javascript import arrow_function
 
 # Generate some in-memory data.
 bermuda = dlx.dicts_to_geojson([dict(lat=32.299507, lon=-64.790337)])
 biosfera = dlx.geojson_to_geobuf(dlx.dicts_to_geojson([dict(lat=29.015, lon=-118.271)]))
 # Create example app.
-app = dash.Dash()
+app = DashProxy()
 app.layout = html.Div([
     dl.Map(center=[39, -98], zoom=4, children=[
         dl.TileLayer(),
@@ -17,7 +16,7 @@ app.layout = html.Div([
         dl.GeoJSON(data=biosfera, format="geobuf"),  # in-memory geobuf (smaller payload than geojson)
         dl.GeoJSON(url="/assets/us-state-capitals.json", id="capitals"),  # geojson resource (faster than in-memory)
         dl.GeoJSON(url="/assets/us-states.pbf", format="geobuf", id="states",
-                   hoverStyle=dict(weight=5, color='#666', dashArray='')),  # geobuf resource (fastest option)
+                   hoverStyle=arrow_function(dict(weight=5, color='#666', dashArray=''))),  # geobuf resource (fastest option)
     ], style={'width': '100%', 'height': '50vh', 'margin': "auto", "display": "block"}, id="map"),
     html.Div(id="state"), html.Div(id="capital")
 ])

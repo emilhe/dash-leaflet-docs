@@ -1,9 +1,9 @@
-import dash
 import dash_html_components as html
 import dash_leaflet as dl
 import dash_leaflet.express as dlx
+from dash_extensions.enrich import DashProxy
 
-app = dash.Dash()
+app = DashProxy()
 app.layout = html.Div([
     dl.Map([
         dl.TileLayer(),

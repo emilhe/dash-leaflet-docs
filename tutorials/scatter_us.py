@@ -1,14 +1,12 @@
 import json
-import dash
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_leaflet as dl
 import dash_leaflet.express as dlx
 import pandas as pd
 import numpy as np
-
-from dash.dependencies import Output, Input
 from dash_extensions.javascript import Namespace
+from dash_extensions.enrich import DashProxy, Output, Input
 
 # region Data
 
@@ -66,7 +64,7 @@ geojson = dl.GeoJSON(data=get_data(default_state), id="geojson", format="geobuf"
 colorbar = dl.Colorbar(colorscale=csc_map[default_csc], id="colorbar", width=20, height=150, **minmax)
 # Create the app.
 chroma = "https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.1.0/chroma.min.js"
-app = dash.Dash(external_scripts=[chroma], prevent_initial_callbacks=True)
+app = DashProxy(external_scripts=[chroma], prevent_initial_callbacks=True)
 app.layout = html.Div([
     dl.Map([dl.TileLayer(), geojson, colorbar]), html.Div([dd_state, dd_csc],
              style={"position": "relative", "bottom": "80px", "left": "10px", "z-index": "1000", "width": "200px"})

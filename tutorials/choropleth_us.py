@@ -1,10 +1,8 @@
-import dash
 import dash_html_components as html
 import dash_leaflet as dl
 import dash_leaflet.express as dlx
-
-from dash.dependencies import Output, Input
 from dash_extensions.javascript import Namespace, arrow_function
+from dash_extensions.enrich import DashProxy, Output, Input
 
 
 def get_info(feature=None):
@@ -27,14 +25,14 @@ geojson = dl.GeoJSON(url="/assets/us-states.json",  # url to geojson file
                      options=dict(style=ns("style")),  # how to style each polygon
                      zoomToBounds=True,  # when true, zooms to bounds when data changes (e.g. on load)
                      zoomToBoundsOnClick=True,  # when true, zooms to bounds of feature (e.g. polygon) on click
-                     hoverStyle=arrow_function(dict(weight=5, color='#666', dashArray='')),  # special style applied on hover
+                     hoverStyle=arrow_function(dict(weight=5, color='#666', dashArray='')),  # style applied on hover
                      hideout=dict(colorscale=colorscale, classes=classes, style=style, colorProp="density"),
                      id="geojson")
 # Create info control.
 info = html.Div(children=get_info(), id="info", className="info",
                 style={"position": "absolute", "top": "10px", "right": "10px", "z-index": "1000"})
 # Create app.
-app = dash.Dash(prevent_initial_callbacks=True)
+app = DashProxy(prevent_initial_callbacks=True)
 app.layout = html.Div([dl.Map(children=[dl.TileLayer(), geojson, colorbar, info])],
                       style={'width': '100%', 'height': '50vh', 'margin': "auto", "display": "block"}, id="map")
 
