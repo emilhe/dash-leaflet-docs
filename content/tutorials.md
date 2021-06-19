@@ -1,3 +1,3 @@
-## Tutorials
+## GeoJSON tutorial
 
-The purpose of the tutorials is to explain core concepts in Dash Leaflet. The tutorials vary from completely explanatory pieces to elaborate example apps.
+The purpose of the `GeoJSON` tutorial is to illustrate the flexibility of the `GeoJSON` component. Before diving into this section, it might be beneficial to read the section of [functional properties](#func_props).

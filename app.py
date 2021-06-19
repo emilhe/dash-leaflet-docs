@@ -18,7 +18,6 @@ example_labels = OrderedDict(
     # draw_polygon="Drawing polygons",
     layers_control="LayersControl",
     geojson="GeoJSON",
-    super_cluster="Marker clustering",
     locate_control="Geolocation",
     measure="MeasureControl",
     # us_states="GeoJSON",
@@ -30,7 +29,9 @@ example_labels = OrderedDict(
 example_keys = list(example_labels.keys())
 # Tutorial index.
 tutorial_labels = OrderedDict(
-    func_props="Function properties",
+    geojson_filter="Feature filtering",
+    geojson_icon="Custom icons",
+    super_cluster="Marker clustering",
     choropleth_us="Choropleth map",
     scatter_us="Scatter plot"
 )
@@ -62,6 +63,12 @@ def getting_started():
 
 def components():
     with open("content/components.md", 'r') as f:
+        content = f.read()
+    return [dbc.Row(dbc.Col([dcc.Markdown(content)]))]
+
+
+def func_props():
+    with open("content/func_props.md", 'r') as f:
         content = f.read()
     return [dbc.Row(dbc.Col([dcc.Markdown(content)]))]
 
@@ -125,6 +132,7 @@ def build_content(app):
     content = [html.A(id="home", className="anchor"), html.Br()] + landing_page() + \
               [html.A(id="start", className="anchor"), html.Hr()] + getting_started() + \
               [html.A(id="components", className="anchor"), html.Hr()] + components() + \
+              [html.A(id="func_props", className="anchor"), html.Hr()] + func_props() + \
               [html.A(id="examples", className="anchor"), html.Hr()] + examples()
     # Add examples.
     for key in example_keys:
@@ -147,6 +155,7 @@ def build_navigation():
             dbc.NavItem(dbc.NavLink("Home", href="/#", external_link=True)),
             dbc.NavItem(dbc.NavLink("Getting started", href="/#start", external_link=True)),
             dbc.NavItem(dbc.NavLink("Components", href="/#components", external_link=True)),
+            dbc.NavItem(dbc.NavLink("Functional properties", href="/#func_props", external_link=True)),
             # Example links.
             dbc.NavItem(dbc.NavLink("Examples", href="/#examples", external_link=True,
                                     style={"margin-left": "100px"})),
@@ -154,7 +163,7 @@ def build_navigation():
                 label="", children=examples_links, in_navbar=True, nav=True, direction="left",
                 style={"margin-left": "0px"}),
             # Tutorials links.
-            dbc.NavItem(dbc.NavLink("Tutorials", href="/#tutorials", external_link=True)),
+            dbc.NavItem(dbc.NavLink("GeoJSON tutorial", href="/#tutorials", external_link=True)),
             dbc.DropdownMenu(
                 label="", children=tutorial_links, in_navbar=True, nav=True, direction="left",
                 style={"margin-right": "0px"})

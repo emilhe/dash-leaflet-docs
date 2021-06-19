@@ -1,0 +1,1 @@
+The `filter` option of the `GeoJSON` component makes is possible to filter which features are shown. In the example below, the `hideout` property is utilized to achieve dynamic filtering based on the drop down selection.
