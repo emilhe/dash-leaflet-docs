@@ -30,6 +30,7 @@ example_keys = list(example_labels.keys())
 # Tutorial index.
 tutorial_labels = OrderedDict(
     geojson_filter="Feature filtering",
+    geojson_hideout="Interactivity via the hideout prop",
     geojson_icon="Custom icons",
     super_cluster="Marker clustering",
     choropleth_us="Choropleth map",
@@ -182,4 +183,4 @@ app.layout = html.Div([build_navigation(), dbc.Container(build_content(app), id=
                       fix_page_load_anchor_issue(app, delay=650))
 
 if __name__ == '__main__':
-    app.run_server(port=7779)
+    app.run_server(port=9999)
