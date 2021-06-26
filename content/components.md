@@ -21,6 +21,7 @@ The majority of components are light wrappers of their React-Leaflet counterpart
     * `SVGOverlay`
 * Other Layers
     * `LayerGroup`
+    * `FeatureGroup`
     * `Pane`
 * Controls
     * `ScaleControl`
