@@ -5,7 +5,7 @@ The easiest way to get started is to install the latest version of `dash`, `dash
 ```
 pip install dash==1.20.0
 pip install dash-leaflet==0.1.15
-pip install dash-extensions==0.0.55
+pip install dash-extensions==0.0.57
 ```
 
 Once the installation is completed, paste the following lines of code into a .py file and run it.
