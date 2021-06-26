@@ -54,4 +54,4 @@ def info_hover(feature):
 
 
 if __name__ == '__main__':
-    app.run_server(port=7676)
+    app.run_server()

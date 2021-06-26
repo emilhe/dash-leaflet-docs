@@ -41,4 +41,4 @@ app.layout = html.Div([
 ], style={'width': '100%', 'height': '50vh', 'margin': "auto", "display": "block", "position": "relative"})
 
 if __name__ == '__main__':
-    app.run_server(port=9696)
+    app.run_server()

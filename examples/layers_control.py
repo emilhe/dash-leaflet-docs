@@ -23,4 +23,4 @@ app.layout = html.Div(dl.Map([
 ], zoom=7, center=(56, 10)), style={'width': '100%', 'height': '50vh', 'margin': "auto", "display": "block"})
 
 if __name__ == '__main__':
-    app.run_server(port=5757, debug=True)
+    app.run_server()

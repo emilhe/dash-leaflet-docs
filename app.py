@@ -184,4 +184,4 @@ app.layout = html.Div([build_navigation(), dbc.Container(build_content(app), id=
                       fix_page_load_anchor_issue(app, delay=650))
 
 if __name__ == '__main__':
-    app.run_server(port=9999)
+    app.run_server()
