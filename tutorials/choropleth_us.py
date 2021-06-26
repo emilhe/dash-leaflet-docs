@@ -1,8 +1,8 @@
 import dash_html_components as html
 import dash_leaflet as dl
 import dash_leaflet.express as dlx
+from dash_extensions.enrich import DashProxy
 from dash_extensions.javascript import arrow_function, assign
-from dash import Dash
 from dash.dependencies import Output, Input
 
 
@@ -43,7 +43,7 @@ geojson = dl.GeoJSON(url="/assets/us-states.json",  # url to geojson file
 info = html.Div(children=get_info(), id="info", className="info",
                 style={"position": "absolute", "top": "10px", "right": "10px", "z-index": "1000"})
 # Create app.
-app = Dash(prevent_initial_callbacks=True)
+app = DashProxy(prevent_initial_callbacks=True)
 app.layout = html.Div([dl.Map(children=[dl.TileLayer(), geojson, colorbar, info])],
                       style={'width': '100%', 'height': '50vh', 'margin': "auto", "display": "block"}, id="map")
 

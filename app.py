@@ -18,6 +18,7 @@ example_labels = OrderedDict(
     # draw_polygon="Drawing polygons",
     layers_control="LayersControl",
     geojson="GeoJSON",
+    super_cluster="Marker clustering",
     locate_control="Geolocation",
     measure="MeasureControl",
     # us_states="GeoJSON",
@@ -31,10 +32,10 @@ example_keys = list(example_labels.keys())
 tutorial_labels = OrderedDict(
     geojson_filter="Feature filtering",
     geojson_hideout="Interactivity via the hideout prop",
+    scatter_plot="Scatter plot",
     geojson_icon="Custom icons",
-    super_cluster="Marker clustering",
+    scatter_cluster="Custom cluster icons",
     choropleth_us="Choropleth map",
-    scatter_us="Scatter plot"
 )
 tutorial_keys = list(tutorial_labels.keys())
 
@@ -115,6 +116,7 @@ def build_example(app, key, label_map, wd):
         return elements
     # Create the app page.
     mod = importlib.import_module(f'{wd}.{key}')
+    print(key)
     page = app_to_page(getattr(mod, "app"), id=key, label=label_map[key])
     page.callbacks(app)
     # Render app code.

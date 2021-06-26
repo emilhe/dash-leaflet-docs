@@ -22,7 +22,7 @@ app = DashProxy()
 app.layout = html.Div([
     dl.Map(children=[
         dl.TileLayer(),
-        dl.GeoJSON(data=geojson, options=dict(filter=geojson_filter), hideout=dd_defaults, id="geojson")
+        dl.GeoJSON(data=geojson, options=dict(filter=geojson_filter), hideout=dd_defaults, id="geojson", zoomToBounds=True)
     ], style={'width': '100%', 'height': '50vh', 'margin': "auto", "display": "block"}, id="map"),
     dcc.Dropdown(id="dd", value=dd_defaults, options=dd_options, clearable=False, multi=True)
 ])
@@ -30,4 +30,4 @@ app.layout = html.Div([
 app.clientside_callback("function(x){return x;}", Output("geojson", "hideout"), Input("dd", "value"))
 
 if __name__ == '__main__':
-    app.run_server()
+    app.run_server(port=7788)

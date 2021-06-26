@@ -1,1 +1,1 @@
-Choropleth visualizations be created using the `GeoJSON` component. The example below is essentially a reproduction of the [interactive choropleth map](https://leafletjs.com/examples/choropleth/) in the Leaflet example gallery. 
+The `style` option of the `GeoJSON` component controls how polygons are rendering. By configuring it properly, it is possible to create choropleth visualizations. The example below is essentially a reproduction of the [interactive choropleth map](https://leafletjs.com/examples/choropleth/) in the Leaflet example gallery. 
