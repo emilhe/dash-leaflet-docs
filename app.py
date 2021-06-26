@@ -116,7 +116,6 @@ def build_example(app, key, label_map, wd):
         return elements
     # Create the app page.
     mod = importlib.import_module(f'{wd}.{key}')
-    print(key)
     page = app_to_page(getattr(mod, "app"), id=key, label=label_map[key])
     page.callbacks(app)
     # Render app code.
