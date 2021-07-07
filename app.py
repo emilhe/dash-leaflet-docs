@@ -19,8 +19,10 @@ example_labels = OrderedDict(
     layers_control="LayersControl",
     geojson="GeoJSON",
     super_cluster="Marker clustering",
+    gesture="GestureHandling",
     locate_control="Geolocation",
     measure="MeasureControl",
+    edit_control="EditControl",
     # us_states="GeoJSON",
     polyline_decorator="PolylineDecorator",
     wsm_tile_layer="WMSTileLayer",
@@ -184,4 +186,4 @@ app.layout = html.Div([build_navigation(), dbc.Container(build_content(app), id=
                       fix_page_load_anchor_issue(app, delay=650))
 
 if __name__ == '__main__':
-    app.run_server()
+    app.run_server(port=7777)
