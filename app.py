@@ -147,9 +147,9 @@ def build_content(app):
 
 
 def build_navigation():
-    examples_links = [dbc.NavItem(dbc.NavLink(example_labels[key],
+    examples_links = [dbc.DropdownMenuItem(dbc.NavLink(example_labels[key],
                                               href="/#{}".format(key), external_link=True)) for key in example_keys]
-    tutorial_links = [dbc.NavItem(dbc.NavLink(tutorial_labels[key],
+    tutorial_links = [dbc.DropdownMenuItem(dbc.NavLink(tutorial_labels[key],
                                               href="/#{}".format(key), external_link=True)) for key in tutorial_keys]
     return dbc.NavbarSimple(
         dbc.Nav([
@@ -160,15 +160,15 @@ def build_navigation():
             dbc.NavItem(dbc.NavLink("Functional properties", href="/#func_props", external_link=True)),
             # Example links.
             dbc.NavItem(dbc.NavLink("Examples", href="/#examples", external_link=True,
-                                    style={"margin-left": "100px"})),
+                                    style={"margin-left": "100px", "margin-right": "100px"})),
             dbc.DropdownMenu(
                 label="", children=examples_links, in_navbar=True, nav=True, direction="left",
-                style={"margin-left": "0px"}),
+                style={"margin-left": "0px", "margin-right": "10px"}, align_end=True),
             # Tutorials links.
             dbc.NavItem(dbc.NavLink("GeoJSON tutorial", href="/#tutorials", external_link=True)),
             dbc.DropdownMenu(
                 label="", children=tutorial_links, in_navbar=True, nav=True, direction="left",
-                style={"margin-right": "0px"})
+                style={"margin-right": "0px"}, align_end=True)
             ,
         ],
             fill=True), fluid=True, sticky="top")

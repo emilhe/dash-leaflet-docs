@@ -4,7 +4,7 @@ flask
 requests
 dash-leaflet==0.1.18
 dash-extensions==0.0.63
-dash-bootstrap-components
+dash-bootstrap-components==1.0.0
 pandas
 numpy
 jsbeautifier
