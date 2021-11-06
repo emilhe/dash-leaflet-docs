@@ -1,6 +1,5 @@
-import dash_html_components as html
 import dash_leaflet as dl
-from dash_extensions.enrich import DashProxy
+from dash_extensions.enrich import DashProxy, html
 
 image_url = "https://dash-leaflet.herokuapp.com/assets/newark_nj_1922.jpg"
 image_bounds = [[40.712216, -74.22655], [40.773941, -74.12544]]

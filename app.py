@@ -1,11 +1,9 @@
 import os
 import importlib
 import dash_leaflet as dl
-import dash_core_components as dcc
-import dash_html_components as html
 import dash_bootstrap_components as dbc
 
-from dash_extensions.enrich import Dash
+from dash_extensions.enrich import Dash, html, dcc
 from dash_extensions.snippets import fix_page_load_anchor_issue
 from dash_extensions.multipage import app_to_page
 from collections import OrderedDict

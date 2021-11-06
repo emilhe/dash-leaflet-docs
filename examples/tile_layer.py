@@ -1,6 +1,5 @@
-import dash_html_components as html
 import dash_leaflet as dl
-from dash_extensions.enrich import DashProxy
+from dash_extensions.enrich import DashProxy, html
 
 # Cool, dark tiles by Stadia Maps.
 url = 'https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png'

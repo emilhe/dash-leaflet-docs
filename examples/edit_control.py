@@ -1,7 +1,5 @@
-import dash_html_components as html
 import dash_leaflet as dl
-from dash_extensions.enrich import DashProxy
-from dash.dependencies import Output, Input
+from dash_extensions.enrich import DashProxy, html, Output, Input
 from dash.exceptions import PreventUpdate
 from dash_extensions.javascript import assign
 

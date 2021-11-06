@@ -1,9 +1,9 @@
-dash==1.20.0
+dash==2.0.0
 gunicorn
 flask
 requests
-dash-leaflet==0.1.16
-dash-extensions==0.0.58
+dash-leaflet==0.1.18
+dash-extensions==0.0.62
 dash-bootstrap-components
 pandas
 numpy

@@ -1,13 +1,10 @@
 import json
-import dash_core_components as dcc
-import dash_html_components as html
 import dash_leaflet as dl
 import dash_leaflet.express as dlx
 import pandas as pd
 import numpy as np
 from dash_extensions.javascript import Namespace
-from dash_extensions.enrich import DashProxy
-from dash.dependencies import Input, Output
+from dash_extensions.enrich import DashProxy, html, dcc, Output, Input
 
 # region Data
 

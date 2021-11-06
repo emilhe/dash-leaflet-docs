@@ -1,9 +1,5 @@
-import dash
-import dash_core_components as dcc
-import dash_html_components as html
 import dash_leaflet as dl
-from dash_extensions.enrich import DashProxy
-from dash.dependencies import Input, Output, State, ALL
+from dash_extensions.enrich import DashProxy, html, dcc, callback_context, Input, Output, State, ALL
 
 app = DashProxy(prevent_initial_callbacks=True)
 app.layout = html.Div([
@@ -17,7 +13,7 @@ app.layout = html.Div([
               [Input("map", "click_lat_lng"), Input({'role': 'marker', 'index': ALL}, "n_clicks")],
               [State("store", "data"), State("polygons", "children")])
 def map_click(click_lat_lng, n_clicks, data, polygons):
-    trigger = dash.callback_context.triggered[0]["prop_id"]
+    trigger = callback_context.triggered[0]["prop_id"]
     # The map was clicked, add a new point.
     if trigger.split(".")[1] == "click_lat_lng":
         data.append(click_lat_lng)

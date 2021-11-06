@@ -1,6 +1,5 @@
-import dash_html_components as html
 import dash_leaflet as dl
-from dash_extensions.enrich import DashProxy
+from dash_extensions.enrich import html, DashProxy
 
 # Some shapes.
 markers = [dl.Marker(position=[56, 10]), dl.CircleMarker(center=[55, 10])]

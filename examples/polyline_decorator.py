@@ -1,6 +1,5 @@
-import dash_html_components as html
 import dash_leaflet as dl
-from dash_extensions.enrich import DashProxy
+from dash_extensions.enrich import DashProxy, html
 
 # Simple arrow.
 polyline = dl.Polyline(positions=[[57, -19], [60, -12]])
