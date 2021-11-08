@@ -1,0 +1,2 @@
+The `Minichart` component makes it easy to draw (small) animated bar, pie, polar area, and polar radius charts on the map. For additional details, see the [documentation for the underlying component](https://github.com/rte-antares-rpackage/leaflet.minichart).
+ 
