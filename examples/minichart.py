@@ -2,7 +2,7 @@ from dash_extensions.enrich import Dash, Output, Input, dcc
 import dash_leaflet as dl
 
 # Create example app.
-app = Dash()
+app = Dash(update_title=None)
 app.layout = dl.Map([
     dl.TileLayer(),
     dl.Minichart(lat=56.1780842, lon=10.1119354, type="bar", id="bar"),

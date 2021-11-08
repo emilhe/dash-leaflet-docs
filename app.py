@@ -180,7 +180,8 @@ ext_js = ["https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.1.0/chroma.min.js"
 ext_css = [dbc.themes.CERULEAN, 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css']
 # Create app.
 server = Flask(__name__)
-app = Dash(server=server, external_stylesheets=ext_css, external_scripts=ext_js, prevent_initial_callbacks=True)
+app = Dash(server=server, external_stylesheets=ext_css, external_scripts=ext_js, prevent_initial_callbacks=True,
+           update_title=None)
 # Setup layout.
 app.layout = html.Div([build_navigation(), dbc.Container(build_content(app), id="content")] +
                       fix_page_load_anchor_issue(app, delay=650))
