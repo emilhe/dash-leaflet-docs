@@ -12,7 +12,9 @@ app.layout = html.Div([dl.Map([dl.TileLayer(),
                        html.Button(id="play", children="Play/pause")])
 
 
-@app.callback(Output("video", "play"), [Input("play", 'n_clicks')])
+@app.callback(Output("video", "play"),
+              [Input("play", 'n_clicks')],
+              prevent_initial_call=True)
 def play_pause(n):
     return n % 2 == 1
 
