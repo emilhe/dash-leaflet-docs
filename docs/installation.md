@@ -16,7 +16,7 @@ poetry add dash-leaflet
 
 It should now be possible to run the following (minimal) example app,
 
-.. dash-proxy:: content.minimal
+.. dash-proxy:: docs.minimal
 
 ### Optional dependencies
 

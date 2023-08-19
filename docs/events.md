@@ -45,13 +45,13 @@ The `eventHandlers` property provides an interface to inject custom event handle
 
 As a simple example of event data usage, the following custom (click) event handler will extract the position you clicked on, and print it to the JS console,
 
-.. dash-proxy:: content.events_e
+.. dash-proxy:: docs.events_e
 
 Via the 2nd argument, it is possible to manipulate the map object. The following custom event handler will fly to a specific location on right click,
 
-.. dash-proxy:: content.events_map
+.. dash-proxy:: docs.events_map
 
 The 2rd argument can also be used to read/write component props. The following custom event handler will send data back to Dash on double click,
 
-.. dash-proxy:: content.events_set_props
+.. dash-proxy:: docs.events_set_props
 

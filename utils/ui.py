@@ -9,14 +9,6 @@ HOME = f"Dash Leaflet"
 HOME_SHORT = "DL"
 BADGE = dash_leaflet.__version__
 GITHUB_URL = "https://github.com/thedirtyfew/dash-leaflet"
-# NAVBAR_ICONS = {
-#     "Components": "radix-icons:component-1",
-#     "Tutorials": "radix-icons:reader",
-# }
-# SECTION_REMAPPING = {
-#     "Components": "API Reference",
-#     "Ui Layers": "UI Layers",
-# }
 SECTION_LABELS = {
     "Components": dmc.Divider(
         labelPosition="right",
@@ -26,35 +18,17 @@ SECTION_LABELS = {
             ), "API Reference"
         ],
         my=10,
-    ),
-    "Ui Layers": dmc.Divider(
-        labelPosition="left",
-        label=["UI Layers"],
-        my=10,
-    ),
-    "Controls": dmc.Divider(
-        labelPosition="left",
-        label=["Controls"],
-        my=10,
-    ),
-    "Raster Layers": dmc.Divider(
-        labelPosition="left",
-        label=["Raster Layers"],
-        my=10,
-    ),
-    "Vector Layers": dmc.Divider(
-        labelPosition="left",
-        label=["Vector Layers"],
-        my=10,
-    ),
-    "Misc": dmc.Divider(
-        labelPosition="left",
-        label=["Misc"],
-        my=10,
-    ),
+    )
 }
 
 # region Sourced from dmc docs: https://github.com/snehilvj/dmc-docs/blob/main/lib/appshell.py
+
+def create_section_label(label: str):
+    return dmc.Divider(
+        labelPosition="left",
+        label=[label],
+        my=10,
+    )
 
 def create_home_link(label):
     return dmc.Anchor(
@@ -202,6 +176,7 @@ def create_header(nav_data):
 
 # NB: Heavily customized
 def create_side_nave_content(nav_data):
+    # Setup docs links.
     main_links = dmc.Stack(
         spacing="sm",
         mt=20,
@@ -209,57 +184,45 @@ def create_side_nave_content(nav_data):
             create_main_nav_link(
                 icon="material-symbols:rocket-launch-rounded",
                 label="Getting Started",
-                href="/content/installation",
+                href="/docs/installation",
             ),
             create_main_nav_link(
                 icon="material-symbols:apps",
                 label="Components",
-                href="/content/components",
+                href="/docs/components",
             ),
             create_main_nav_link(
                 icon="material-symbols:magic-button",
                 label="Functional Properties",
-                href="/content/func_props",
+                href="/docs/func_props",
             ),
             create_main_nav_link(
                 icon="material-symbols:event",
                 label="Events",
-                href="/content/events",
+                href="/docs/events",
             ),
             create_main_nav_link(
                 icon="material-symbols:chip-extraction",
                 label="Migration",
-                href="/content/migration",
+                href="/docs/migration",
             ),
         ],
     )
-    # create component links
+    # Create component links.
     sections = defaultdict(list)
     for entry in nav_data:
         label = entry["module"].split(".")[0]
         label = (" ".join(label.split("_"))).title()
-        sections[label].append((entry["name"], entry["path"]))
-
+        if label.startswith("Components"):
+            sections[label].append((entry["name"], entry["path"]))
+    # Create component main section.
     links = []
     print(sections)
-    for label in ["Components", "Ui Layers", "Raster Layers", "Vector Layers", "Controls",  "Misc"]:
-    # for section, items in sorted(sections.items()):
-    #     if section in IGNORE_SECTIONS:
-    #         continue
+    categories = ["Ui Layers", "Raster Layers", "Vector Layers", "Controls",  "Misc"]
+    for label in ["Components"] + [f"Components/{c}" for c in categories]:
         items = sections[label]
         links.append(
-            SECTION_LABELS[label]
-            # dmc.Divider(
-            #     labelPosition="left",
-            #     label=[
-            #         DashIconify(
-            #             icon=NAVBAR_ICONS[section], width=15, style={"marginRight": 10}
-            #         )] if section in NAVBAR_ICONS else [] +
-            #                                            [section if section not in SECTION_REMAPPING else
-            #                                             SECTION_REMAPPING[section]]
-            #     ,
-            #     my=10,
-            # )
+            SECTION_LABELS[label] if label in SECTION_LABELS else create_section_label(label[11:])
         )
         links.extend(
             [

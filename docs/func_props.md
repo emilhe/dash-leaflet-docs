@@ -23,7 +23,7 @@ the `pointToLayer` function of the `myNamespace.mySubNamespace` namespace can be
 
 For completeness, here is the full app,
 
-.. dash-proxy:: content.func_props_js
+.. dash-proxy:: docs.func_props_js
 
 ### Inline JavaScript
 
@@ -37,7 +37,7 @@ The `assign` function of the `javascript` module provides a more compact syntax 
 
 without the need for creating any `.js` files manually. The syntax is particularly well suited for small JavaScript code snippets and/or examples. Note that under the hood, the inline functions are transpiled into a `.js` file, which is written to the assets folder. For completeness, here is the full app,
 
-.. dash-proxy:: content.func_props_inline
+.. dash-proxy:: docs.func_props_inline
 
 ### Arrow functions
 
@@ -48,5 +48,5 @@ In some case, it might be sufficient to wrap an object as an arrow function, i.e
 
 For completeness, here is the full app,
 
-.. dash-proxy:: content.func_props_arrow
+.. dash-proxy:: docs.func_props_arrow
 
