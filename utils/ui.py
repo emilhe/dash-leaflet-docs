@@ -9,12 +9,50 @@ HOME = f"Dash Leaflet"
 HOME_SHORT = "DL"
 BADGE = dash_leaflet.__version__
 GITHUB_URL = "https://github.com/thedirtyfew/dash-leaflet"
-NAVBAR_ICONS = {
-    "Components": "radix-icons:component-1",
-    "Tutorials": "radix-icons:reader",
+# NAVBAR_ICONS = {
+#     "Components": "radix-icons:component-1",
+#     "Tutorials": "radix-icons:reader",
+# }
+# SECTION_REMAPPING = {
+#     "Components": "API Reference",
+#     "Ui Layers": "UI Layers",
+# }
+SECTION_LABELS = {
+    "Components": dmc.Divider(
+        labelPosition="right",
+        label=[
+            DashIconify(
+                icon="radix-icons:component-1", width=15, style={"marginRight": 10}
+            ), "API Reference"
+        ],
+        my=10,
+    ),
+    "Ui Layers": dmc.Divider(
+        labelPosition="left",
+        label=["UI Layers"],
+        my=10,
+    ),
+    "Controls": dmc.Divider(
+        labelPosition="left",
+        label=["Controls"],
+        my=10,
+    ),
+    "Raster Layers": dmc.Divider(
+        labelPosition="left",
+        label=["Raster Layers"],
+        my=10,
+    ),
+    "Vector Layers": dmc.Divider(
+        labelPosition="left",
+        label=["Vector Layers"],
+        my=10,
+    ),
+    "Misc": dmc.Divider(
+        labelPosition="left",
+        label=["Misc"],
+        my=10,
+    ),
 }
-SECTION_REMAPPING = {"Components": "API Reference"}
-
 
 # region Sourced from dmc docs: https://github.com/snehilvj/dmc-docs/blob/main/lib/appshell.py
 
@@ -203,20 +241,25 @@ def create_side_nave_content(nav_data):
         sections[label].append((entry["name"], entry["path"]))
 
     links = []
-    for section, items in sorted(sections.items()):
-        if section in IGNORE_SECTIONS:
-            continue
+    print(sections)
+    for label in ["Components", "Ui Layers", "Raster Layers", "Vector Layers", "Controls",  "Misc"]:
+    # for section, items in sorted(sections.items()):
+    #     if section in IGNORE_SECTIONS:
+    #         continue
+        items = sections[label]
         links.append(
-            dmc.Divider(
-                labelPosition="left",
-                label=[
-                    DashIconify(
-                        icon=NAVBAR_ICONS[section], width=15, style={"marginRight": 10}
-                    ),
-                    section if section not in SECTION_REMAPPING else SECTION_REMAPPING[section],
-                ],
-                my=10,
-            )
+            SECTION_LABELS[label]
+            # dmc.Divider(
+            #     labelPosition="left",
+            #     label=[
+            #         DashIconify(
+            #             icon=NAVBAR_ICONS[section], width=15, style={"marginRight": 10}
+            #         )] if section in NAVBAR_ICONS else [] +
+            #                                            [section if section not in SECTION_REMAPPING else
+            #                                             SECTION_REMAPPING[section]]
+            #     ,
+            #     my=10,
+            # )
         )
         links.extend(
             [

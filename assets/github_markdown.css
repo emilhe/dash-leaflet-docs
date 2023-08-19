@@ -91,12 +91,12 @@
     top: -.5em
 }
 
-.markdown-body img {
-    border-style: none;
-    max-width: 100%;
-    box-sizing: content-box;
-    background-color: #fff
-}
+/*.markdown-body img {*/
+/*    border-style: none;*/
+/*    max-width: 100%;*/
+/*    box-sizing: content-box;*/
+/*    background-color: #fff*/
+/*}*/
 
 .markdown-body code, .markdown-body kbd, .markdown-body pre, .markdown-body samp {
     font-family: monospace, monospace;

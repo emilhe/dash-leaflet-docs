@@ -2,10 +2,10 @@ import dash_leaflet as dl
 from dash_extensions.enrich import html, DashProxy
 
 # Some shapes.
-markers = [dl.Marker(position=[56, 10]), dl.CircleMarker(center=[55, 10])]
+markers = [dl.Marker(position=[56, 10]), dl.CircleMarker(center=[55, 10], radius=50)]
 polygon = dl.Polygon(positions=[[57, 10], [57, 11], [56, 11], [57, 10]])
 # Some tile urls.
-keys = ["watercolor", "toner", "terrain"]
+keys = ["toner", "terrain"]
 url_template = "http://{{s}}.tile.stamen.com/{}/{{z}}/{{x}}/{{y}}.png"
 attribution = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, ' \
               '<a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data ' \
@@ -19,7 +19,7 @@ app.layout = html.Div(dl.Map([
         [dl.Overlay(dl.LayerGroup(markers), name="markers", checked=True),
          dl.Overlay(dl.LayerGroup(polygon), name="polygon", checked=True)]
     )
-], zoom=7, center=(56, 10)), style={'width': '100%', 'height': '50vh', 'margin': "auto", "display": "block"})
+], zoom=7, center=(56, 10), style={'width': '100%', 'height': '50vh'}))
 
 if __name__ == '__main__':
     app.run_server()

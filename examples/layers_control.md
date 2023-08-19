@@ -1,1 +1,0 @@
-The `LayersControl` component makes it easy to control layer visibility.

@@ -51,7 +51,7 @@ A few custom component have also been developed,
 
 * `DivMarker` (a customized marker that uses a [DivIcon](https://leafletjs.com/reference.html#divicon) instead of an [Icon](https://leafletjs.com/reference.html#icon))
 * `ColorBar` (a simple color bar, typically used to with plots)
-* `GeoJSON` (based on the [Leaflet GeoJSON component](https://leafletjs.com/reference-1.6.0.html#geojson) and [supercluster](https://github.com/mapbox/supercluster))
-
+* `GeoJSON` (based on the [Leaflet GeoJSON component](https://leafletjs.com/reference-1.6.0.html#geojson) and [supercluster](https://github.com/mapbox/supercluster))**
+**
 In general, the documentation for these components is limited `dash-leaflet` API reference, and the [source code](https://github.com/thedirtyfew/dash-leaflet) itself.
 

@@ -10,3 +10,4 @@ numpy
 jsbeautifier
 python-box
 dash-down
+dash_svg

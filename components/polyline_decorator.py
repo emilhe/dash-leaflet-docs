@@ -30,9 +30,8 @@ rotated_markers = dl.PolylineDecorator(positions=[[42.9, -15], [44.18, -11.4], [
                                                   [49.41, -6.1], [51.01, -7.2]], patterns=patterns)
 # Create app.
 app = DashProxy()
-app.layout = html.Div(dl.Map([dl.TileLayer(), arrow, inner_ring, multi_pattern, marker_pattern, rotated_markers],
-                             zoom=4, center=(52.0, -11.0)),
-                      style={'width': '100%', 'height': '50vh', 'margin': "auto", "display": "block"})
+app.layout = dl.Map([dl.TileLayer(), arrow, inner_ring, multi_pattern, marker_pattern, rotated_markers],
+                             zoom=4, center=(52.0, -11.0), style={'width': '100%', 'height': '50vh'})
 
 if __name__ == '__main__':
     app.run_server()
