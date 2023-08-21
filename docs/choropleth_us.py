@@ -21,7 +21,6 @@ ctg = ["{}+".format(cls, classes[i + 1]) for i, cls in enumerate(classes[:-1])] 
 colorbar = dlx.categorical_colorbar(categories=ctg, colorscale=colorscale, width=300, height=30, position="bottomleft")
 # Geojson rendering logic, must be JavaScript as it is executed in clientside.
 style_handle = assign("""function(feature, context){
-    console.log(context);
     const {classes, colorscale, style, colorProp} = context.hideout;  // get props from hideout
     const value = feature.properties[colorProp];  // get value the determines the color
     for (let i = 0; i < classes.length; ++i) {
