@@ -4,33 +4,38 @@ from collections import defaultdict
 from dash_iconify import DashIconify
 from dash_extensions.enrich import dcc, html, page_container, clientside_callback, Output, Input, State
 
+
+def create_icon_section_label(label: str, icon: str, labelPosition: str = "left", my="sm") -> dmc.Divider:
+    return dmc.Divider(
+        labelPosition=labelPosition,
+        label=[
+            DashIconify(
+                icon=f"radix-icons:{icon}", width=15, style={"marginRight": 10}
+            ), label
+        ],
+        my=my,
+    )
+
+
 IGNORE_SECTIONS = ["Content", "Pages"]
 HOME = f"Dash Leaflet"
 HOME_SHORT = "DL"
 BADGE = dash_leaflet.__version__
 GITHUB_URL = "https://github.com/thedirtyfew/dash-leaflet"
+COMPONENT_CATEGORIES = ["Ui Layers", "Raster Layers", "Vector Layers", "Controls", "Misc"]
 SECTION_LABELS = {
-    "Components": dmc.Divider(
-        labelPosition="right",
-        label=[
-            DashIconify(
-                icon="radix-icons:component-1", width=15, style={"marginRight": 10}
-            ), "API Reference"
-        ],
-        my=10,
-    )
+    "Components": create_icon_section_label("Components", "component-1", my=10, labelPosition="right"),
+    "Components/Ui Layers": create_icon_section_label("UI Layers", "eye-open"),
+    "Components/Controls": create_icon_section_label("Controls", "gear"),
+    "Components/Misc": create_icon_section_label("Misc", "mix"),
+    "Components/Vector Layers": create_icon_section_label("Vector Layers", "angle"),
+    "Components/Raster Layers": create_icon_section_label("Raster Layers", "image"),
 }
+
 
 # region Sourced from dmc docs: https://github.com/snehilvj/dmc-docs/blob/main/lib/appshell.py
 
-def create_section_label(label: str):
-    return dmc.Divider(
-        labelPosition="left",
-        label=[label],
-        my=10,
-    )
-
-def create_home_link(label):
+def create_home_link(label: str) -> dmc.Anchor:
     return dmc.Anchor(
         label,
         size="xl",
@@ -39,7 +44,7 @@ def create_home_link(label):
     )
 
 
-def create_main_nav_link(icon, label, href):
+def create_main_nav_link(icon: str, label: str, href: str) -> dmc.Anchor:
     return dmc.Anchor(
         dmc.Group(
             [
@@ -54,7 +59,7 @@ def create_main_nav_link(icon, label, href):
     )
 
 
-def create_header_link(icon, href, size=22, color="indigo"):
+def create_header_link(icon: str, href: str, size: int = 22, color: str = "indigo") -> dmc.Anchor:
     return dmc.Anchor(
         dmc.ThemeIcon(
             DashIconify(
@@ -71,7 +76,7 @@ def create_header_link(icon, href, size=22, color="indigo"):
     )
 
 
-def create_header(nav_data):
+def create_header(nav_data) -> dmc.Header:
     return dmc.Header(
         height=70,
         fixed=True,
@@ -175,7 +180,7 @@ def create_header(nav_data):
 
 
 # NB: Heavily customized
-def create_side_nave_content(nav_data):
+def create_side_nave_content(nav_data) -> dmc.Stack:
     # Setup docs links.
     main_links = dmc.Stack(
         spacing="sm",
@@ -206,6 +211,11 @@ def create_side_nave_content(nav_data):
                 label="Migration",
                 href="/docs/migration",
             ),
+            create_main_nav_link(
+                icon="material-symbols:target",
+                label="GeoJSON Tutorial",
+                href="/docs/geojson_tutorial",
+            ),
         ],
     )
     # Create component links.
@@ -217,13 +227,9 @@ def create_side_nave_content(nav_data):
             sections[label].append((entry["name"], entry["path"]))
     # Create component main section.
     links = []
-    print(sections)
-    categories = ["Ui Layers", "Raster Layers", "Vector Layers", "Controls",  "Misc"]
-    for label in ["Components"] + [f"Components/{c}" for c in categories]:
+    for label in ["Components"] + [f"Components/{c}" for c in COMPONENT_CATEGORIES]:
         items = sections[label]
-        links.append(
-            SECTION_LABELS[label] if label in SECTION_LABELS else create_section_label(label[11:])
-        )
+        links.append(SECTION_LABELS[label])
         links.extend(
             [
                 dmc.Anchor(name, size="sm", href=path, variant="text")
@@ -232,11 +238,11 @@ def create_side_nave_content(nav_data):
         )
 
     return dmc.Stack(
-        spacing="sm", children=[main_links, *links], px=25
+        spacing="0.3rem", children=[main_links, *links], px=25
     )
 
 
-def create_side_navbar(nav_data):
+def create_side_navbar(nav_data) -> dmc.Navbar:
     return dmc.Navbar(
         fixed=True,
         id="components-navbar",
@@ -252,7 +258,7 @@ def create_side_navbar(nav_data):
     )
 
 
-def create_navbar_drawer(nav_data):
+def create_navbar_drawer(nav_data) -> dmc.Drawer:
     return dmc.Drawer(
         id="components-navbar-drawer",
         overlayOpacity=0.55,
@@ -271,7 +277,7 @@ def create_navbar_drawer(nav_data):
     )
 
 
-def create_table_of_contents(toc_items):
+def create_table_of_contents(toc_items) -> dmc.Aside:
     children = []
     for url, name, _ in toc_items:
         children.append(
@@ -296,7 +302,7 @@ def create_table_of_contents(toc_items):
     )
 
 
-def create_app_shell(nav_data, children):
+def create_app_shell(nav_data, children) -> dmc.MantineProvider:
     clientside_callback(
         """ function(data) { return data } """,
         Output("mantine-docs-theme-provider", "theme"),

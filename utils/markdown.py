@@ -4,21 +4,29 @@ from box import Box
 from dash_down.express import md_to_blueprint_dmc
 from dash_down.mantine_renderer import DmcRenderer
 from dash_extensions.enrich import html, DashBlueprint
-
 from utils.ui import create_table_of_contents
 
+
+def code_transform(source):
+    # Make it so that it looks like "normal" Dash is used.
+    source = source.replace("from dash_extensions.enrich import", "from dash import")
+    source = source.replace("DashProxy", "Dash")
+    # For cases where PrefixIdTransform is needed, remove from code example.
+    source = source.replace(", transforms=[PrefixIdTransform(prefix=__name__.split('.')[-1])]", "")
+    source = source.replace(", PrefixIdTransform", "")
+    return source
 
 # region Directives
 
 def python_code(value: str, text: str, options: Box[str, str], blueprint: DashBlueprint):
     with open(f"{value.replace('.', '/')}.py", 'r') as f:
         source = f.readlines()
-    return dmc.Prism("".join(source), language="python")
+    return dmc.Prism(code_transform("".join(source)), language="python")
 
 
 # endregion
 
-# region Automatec toc genetation
+# region Automatic toc generation
 
 def _record_link(self, children, level, links=None, original=None):
     links.append([children, level])
@@ -67,7 +75,7 @@ def camel(snake_str):
 
 
 def dash_proxy_shell(source, layout, render=True):
-    code = [dmc.Col(dmc.Prism("".join(source), language="python"), span=1)]
+    code = [dmc.Col(dmc.Prism(code_transform("".join(source)), language="python"), span=1)]
     layout = html.Div(layout, style=dict(boxShadow="0px 3px 6px rgb(0 0 0 / 20%)", borderRadius="0px", padding="16px"))
     app_layout = [dmc.Col(layout, span=1, style=dict(paddingLeft="8px", paddingRight="8px", marginTop="-14px"))]
     return dmc.Grid(code + (app_layout if render else []), columns=1, style=dict(marginBottom="16px"))
@@ -81,7 +89,6 @@ def register_pages(app, folder, order=None, order_map=None):
     md_options = dict(directives=[python_code], shell=blueprint_shell, dash_proxy_shell=dash_proxy_shell)
     for fn in [fn for fn in os.listdir(folder) if fn.endswith(".md")]:
         name = fn.replace('.md', '')
-        print(name)
         order = order_map[name] if order_map is not None and name in order_map else order
         blueprint = md_to_blueprint_with_toc(f"{folder}/{fn}", **md_options)
         blueprint.register(app, f"{folder}.{name}", prefix=name, name=camel(name), order=order,

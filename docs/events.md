@@ -4,30 +4,32 @@ In Dash, interactivity is enabled by callbacks, which are triggered by *property
 
 ### Map click event
 
-To get started, let's consider a map [click](https://leafletjs.com/reference.html#map-click) event. In Dash, it is custom to add an `n_clicks` property (similar to the `n_clicks` property of buttons) that is incremented on each click. In addition, we add property a property `data-click`, to which we assign any data associated with the click event. Finally, to let Dash know about the property changes, we call the (special) `setProps` function, 
+To get started, let's consider a map [click](https://leafletjs.com/reference.html#map-click) event. In Dash, it is custom to use an `n_clicks` property (similar to the `n_clicks` property of buttons) that is incremented on each click to signal change. In addition, we use a `clickData` property to forward relevant data associated with the event. Finally, to let Dash know about the property changes, we call the (special) `setProps` function, 
 
-        click: function(e, ctx) {
-            ctx.n_clicks = ctx.n_clicks == undefined ? 1 : ctx.n_clicks + 1  // increment counter
-            propsToSet = {n_clicks: ctx.n_clicks} // create object with props to set
-            propsToSet["data-click"] = {
+    ...
+    click: function(e, ctx) {
+        ctx.setProps({
+            n_clicks: ctx.n_clicks == undefined ? 1 : ctx.n_clicks + 1,  // increment counter
+            clickData: {
                 latlng: e.latlng,
                 layerPoint: e.layerPoint,
                 containerPoint: e.containerPoint
-            }  // collect data (must be JSON serializeable)
-            ctx.setProps(propsToSet)  // send data back to Dash
-        }
+            }  // collect data (must be JSON serializeable),
+        });  // send data back to Dash
+    }
+    ...
 
 With this event handler registered, we can now listen for click events from the map,
 
     ...
-    app.callback(Output(...), Input('map', 'n_clicks'), State('data-click'))
+    app.callback(Output(...), Input('map', 'n_clicks'), State('clickData'))
     def onclick(_, data):
         print("You clicked at {data.latlng}")
     ...
 
 ### Default event handlers
 
-Looking at the map click event example, you might notice a pattern. The event increments a counter property called `n_[event]s` and populates a data property called `data-[event]`. The same naming convention is followed by all the *default event handlers*,
+Looking at the map click event example, you might notice a pattern. The event increments a counter property called `n_[event]s` and populates a data property called `[event]Data`. The same naming convention is followed by all the _default event handlers_,
 
 * click
 * dblclick
@@ -38,10 +40,10 @@ By default, the default event handlers are registered for all React Leaflet comp
 
 ### Custom event handlers
 
-The `eventHandlers` property provides an interface to inject custom event handlers. It is simply an object with the event name as key, and the event handler as value. The event handler is provided with three argument,
+The `eventHandlers` property provides an interface to inject _custom_ event handlers. It is simply an object with the event name as key, and the event handler as value. The event handler is provided with three argument,
 
 1) The event itself (e.g. for a click event, it would be a `LeafletMouseEvent` object)
-2) A context object, which holds component props (including the `setProps` function) and a reference to the map instance
+2) A context object, which holds component props (including the `setProps` function) and a reference to the map container instance under the key `map`
 
 As a simple example of event data usage, the following custom (click) event handler will extract the position you clicked on, and print it to the JS console,
 
@@ -51,7 +53,7 @@ Via the 2nd argument, it is possible to manipulate the map object. The following
 
 .. dash-proxy:: docs.events_map
 
-The 2rd argument can also be used to read/write component props. The following custom event handler will send data back to Dash on double click,
+The 2nd argument can also be used to read/write component props. The following custom event handler will send data back to Dash on double click,
 
 .. dash-proxy:: docs.events_set_props
 

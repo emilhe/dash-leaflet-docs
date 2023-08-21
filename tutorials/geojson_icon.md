@@ -1,1 +1,0 @@
-It is possible to use any marker icon with the `GeoJSON` component. Simply add the icon to the assets directory and set the url accordingly, or use a hosted icon. The example below demonstrates how to draw different icons for different features based on the feature properties.

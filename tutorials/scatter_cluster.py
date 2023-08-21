@@ -15,7 +15,6 @@ dicts = df.to_dict('rows')
 for item in dicts:
     item["tooltip"] = "{} ({:.1f})".format(item['city'], item[color_prop])  # bind tooltip
 geojson = dlx.dicts_to_geojson(dicts, lon="lng")  # convert to geojson
-geobuf = dlx.geojson_to_geobuf(geojson)  # convert to geobuf
 # Create a colorbar.
 vmax = df[color_prop].max()
 colorbar = dl.Colorbar(colorscale=colorscale, width=20, height=150, min=0, max=vmax, unit='/km2')
@@ -46,7 +45,7 @@ cluster_to_layer = assign("""function(feature, latlng, index, context){
     return L.marker(latlng, {icon : icon})
 }""")
 # Create geojson.
-geojson = dl.GeoJSON(data=geobuf, id="geojson", format="geobuf",
+geojson = dl.GeoJSON(data=geojson, id="geojson",
                      zoomToBounds=True,  # when true, zooms to bounds when data changes
                      cluster=True,  # when true, data are clustered
                      clusterToLayer=cluster_to_layer,  # how to draw clusters

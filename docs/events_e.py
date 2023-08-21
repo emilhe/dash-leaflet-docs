@@ -3,7 +3,7 @@ from dash_extensions.enrich import DashProxy
 from dash_leaflet import Map, TileLayer
 
 eventHandlers = dict(
-    click=assign("function(e, map, props){console.log(`You clicked at ${e.latlng}.`)}"),
+    click=assign("function(e, ctx){console.log(`You clicked at ${e.latlng}.`)}"),
 )
 app = DashProxy(__name__)
 app.layout = Map(children=[TileLayer()], eventHandlers=eventHandlers,
