@@ -11,7 +11,7 @@ app.layout = html.Div([
         dl.TileLayer(),
         dl.GeoJSON(data=bermuda),  # in-memory geojson (slowest option)
         dl.GeoJSON(url="/assets/us-states.json", id="states"),  # geojson resource (faster than in-memory)
-    ], style={'width': '100%', 'height': '50vh'}, id="map"),
+    ], style={'height': '50vh'}),
     html.Div(id="state"), html.Div(id="capital")
 ])
 

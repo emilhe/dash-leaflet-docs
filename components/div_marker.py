@@ -13,7 +13,7 @@ app = DashProxy(external_stylesheets=[external_css])
 app.layout = dl.Map([
     dl.TileLayer(),
     dl.DivMarker(position=[56, 10], iconOptions=icon)
-], center=[56, 10], zoom=6, style={'width': '100%', 'height': '50vh'})
+], center=[56, 10], zoom=6, style={'height': '50vh'})
 
 if __name__ == "__main__":
-    app.run_server(port=9997)
+    app.run_server()

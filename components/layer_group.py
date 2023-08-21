@@ -7,9 +7,10 @@ app.layout = html.Div([
     dl.Map([
         dl.TileLayer(),
         dl.LayerGroup(id="markers")
-    ], center=[56, 10], zoom=6, style={'width': '100%', 'height': '50vh'}),
+    ], center=[56, 10], zoom=6, style={'height': '50vh'}),
     html.Button("Generate markers", id="btn")
 ])
+
 
 @app.callback(Output("markers", "children"), Input("btn", "n_clicks"))
 def generate_markers(_):

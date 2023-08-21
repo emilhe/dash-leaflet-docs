@@ -11,10 +11,13 @@ def code_transform(source):
     # Make it so that it looks like "normal" Dash is used.
     source = source.replace("from dash_extensions.enrich import", "from dash import")
     source = source.replace("DashProxy", "Dash")
+    # Drop extra spacing.
+    source = source.replace("\n\n\n", "\n\n")
     # For cases where PrefixIdTransform is needed, remove from code example.
     source = source.replace(", transforms=[PrefixIdTransform(prefix=__name__.split('.')[-1])]", "")
     source = source.replace(", PrefixIdTransform", "")
     return source
+
 
 # region Directives
 

@@ -1,5 +1,5 @@
 import dash_leaflet as dl
-from dash_extensions.enrich import html, DashProxy
+from dash_extensions.enrich import DashProxy
 
 # Some shapes.
 markers = [dl.Marker(position=[56, 10]), dl.CircleMarker(center=[55, 10], radius=50)]
@@ -12,14 +12,14 @@ attribution = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, ' \
               '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 # Create app.
 app = DashProxy()
-app.layout = html.Div(dl.Map([
+app.layout = dl.Map([
     dl.LayersControl(
         [dl.BaseLayer(dl.TileLayer(url=url_template.format(key), attribution=attribution),
                       name=key, checked=key == "toner") for key in keys] +
         [dl.Overlay(dl.LayerGroup(markers), name="markers", checked=True),
          dl.Overlay(dl.LayerGroup(polygon), name="polygon", checked=True)]
     )
-], zoom=7, center=(56, 10), style={'width': '100%', 'height': '50vh'}))
+], zoom=7, center=(56, 10), style={'height': '50vh'})
 
 if __name__ == '__main__':
     app.run_server()

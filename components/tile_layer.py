@@ -8,7 +8,7 @@ attribution = '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a> '
 app = DashProxy()
 app.layout = dl.Map([
     dl.TileLayer(url=url, maxZoom=20, attribution=attribution)
-], center=[56, 10], zoom=6, style={'width': '100%', 'height': '50vh', 'margin': "auto", "display": "block"})
+], center=[56, 10], zoom=6, style={'height': '50vh'})
 
 if __name__ == '__main__':
     app.run_server()

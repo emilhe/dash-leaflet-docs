@@ -1,5 +1,5 @@
 import dash_leaflet as dl
-from dash_extensions.enrich import DashProxy, html
+from dash_extensions.enrich import DashProxy
 
 # Simple arrow.
 polyline = dl.Polyline(positions=[[57, -19], [60, -12]])
@@ -22,7 +22,7 @@ polyline = dl.Polyline(positions=[[58.44773, -28.65234], [52.9354, -23.33496], [
                                   [58.1707, -10.37109], [59.68993, -0.65918]])
 marker_pattern = dl.PolylineDecorator(children=polyline, patterns=patterns)
 # Rotated custom marker.
-iconUrl = "https://dash-leaflet.herokuapp.com/assets/icon_plane.png"
+iconUrl = "/assets/icon_plane.png"
 marker = dict(rotate=True, markerOptions=dict(icon=dict(iconUrl=iconUrl, iconAnchor=[16, 16])))
 patterns = [dict(repeat='10', dash=dict(pixelSize=5, pathOptions=dict(color='#000', weight=1, opacity=0.2))),
             dict(offset='16%', repeat='33%', marker=marker)]
@@ -30,8 +30,9 @@ rotated_markers = dl.PolylineDecorator(positions=[[42.9, -15], [44.18, -11.4], [
                                                   [49.41, -6.1], [51.01, -7.2]], patterns=patterns)
 # Create app.
 app = DashProxy()
-app.layout = dl.Map([dl.TileLayer(), arrow, inner_ring, multi_pattern, marker_pattern, rotated_markers],
-                             zoom=4, center=(52.0, -11.0), style={'width': '100%', 'height': '50vh'})
+app.layout = dl.Map([
+    dl.TileLayer(), arrow, inner_ring, multi_pattern, marker_pattern, rotated_markers
+], zoom=4, center=(52.0, -11.0), style={'height': '50vh'})
 
 if __name__ == '__main__':
     app.run_server()
