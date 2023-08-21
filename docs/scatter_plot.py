@@ -19,7 +19,7 @@ point_to_layer = assign("""function(feature, latlng, context){
     return L.circleMarker(latlng, circleOptions);  // render a simple circle marker
 }""")
 # Create geojson.
-geojson = dl.GeoJSON(url="/assets/uscities.json",
+geojson = dl.GeoJSON(url="/assets/us-cities.json",
                      zoomToBounds=True,  # when true, zooms to bounds when data changes
                      pointToLayer=point_to_layer,  # how to draw points
                      onEachFeature=on_each_feature,  # add (custom) tooltip

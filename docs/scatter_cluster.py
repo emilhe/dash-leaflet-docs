@@ -51,7 +51,7 @@ cluster_to_layer = assign("""function(feature, latlng, index, context){
     return L.marker(latlng, {icon : icon})
 }""")
 # Create geojson.
-geojson = dl.GeoJSON(url="/assets/uscities.json",
+geojson = dl.GeoJSON(url="/assets/us-cities.json",
                      cluster=True,  # when true, data are clustered
                      zoomToBounds=True,  # when true, zooms to bounds when data changes
                      pointToLayer=point_to_layer,  # how to draw points
