@@ -1,5 +1,5 @@
 import dash_leaflet as dl
-from dash_extensions.enrich import DashProxy, html
+from dash_extensions.enrich import DashProxy
 from dash_extensions.javascript import arrow_function
 
 # Create geojson.

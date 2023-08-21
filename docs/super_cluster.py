@@ -11,7 +11,7 @@ app.layout = html.Div([
         # From hosted asset (best performance).
         dl.GeoJSON(url='/assets/markers_1k.json', cluster=True, zoomToBoundsOnClick=True,
                    superClusterOptions={"radius": 100}),
-    ], center=(-37.75, 175.4), zoom=11, style={'height': '50vh'}),
+    ], center=(-37.75, 175.4), zoom=9, style={'height': '50vh'}),
 ])
 
 if __name__ == '__main__':

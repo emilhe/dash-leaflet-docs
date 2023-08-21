@@ -2,6 +2,7 @@ import dash_leaflet as dl
 import dash_leaflet.express as dlx
 from dash_extensions.enrich import DashProxy, html, dcc, Output, Input
 from dash_extensions.javascript import assign
+from utils.markdown import add_prefix
 
 # A few cities in Denmark.
 cities = [dict(name="Aalborg", lat=57.0268172, lon=9.837735),
@@ -15,12 +16,12 @@ geojson = dlx.dicts_to_geojson([{**c, **dict(tooltip=c['name'])} for c in cities
 # Create javascript function that filters on feature name.
 geojson_filter = assign("function(feature, context){return context.hideout.includes(feature.properties.name);}")
 # Create example app.
-app = DashProxy()
+app = DashProxy(**add_prefix(__name__))
 app.layout = html.Div([
     dl.Map(children=[
         dl.TileLayer(),
         dl.GeoJSON(data=geojson, filter=geojson_filter, hideout=dd_defaults, id="geojson")
-    ], style={'height': '50vh'}, center=[56, 10], zoom=6, id='map'),
+    ], style={'height': '50vh'}, center=[56, 10], zoom=6),
     dcc.Dropdown(id="dd", value=dd_defaults, options=dd_options, clearable=False, multi=True)
 ])
 # Link drop down to geojson hideout prop (could be done with a normal callback, but clientside is more performant).

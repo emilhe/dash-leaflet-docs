@@ -3,7 +3,7 @@ import dash_mantine_components as dmc
 from box import Box
 from dash_down.express import md_to_blueprint_dmc
 from dash_down.mantine_renderer import DmcRenderer
-from dash_extensions.enrich import html, DashBlueprint
+from dash_extensions.enrich import html, DashBlueprint, PrefixIdTransform
 from utils.ui import create_table_of_contents
 
 
@@ -13,10 +13,14 @@ def code_transform(source):
     source = source.replace("DashProxy", "Dash")
     # Drop extra spacing.
     source = source.replace("\n\n\n", "\n\n")
-    # For cases where PrefixIdTransform is needed, remove from code example.
-    source = source.replace(", transforms=[PrefixIdTransform(prefix=__name__.split('.')[-1])]", "")
-    source = source.replace(", PrefixIdTransform", "")
+    # For cases where add_prefix is needed, remove from code example.
+    source = source.replace("from utils.markdown import add_prefix\n", "")
+    source = source.replace("**add_prefix(__name__)", "")
     return source
+
+
+def add_prefix(name):
+    return dict(transforms=[PrefixIdTransform(prefix=name.split('.')[-1])])
 
 
 # region Directives

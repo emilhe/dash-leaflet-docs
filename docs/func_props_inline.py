@@ -1,7 +1,7 @@
 import random
 import dash_leaflet as dl
 import dash_leaflet.express as dlx
-from dash_extensions.enrich import DashProxy, html
+from dash_extensions.enrich import DashProxy
 from dash_extensions.javascript import assign
 
 # Create some markers.  

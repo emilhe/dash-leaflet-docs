@@ -1,6 +1,7 @@
 import dash_leaflet as dl
-from dash_extensions.enrich import DashProxy, Output, Input, State, PrefixIdTransform
+from dash_extensions.enrich import DashProxy, Output, Input, State
 from dash_extensions.javascript import assign
+from utils.markdown import add_prefix
 
 # Color selected state(s) red.
 style_handle = assign("""function(feature, context){
@@ -11,12 +12,12 @@ style_handle = assign("""function(feature, context){
     return {fillColor: 'grey', color: 'grey'}
 }""")
 # Create small example app.
-app = DashProxy(__name__, transforms=[PrefixIdTransform(prefix=__name__.split('.')[-1])])
+app = DashProxy(**add_prefix(__name__))
 app.layout = dl.Map([
     dl.TileLayer(),
     dl.GeoJSON(url="/assets/us-states.json", zoomToBounds=True, id="geojson",
                hideout=dict(selected=[]), style=style_handle)
-], style={'height': '50vh'}, center=[56, 10], zoom=6, id="map")
+], style={'height': '50vh'}, center=[56, 10], zoom=6)
 
 
 @app.callback(

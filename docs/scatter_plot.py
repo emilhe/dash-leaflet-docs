@@ -27,7 +27,9 @@ geojson = dl.GeoJSON(url="/assets/us-cities.json",
                                   min=vmin, max=vmax, colorscale=colorscale))
 # Create the app.
 app = DashProxy(external_scripts=[chroma], prevent_initial_callbacks=True)
-app.layout = dl.Map([dl.TileLayer(), geojson, colorbar], style={'height': '50vh'}, center=[56, 10], zoom=6)
+app.layout = dl.Map([
+    dl.TileLayer(), geojson, colorbar
+], style={'height': '50vh'}, center=[56, 10], zoom=6)
 
 if __name__ == '__main__':
     app.run_server()

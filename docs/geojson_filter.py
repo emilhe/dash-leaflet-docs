@@ -16,7 +16,7 @@ app = DashProxy()
 app.layout = html.Div([
     dl.Map(children=[
         dl.TileLayer(),
-        dl.GeoJSON(data=geojson, filter=geojson_filter, id="geojson")
+        dl.GeoJSON(data=geojson, filter=geojson_filter)
     ], style={'height': '50vh'}, center=[56, 10], zoom=6),
 ])
 

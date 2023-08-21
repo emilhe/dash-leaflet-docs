@@ -19,7 +19,7 @@ app = DashProxy()
 app.layout = html.Div([
     dl.Map(children=[
         dl.TileLayer(), dl.GeoJSON(data=geojson, pointToLayer=draw_flag, zoomToBounds=True)
-    ], style={'height': '50vh'}, center=[56, 10], zoom=6, id='map')
+    ], style={'height': '50vh'}, center=[56, 10], zoom=6)
 ])
 
 if __name__ == '__main__':

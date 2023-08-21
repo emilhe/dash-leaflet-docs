@@ -2,6 +2,8 @@ import dash_leaflet as dl
 import dash_leaflet.express as dlx
 from dash_extensions.enrich import DashProxy, html, Output, Input, PrefixIdTransform
 from dash_extensions.javascript import arrow_function, assign
+from utils.markdown import add_prefix
+
 
 def get_info(feature=None):
     header = [html.H4("US Population Density")]
@@ -9,6 +11,7 @@ def get_info(feature=None):
         return header + [html.P("Hoover over a state")]
     return header + [html.B(feature["properties"]["name"]), html.Br(),
                      "{:.3f} people / mi".format(feature["properties"]["density"]), html.Sup("2")]
+
 
 classes = [0, 10, 20, 50, 100, 200, 500, 1000]
 colorscale = ['#FFEDA0', '#FED976', '#FEB24C', '#FD8D3C', '#FC4E2A', '#E31A1C', '#BD0026', '#800026']
@@ -40,15 +43,16 @@ geojson = dl.GeoJSON(url="/assets/us-states.json",  # url to geojson file
 info = html.Div(children=get_info(), id="info", className="info",
                 style={"position": "absolute", "top": "10px", "right": "10px", "z-index": "1000"})
 # Create app.
-app = DashProxy(prevent_initial_callbacks=True, transforms=[PrefixIdTransform(prefix=__name__.split('.')[-1])])
+app = DashProxy(prevent_initial_callbacks=True, **add_prefix(__name__))
 app.layout = dl.Map(children=[
     dl.TileLayer(), geojson, colorbar, info
-], style={'height': '50vh'}, center=[56, 10], zoom=6, id="map")
+], style={'height': '50vh'}, center=[56, 10], zoom=6)
 
 
-@app.callback(Output("info", "children"), [Input("geojson", "hoverData")])
+@app.callback(Output("info", "children"), Input("geojson", "hoverData"))
 def info_hover(feature):
     return get_info(feature)
+
 
 if __name__ == '__main__':
     app.run_server()

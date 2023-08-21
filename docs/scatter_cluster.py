@@ -1,8 +1,6 @@
 import dash_leaflet as dl
-import dash_leaflet.express as dlx
-import pandas as pd
 from dash_extensions.javascript import assign
-from dash_extensions.enrich import DashProxy, html
+from dash_extensions.enrich import DashProxy
 
 colorscale = ['red', 'yellow', 'green', 'blue', 'purple']  # rainbow
 chroma = "https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.1.0/chroma.min.js"  # js lib used for colors
