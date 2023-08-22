@@ -4,4 +4,8 @@ The `Tooltip` component makes it possible to show small texts on top of layers. 
 
 .. dash-proxy:: components.tooltip
 
+### Known issues
+
+The standalone mode (i.e. specifying `position` directly) does not work.
+
 .. api-doc:: dash_leaflet.Tooltip

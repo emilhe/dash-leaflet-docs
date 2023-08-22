@@ -24,7 +24,7 @@ BADGE = dash_leaflet.__version__
 GITHUB_URL = "https://github.com/thedirtyfew/dash-leaflet"
 COMPONENT_CATEGORIES = ["Ui Layers", "Raster Layers", "Vector Layers", "Controls", "Misc"]
 SECTION_LABELS = {
-    "Components": create_icon_section_label("Components", "component-1", my=10, labelPosition="right"),
+    "Components": create_icon_section_label("Component API Reference", "component-1", my=10, labelPosition="right"),
     "Components/Ui Layers": create_icon_section_label("UI Layers", "eye-open"),
     "Components/Controls": create_icon_section_label("Controls", "gear"),
     "Components/Misc": create_icon_section_label("Misc", "mix"),
@@ -189,13 +189,13 @@ def create_side_nave_content(nav_data) -> dmc.Stack:
             create_main_nav_link(
                 icon="material-symbols:rocket-launch-rounded",
                 label="Getting Started",
-                href="/docs/installation",
+                href="/docs/getting_started",
             ),
-            create_main_nav_link(
-                icon="material-symbols:apps",
-                label="Components",
-                href="/docs/components",
-            ),
+            # create_main_nav_link(
+            #     icon="material-symbols:apps",
+            #     label="Components",
+            #     href="/docs/components",
+            # ),
             create_main_nav_link(
                 icon="material-symbols:magic-button",
                 label="Functional Properties",
@@ -207,15 +207,20 @@ def create_side_nave_content(nav_data) -> dmc.Stack:
                 href="/docs/events",
             ),
             create_main_nav_link(
-                icon="material-symbols:chip-extraction",
-                label="Migration",
-                href="/docs/migration",
-            ),
-            create_main_nav_link(
                 icon="material-symbols:target",
                 label="GeoJSON Tutorial",
                 href="/docs/geojson_tutorial",
             ),
+            create_main_nav_link(
+                icon="material-symbols:chip-extraction",
+                label="Migration",
+                href="/docs/migration",
+            ),
+            # create_main_nav_link(
+            #     icon="material-symbols:bug-report",
+            #     label="Known issues",
+            #     href="/docs/migration",
+            # ),
         ],
     )
     # Create component links.

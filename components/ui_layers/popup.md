@@ -4,4 +4,8 @@ The `Popup` component makes it possible to show a popup at a certain position. I
 
 .. dash-proxy:: components.popup
 
+### Known issues
+
+The `interactive` flag does not work.
+
 .. api-doc:: dash_leaflet.Popup
