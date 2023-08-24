@@ -1,6 +1,6 @@
 import os
 
-from dash_extensions.enrich import DashProxy, page_registry
+from dash_extensions.enrich import DashProxy, page_registry, MultiplexerTransform
 from utils.markdown import register_pages
 from utils.ui import create_app_shell
 
@@ -20,4 +20,4 @@ app.layout = create_app_shell(page_registry.values(), [])
 server = app.server
 
 if __name__ == '__main__':
-    app.run_server(port=7879)
+    app.run_server(port=7879, debug=True)

@@ -21,12 +21,14 @@ The standard approach to achieve interactivity in Dash is to replace a component
 In the example below, the filter example is made interactive using this approach. Notice how fast the map reacts to the dropdown selection changes. That's because everything happens clientside. This pattern can be applied to achieve performant interactivity in many other use cases too, e.g. changing the symbol of a marker or the color of a polygon.  
 
 .. dash-proxy:: docs.geojson_hideout
+   :prefix: geojson_hideout
 
 ### Highlighting a selected feature
 
 There are many ways realise highlighting of a selected feature. In this example, we'll be using _conditional rendering_. Hence, we create a function that renders features in different ways, depending on whether then are selected or not. Similar to the previous example, the `hideout` property is used to store _state_, in this case which features are currently selected. To enable interactivity, the `hideout` property must be updated when the selection changes. In this example, a callback is added to toggle the selection on click.
 
 .. dash-proxy:: docs.geojson_select
+   :prefix: geojson_select
 
 The selection toggling could also be implemented as a clientside callback, which would yield a better performance,
 
@@ -70,6 +72,7 @@ Just like the `pointToLayer` prop controls point rendered, the `clusterToLayer` 
 The `style` option of the `GeoJSON` component controls how polygons are rendered. By configuring it properly, it is possible to create choropleth visualizations. The example below is essentially a reproduction of the [interactive choropleth map](https://leafletjs.com/examples/choropleth/) in the Leaflet example gallery. 
 
 .. dash-proxy:: docs.choropleth_us
+   :prefix: choropleth_us
 
 A bit of CSS was used to style the info box,
 

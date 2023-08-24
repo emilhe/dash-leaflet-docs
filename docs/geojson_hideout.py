@@ -2,7 +2,6 @@ import dash_leaflet as dl
 import dash_leaflet.express as dlx
 from dash_extensions.enrich import DashProxy, html, dcc, Output, Input
 from dash_extensions.javascript import assign
-from utils.markdown import add_prefix
 
 # A few cities in Denmark.
 cities = [dict(name="Aalborg", lat=57.0268172, lon=9.837735),
@@ -16,7 +15,7 @@ geojson = dlx.dicts_to_geojson([{**c, **dict(tooltip=c['name'])} for c in cities
 # Create javascript function that filters on feature name.
 geojson_filter = assign("function(feature, context){return context.hideout.includes(feature.properties.name);}")
 # Create example app.
-app = DashProxy(**add_prefix(__name__))
+app = DashProxy()
 app.layout = html.Div([
     dl.Map(children=[
         dl.TileLayer(),

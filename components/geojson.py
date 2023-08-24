@@ -12,12 +12,12 @@ app.layout = html.Div([
         dl.GeoJSON(data=bermuda),  # in-memory geojson (slowest option)
         dl.GeoJSON(url="/assets/us-states.json", id="states"),  # geojson resource (faster than in-memory)
     ], style={'height': '50vh'}),
-    html.Div(id="state"), html.Div(id="capital")
+    html.Div(id="state")
 ])
 
 
-@app.callback(Output("state", "children"), [Input("states", "data-click")])
-def capital_click(feature):
+@app.callback(Output("state", "children"), [Input("states", "clickData")])
+def state_click(feature):
     if feature is not None:
         return f"You clicked {feature['properties']['name']}"
 

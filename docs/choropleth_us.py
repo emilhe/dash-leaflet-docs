@@ -1,8 +1,7 @@
 import dash_leaflet as dl
 import dash_leaflet.express as dlx
-from dash_extensions.enrich import DashProxy, html, Output, Input, PrefixIdTransform
+from dash_extensions.enrich import DashProxy, html, Output, Input
 from dash_extensions.javascript import arrow_function, assign
-from utils.markdown import add_prefix
 
 
 def get_info(feature=None):
@@ -42,7 +41,7 @@ geojson = dl.GeoJSON(url="/assets/us-states.json",  # url to geojson file
 info = html.Div(children=get_info(), id="info", className="info",
                 style={"position": "absolute", "top": "10px", "right": "10px", "z-index": "1000"})
 # Create app.
-app = DashProxy(prevent_initial_callbacks=True, **add_prefix(__name__))
+app = DashProxy(prevent_initial_callbacks=True)
 app.layout = dl.Map(children=[
     dl.TileLayer(), geojson, colorbar, info
 ], style={'height': '50vh'}, center=[56, 10], zoom=6)
