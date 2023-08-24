@@ -3,7 +3,7 @@ import dash_mantine_components as dmc
 from box import Box
 from dash_down.express import md_to_blueprint_dmc
 from dash_down.mantine_renderer import DmcRenderer
-from dash_extensions.enrich import html, DashBlueprint, PrefixIdTransform
+from dash_extensions.enrich import html, DashBlueprint
 from utils.ui import create_table_of_contents
 
 
@@ -14,6 +14,7 @@ def code_transform(source):
     # Drop extra spacing.
     source = source.replace("\n\n\n", "\n\n")
     return source
+
 
 # region Directives
 

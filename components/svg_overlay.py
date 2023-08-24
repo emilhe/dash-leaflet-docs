@@ -9,8 +9,6 @@ app.layout = dl.Map([
     dl.SVGOverlay(
         children=[
             Rect(width=200, height=200),
-            Rect(x=75, y=23, width=50, height=50, style="fill:red"),
-            Rect(x=75, y=123, width=50, height=50, style="fill:#0013ff"),
         ],
         attributes=dict(
             stroke='red',
@@ -18,7 +16,7 @@ app.layout = dl.Map([
             xmlns="http://www.w3.org/2000/svg"
         ), bounds=bounds,
     )
-], center=[56, 10], zoom=6, style={'height': '50vh'})
+], center=[56, 10], zoom=8, style={'height': '50vh'})
 
 if __name__ == '__main__':
-    app.run_server()
+    app.run_server(debug=True)

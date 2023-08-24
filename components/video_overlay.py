@@ -8,7 +8,7 @@ app = DashProxy()
 app.layout = html.Div([
     dl.Map([
         dl.TileLayer(),
-        dl.VideoOverlay(id="video", opacity=0.5, url=video_urls, bounds=video_bounds)
+        dl.VideoOverlay(id="video", opacity=0.5, url=video_urls, bounds=video_bounds, play=True)
     ], bounds=[[32, -130], [13, -100]], style={'height': '50vh'}),
     html.Button(id="play", children="Play/pause")
 ])
@@ -18,7 +18,7 @@ app.layout = html.Div([
               [Input("play", 'n_clicks')],
               prevent_initial_call=True)
 def play_pause(n):
-    return n % 2 == 1
+    return n % 2 == 0
 
 
 if __name__ == '__main__':
