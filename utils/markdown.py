@@ -8,6 +8,8 @@ from utils.ui import create_table_of_contents
 
 
 def code_transform(source):
+    # Hack.
+    source = source.replace('same_id = "getting_started-my_map"', 'same_id = "my_map"')
     # Make it so that it looks like "normal" Dash is used.
     source = source.replace("from dash_extensions.enrich import", "from dash import")
     source = source.replace("DashProxy", "Dash")

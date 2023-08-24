@@ -7,7 +7,7 @@ js = ["https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.1.0/chroma.min.js"]
 css = ["https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css",
        "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"]
 app = DashProxy(__name__, use_pages=True, update_title=None, suppress_callback_exceptions=True,
-                external_stylesheets=css, external_scripts=js)
+                external_stylesheets=css, external_scripts=js, prevent_initial_callbacks=True)
 # Apply patches.
 unique_map()
 # Register markdown pages.

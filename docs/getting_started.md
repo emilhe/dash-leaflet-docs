@@ -40,6 +40,12 @@ Mutable properties are marked in the docstring by a `[MUTABLE]` tag. One such ex
 
 This particular property is also marked by the `[DL]` tag, which indicates that the property was created and/or tailored as part of `dash-leaflet`. Hence, documentation may not be available in the underlying libraries and/or the behavior in `dash-leaflet` may deviate from what is documented there.
 
+## Component uniqueness
+
+It should be noted that components with the same id are considered "the same". If you try to re-create a component while assigning it the same id, React may attempt to update the old component instead of creating a new one(!). Hence, unless you only change mutable properties (for which updates are possible) in the process, the old component property values may stick around, causing unintended behavior. Here is a small example,
+
+.. dash-proxy:: docs.component_uniqueness
+
 ## Component overview
 
 All components are documented in the `dash-leaflet` component API reference (available in the left menubar on desktop, or via the searchbar on mobile devices). The documentation for each component consists of (1) a short, explanatory text followed by an interactive demo along with the necessary code to run it as a standalone app, and (2) an outline of the component keyword arguments.

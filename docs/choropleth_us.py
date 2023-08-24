@@ -39,7 +39,7 @@ geojson = dl.GeoJSON(url="/assets/us-states.json",  # url to geojson file
                      id="geojson")
 # Create info control.
 info = html.Div(children=get_info(), id="info", className="info",
-                style={"position": "absolute", "top": "10px", "right": "10px", "z-index": "1000"})
+                style={"position": "absolute", "top": "10px", "right": "10px", "zIndex": "1000"})
 # Create app.
 app = DashProxy(prevent_initial_callbacks=True)
 app.layout = dl.Map(children=[
