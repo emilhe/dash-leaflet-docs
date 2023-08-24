@@ -21,4 +21,4 @@ app.layout = create_app_shell(page_registry.values(), [])
 server = app.server
 
 if __name__ == '__main__':
-    app.run_server(port=7879, debug=True)
+    app.run_server(port=7879)

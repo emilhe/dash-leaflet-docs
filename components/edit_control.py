@@ -11,7 +11,7 @@ point_to_layer = assign("""function(feature, latlng, context){
     return L.marker(latlng);
 }""")
 # Create example app.
-app = DashProxy()
+app = DashProxy(prevent_initial_callbacks=True)
 app.layout = html.Div([
     # Setup a map with the edit control.
     dl.Map(center=[56, 10], zoom=4, children=[
@@ -22,15 +22,28 @@ app.layout = html.Div([
     dl.Map(center=[56, 10], zoom=4, children=[
         dl.TileLayer(), dl.GeoJSON(id="geojson", pointToLayer=point_to_layer, zoomToBounds=True),
     ], style={'width': '50%', 'height': '50vh', "display": "inline-block"}, id="mirror"),
+    # Buttons for triggering actions from Dash.
+    html.Button("Draw maker", id="draw_marker"),
+    html.Button("Remove -> Clear all", id="clear_all")
 ])
 
 
 # Copy data from the edit control to the geojson component.
 @app.callback(Output("geojson", "data"), Input("edit_control", "geojson"))
 def mirror(x):
-    if not x:
-        raise PreventUpdate
     return x
+
+
+# Trigger mode (draw marker).
+@app.callback(Output("edit_control", "drawToolbar"), Input("draw_marker", "n_clicks"))
+def trigger_mode(n_clicks):
+    return dict(mode="marker", n_clicks=n_clicks)  # include n_click to ensure prop changes
+
+
+# Trigger mode (edit) + action (remove all)
+@app.callback(Output("edit_control", "editToolbar"), Input("clear_all", "n_clicks"))
+def trigger_action(n_clicks):
+    return dict(mode="remove", action="clear all", n_clicks=n_clicks)  # include n_click to ensure prop changes
 
 
 if __name__ == '__main__':

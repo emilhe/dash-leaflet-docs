@@ -1,7 +1,7 @@
 import dash_leaflet as dl
 from dash_extensions.enrich import DashProxy, html, Output, Input
 
-# Add CSS that for the icon.
+# Add CSS for the icon.
 external_css = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
 # Create example app.
 app = DashProxy(external_stylesheets=[external_css])

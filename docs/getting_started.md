@@ -33,7 +33,7 @@ The `dash-leaflet` libray is built on top of the [React Leaflet library](https:/
 
 ### Property tags
 
-Mutable properties are marked in the docstring by a `[MUTABLE]` tag. One such example is the `zoomToBoundsOnClick` property of the `GeoJSON` component,
+Properties marked in the docstring by the `[MUTABLE]` tag are guaranteed to be mutable. Mutable properties are marked in the docstring by a `[MUTABLE]` tag. One such example is the `zoomToBoundsOnClick` property of the `GeoJSON` component,
 
     - zoomToBoundsOnClick (boolean; optional):
         If True, zoom to feature bounds on click. [MUTABLE, DL].
@@ -42,7 +42,7 @@ This particular property is also marked by the `[DL]` tag, which indicates that 
 
 ## Component uniqueness
 
-It should be noted that components with the same id are considered "the same". If you try to re-create a component while assigning it the same id, React may attempt to update the old component instead of creating a new one(!). Hence, unless you only change mutable properties (for which updates are possible) in the process, the old component property values may stick around, causing unintended behavior. Here is a small example,
+It should be noted that components with the same id are considered "the same" by React. If you try to re-create a component while assigning it the same id, React may attempt to update the old component instead of creating a new one(!). Hence, unless you only change mutable properties (for which updates are possible) in the process, the old component property values may stick around, causing unintended behavior. Here is a small example,
 
 .. dash-proxy:: docs.component_uniqueness
 
@@ -80,7 +80,7 @@ The majority of components are light wrappers of their React Leaflet counterpart
     * `LayersControl`
     * `ScaleControl`
 
-For documentation on these components, the [React-Leaflet API component reference](https://react-leaflet.js.org/docs/api-components/) as well as the [Leaflet API reference](https://leafletjs.com/reference.html) are great resources. 
+For additional documentation on these components, the [React-Leaflet API component reference](https://react-leaflet.js.org/docs/api-components/) as well as the [Leaflet API reference](https://leafletjs.com/reference.html) are great resources. 
 
 ### Leaflet plugins
 
@@ -102,7 +102,7 @@ To get a taste of what each of these component can do, the documentation of the 
 A few custom component have also been developed,
 
 * `DivMarker` (a customized marker that uses a [DivIcon](https://leafletjs.com/reference.html#divicon) instead of an [Icon](https://leafletjs.com/reference.html#icon))
-* `ColorBar` (a simple color bar, typically used to with plots)
+* `ColorBar` (a simple color bar, typically used with plots)
 * `GeoJSON` (based on the [Leaflet GeoJSON component](https://leafletjs.com/reference-1.6.0.html#geojson) and [supercluster](https://github.com/mapbox/supercluster))
 
 In general, the documentation for these components is limited `dash-leaflet` component API reference, and the [source code](https://github.com/thedirtyfew/dash-leaflet) itself. In case of the (rather complex) `GeoJSON` component, a [dedicated tutorial](/docs/geojson_tutorial) is available.

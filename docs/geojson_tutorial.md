@@ -1,6 +1,6 @@
 ## GeoJSON tutorial
 
-The purpose of the `GeoJSON` tutorial is to illustrate the flexibility of the `GeoJSON` component. Before diving into the tutorial, it might be beneficial to read the section on [functional properties](/docs/func_props).
+The purpose of the `GeoJSON` tutorial is to illustrate the flexibility of the `GeoJSON` component. Before diving into the tutorial, it might be beneficial to read the section on [functional properties](/docs/func_props), and possibly also the section on [events](/docs/events).
 
 ### Marker clustering
 
@@ -16,7 +16,7 @@ The `filter` property of the `GeoJSON` component makes it possible to show only 
 
 ### Interactivity via the hideout prop
 
-The standard approach to achieve interactivity in Dash is to replace a component by a new component with modified properties. While this approach works for the `GeoJSON` component too, performance may be poor for large datasets. A more efficient way to achieve interactivity is to render the `GeoJSON` data conditionally based on the content of the `hideout` property. By doing so, interactivity can then be achieved by changing the `hideout` prop from Dash (through callbacks). Note that by default the `hideout` prop does nothing, its sole purpose is to act as a proxy for passing state from Dash to the `GeoJSON` component.
+The standard approach to achieve interactivity in Dash is to replace a component by a new component with modified properties. While this approach works for the `GeoJSON` component too, performance may be poor for large datasets. A more efficient way to achieve interactivity is to render the `GeoJSON` data conditionally based on the content of the `hideout` property. By doing so, interactivity can then be achieved by changing the `hideout` prop from Dash. Note that by default the `hideout` prop does nothing, its sole purpose is to act as a proxy for passing state from Dash to the `GeoJSON` component.
 
 In the example below, the filter example is made interactive using this approach. Notice how fast the map reacts to the dropdown selection changes. That's because everything happens clientside. This pattern can be applied to achieve performant interactivity in many other use cases too, e.g. changing the symbol of a marker or the color of a polygon.  
 
@@ -25,7 +25,7 @@ In the example below, the filter example is made interactive using this approach
 
 ### Highlighting a selected feature
 
-There are many ways realise highlighting of a selected feature. In this example, we'll be using _conditional rendering_. Hence, we create a function that renders features in different ways, depending on whether then are selected or not. Similar to the previous example, the `hideout` property is used to store _state_, in this case which features are currently selected. To enable interactivity, the `hideout` property must be updated when the selection changes. In this example, a callback is added to toggle the selection on click.
+There are many ways to realise highlighting of a selected feature. In this example, we'll be using _conditional rendering_. Hence, we create a function that renders features in different ways, depending on whether they are selected or not. Similar to the previous example, the `hideout` property is used to store _state_, in this case which features are currently selected. To enable interactivity, the `hideout` property must be updated when the selection changes. In this example, a callback is added to toggle the selection on click.
 
 .. dash-proxy:: docs.geojson_select
    :prefix: geojson_select
@@ -56,13 +56,13 @@ It is possible to use any marker icon with the `GeoJSON` component. Simply add t
 
 ### Scatter Plot
 
-The `GeoJSON` component supports customization of how points are rendered via the `pointToLayer` option. In this example, a scatter plot is created by rendering the points as circle markers colored based on a feature value (population density). Note that since the colorscale is constructed using the `chroma` javascript library, it must be pass via the `external_scripts` keyword of the `Dash` object.
+The `GeoJSON` component supports customization of how points are rendered via the `pointToLayer` option. In this example, a scatter plot is created by rendering the points as circle markers colored based on a feature value (population density). Note that since the colorscale is constructed using the `chroma` javascript library, it must be passed via the `external_scripts` keyword of the `Dash` object.
 
 .. dash-proxy:: docs.scatter_plot
 
 ### Scatter Cluster
 
-Just like the `pointToLayer` prop controls point rendered, the `clusterToLayer` prop controls how clustered are rendered. In the example below, the scatter plot example is extended to perform clustering with a custom cluster rendering function that draws a colored circle (with the color based on the average value of the clustered points) with the number of clustered points printed in the center.
+Just like the `pointToLayer` prop controls how point are rendered, the `clusterToLayer` prop controls how clusters are rendered. In the example below, the scatter plot example is extended to perform clustering with a custom cluster rendering function that draws a colored circle (with the color based on the average value of the clustered points) with the number of clustered points printed in the center.
 
 .. dash-proxy:: docs.scatter_cluster
 

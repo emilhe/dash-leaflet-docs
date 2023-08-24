@@ -1,14 +1,13 @@
 import dash_leaflet as dl
 from dash_extensions.enrich import DashProxy, html, Input, Output
 
-video_urls = ["https://dash-leaflet.herokuapp.com/assets/patricia_nasa.mp4",
-              "https://dash-leaflet.herokuapp.com/assets/patricia_nasa.webm"]
 video_bounds = [[32, -130], [13, -100]]
 app = DashProxy()
 app.layout = html.Div([
     dl.Map([
         dl.TileLayer(),
-        dl.VideoOverlay(id="video", opacity=0.5, url=video_urls, bounds=video_bounds, play=True)
+        dl.VideoOverlay(id="video", opacity=0.5, bounds=video_bounds, play=True,
+                        url=["/assets/patricia_nasa.mp4", "/assets/patricia_nasa.webm"])
     ], bounds=[[32, -130], [13, -100]], style={'height': '50vh'}),
     html.Button(id="play", children="Play/pause")
 ])
