@@ -24,7 +24,6 @@ app.layout = html.Div([
     ], style={'width': '50%', 'height': '50vh', "display": "inline-block"}, id="mirror"),
     # Buttons for triggering actions from Dash.
     html.Button("Draw maker", id="draw_marker"),
-    html.Button("Remove -> Clear all", id="clear_all")
 ])
 
 
@@ -38,13 +37,6 @@ def mirror(x):
 @app.callback(Output("edit_control", "drawToolbar"), Input("draw_marker", "n_clicks"))
 def trigger_mode(n_clicks):
     return dict(mode="marker", n_clicks=n_clicks)  # include n_click to ensure prop changes
-
-
-# Trigger mode (edit) + action (remove all)
-@app.callback(Output("edit_control", "editToolbar"), Input("clear_all", "n_clicks"))
-def trigger_action(n_clicks):
-    return dict(mode="remove", action="clear all", n_clicks=n_clicks)  # include n_click to ensure prop changes
-
 
 if __name__ == '__main__':
     app.run_server()
