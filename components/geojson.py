@@ -2,8 +2,8 @@ import dash_leaflet as dl
 import dash_leaflet.express as dlx
 from dash_extensions.enrich import DashProxy, html, Output, Input
 
-# Generate some in-memory data.
-bermuda = dlx.dicts_to_geojson([dict(lat=32.299507, lon=-64.790337)])
+# Generate some in-memory data, and add a simply popup with the name.
+bermuda = dlx.dicts_to_geojson([dict(lat=32.299507, lon=-64.790337, popup="Bermuda")])
 # Create example app.
 app = DashProxy()
 app.layout = html.Div([
