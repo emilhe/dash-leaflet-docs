@@ -8,4 +8,4 @@ Once the installation is completed, paste the following lines of code into a `.p
 
 .. python-code:: docs.minimal
 
-That's it! You have now created your first interactive map with `dash-leaflet`. To view it, open [http://127.0.0.1:8050/](http://127.0.0.1:8050/) in your browser.
+That's it! If you visit http://127.0.0.1:8050/ in your browser, you should see a Leaflet map.
