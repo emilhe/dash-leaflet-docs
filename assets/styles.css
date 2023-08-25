@@ -1,0 +1,56 @@
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 90px
+}
+
+#wrapper {
+    padding: 10px;
+    margin-left: 320px;
+    margin-right: 320px;
+}
+
+@media only screen and (max-width: 1500px) {
+    .toc-navbar {
+        display: none;
+    }
+
+    #wrapper {
+        margin-right: 0;
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    #components-navbar {
+        display: none;
+    }
+
+    #wrapper {
+        margin-left: 0;
+    }
+}
+
+@media only screen and (max-width: 1160px) {
+    .hide-sm {
+        display: none;
+    }
+}
+
+.mantine-Prism-line.token-line {
+    width: auto
+}
+
+.home-page-buttons {
+    text-decoration: none;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+.markdown-body img {
+  margin-top: 0;
+  margin-bottom: 16px;
+}

@@ -1,1 +1,0 @@
-The `filter` option of the `GeoJSON` component makes it possible to show only a subset of the features contained in a geojson resource.
