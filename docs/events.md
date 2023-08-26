@@ -40,7 +40,7 @@ All of the default event handlers are registered on the `Map` component. For oth
 
 ### Custom event handlers
 
-The `eventHandlers` property provides an interface to inject _custom_ event handlers. It is simply an object with the event name as key, and the event handler as value. The event handler is passed the original event data (e.g. for a click event, it would be a `LeafletMouseEvent` object), along wit a context object, which holds component props (including the `setProps` function) along with a reference to the map container instance (under the key `map`).
+The `eventHandlers` property provides an interface to inject _custom_ event handlers. It is simply an object with the event name as key, and the event handler as value. The event handler is passed the original event data (e.g. for a click event, it would be a `LeafletMouseEvent` object), along with a context object, which holds component props (including the `setProps` function) and a reference to the map container instance (under the key `map`).
 
 As a simple example of event data usage, the following custom (click) event handler will extract the position you clicked on, and print it to the JS console,
 
