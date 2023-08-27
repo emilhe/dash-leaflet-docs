@@ -2,7 +2,7 @@ dash==2.12.1
 gunicorn
 flask
 requests
-dash-leaflet==1.0.4
+dash-leaflet==1.0.5
 dash-extensions==1.0.3
 dash-mantine-components==0.12.1
 dash-down==0.1.2
