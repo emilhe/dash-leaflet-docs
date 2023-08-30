@@ -88,3 +88,14 @@ A bit of CSS was used to style the info box,
         margin: 0 0 5px;
         color: #777;
     }
+
+### Flatgeobuf
+
+Besides raw geojson and [geobuf](https://github.com/mapbox/geobuf), the GeoJSON component also supports [flatgeobuf](http://flatgeobuf.org/). Flatgeobuf is particularly well suited for use cases, where you need to do bounding box spatial filtering. In the example below, 
+all data within +/-1 degree of the mouse position is loaded on click. 
+
+.. dash-proxy:: docs.geojson_flatgeobuf
+   :prefix: geojson_flatgeobuf
+
+If you inspect the network tab, you'll see that only a fraction of the full dataset ( > 14 MB) is transferred. Note that no additional infrastructure is needed to realise this behavior(!). The (partial) dataset is served by the Flask server hosting the Dash app.
+
