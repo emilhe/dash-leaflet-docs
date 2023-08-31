@@ -97,5 +97,5 @@ all data within +/-1 degree of the mouse position is loaded on click.
 .. dash-proxy:: docs.geojson_flatgeobuf
    :prefix: geojson_flatgeobuf
 
-If you inspect the network tab, you'll see that only a fraction of the full dataset ( > 14 MB) is transferred. Note that no additional infrastructure is needed to realise this behavior(!). The (partial) dataset is served by the Flask server hosting the Dash app.
+If you inspect the network tab, you'll see that only a fraction of the full dataset ( > 14 MB) is transferred. Note that no additional infrastructure is needed to realise this behavior(!). The (partial) dataset is served by the Flask server hosting the Dash app. It is not supported to pass flatgeobuf data via the `data` properly, only via `url`.
 
