@@ -17,7 +17,6 @@ In addition, a number of breaking changes were introduced,
 - `Map`: The `click_lat_lng/dbl_click_lat_lng` prop have been dropped in favor of `clickData`/`dblclickData`
 - `GeoJSON`: The structure of the context passed to user-defined functions has changed. Previously, to access `myProp` the code would be `context.props.myProp`, now it is just `context.myProp` (similar to event contexts)
 - `GeoJSON`: The name of the event data props has changed from `click_feature`/`hover_feature` to `clickData`/`hoverData` (similar to other event data props)
-- `GeoJSON`: Support for the `geobuf` file format (`.pbf`) has been dropped
 - `GestureHandling`: Options no longer supported due to a bug in current version of the underlying component
 - `VideoOverlay`: The `click_lat_lng/dbl_click_lat_lng` prop have been dropped in favor of `clickData`/`dblclickData`
 - `Polygon`: The `click_lat_lng/dbl_click_lat_lng` prop have been dropped in favor of `clickData`/`dblclickData`
