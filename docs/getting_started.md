@@ -33,7 +33,7 @@ The `dash-leaflet` libray is built on top of the [React Leaflet library](https:/
 
 ### Property tags
 
-Properties marked in the docstring by the `[MUTABLE]` tag are guaranteed to be mutable. Mutable properties are marked in the docstring by a `[MUTABLE]` tag. One such example is the `zoomToBoundsOnClick` property of the `GeoJSON` component,
+Properties marked in the docstring by the `[MUTABLE]` tag are guaranteed to be mutable. One such example is the `zoomToBoundsOnClick` property of the `GeoJSON` component,
 
     - zoomToBoundsOnClick (boolean; optional):
         If True, zoom to feature bounds on click. [MUTABLE, DL].
