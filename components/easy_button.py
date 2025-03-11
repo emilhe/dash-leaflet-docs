@@ -20,4 +20,4 @@ def log(n_clicks):
 
 
 if __name__ == "__main__":
-    app.run_server()
+    app.run()

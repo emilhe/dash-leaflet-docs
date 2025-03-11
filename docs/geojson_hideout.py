@@ -27,4 +27,4 @@ app.layout = html.Div([
 app.clientside_callback("function(x){return x;}", Output("geojson", "hideout"), Input("dd", "value"))
 
 if __name__ == '__main__':
-    app.run_server()
+    app.run()

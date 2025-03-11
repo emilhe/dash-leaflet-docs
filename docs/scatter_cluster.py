@@ -64,4 +64,4 @@ app = DashProxy(external_scripts=[chroma], prevent_initial_callbacks=True)
 app.layout = dl.Map([dl.TileLayer(), geojson, colorbar], center=[56, 10], zoom=6, style={'height': '50vh'})
 
 if __name__ == '__main__':
-    app.run_server()
+    app.run()

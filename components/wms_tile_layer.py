@@ -9,4 +9,4 @@ app.layout = dl.Map([
 ], center=[40, -100], zoom=4, style={'height': '50vh'})
 
 if __name__ == '__main__':
-    app.run_server()
+    app.run()

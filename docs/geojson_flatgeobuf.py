@@ -26,4 +26,4 @@ def load_counties(click_data):
 
 
 if __name__ == '__main__':
-    app.run_server(port=8889)  # , debug=True)
+    app.run(port=8889)  # , debug=True)

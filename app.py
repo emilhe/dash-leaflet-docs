@@ -21,4 +21,4 @@ app.layout = create_app_shell(page_registry.values(), fix_page_load_anchor_issue
 server = app.server
 
 if __name__ == '__main__':
-    app.run_server(port=7879)
+    app.run(port=7879)

@@ -10,4 +10,4 @@ app = DashProxy()
 app.layout = dl.Map(children=[dl.TileLayer(), geojson], style={'height': '50vh'})
 
 if __name__ == '__main__':
-    app.run_server()
+    app.run()

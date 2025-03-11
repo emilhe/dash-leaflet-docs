@@ -36,4 +36,4 @@ def toggle_select(_, feature, hideout):
 
 
 if __name__ == '__main__':
-    app.run_server()
+    app.run()

@@ -26,4 +26,4 @@ def capital_click(feature):
         return f"You clicked {feature['properties']['name']}"
 
 if __name__ == '__main__':
-    app.run_server(port=7777)
+    app.run(port=7777)

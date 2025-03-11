@@ -11,4 +11,4 @@ app.layout = dl.Map([
 
 
 if __name__ == '__main__':
-    app.run_server()
+    app.run()

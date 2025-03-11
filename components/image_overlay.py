@@ -8,4 +8,4 @@ app.layout = dl.Map([
 ], bounds=image_bounds, style={'height': '50vh'})
 
 if __name__ == '__main__':
-    app.run_server()
+    app.run()

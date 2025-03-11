@@ -16,4 +16,4 @@ def fly_to_paris(_):
 
 
 if __name__ == '__main__':
-    app.run_server()
+    app.run()

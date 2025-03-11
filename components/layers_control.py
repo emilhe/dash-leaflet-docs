@@ -34,4 +34,4 @@ def log(base_layer, overlays):
 
 
 if __name__ == '__main__':
-    app.run_server()
+    app.run()
