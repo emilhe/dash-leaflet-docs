@@ -1,4 +1,5 @@
 import random
+
 import dash_leaflet as dl
 import dash_leaflet.express as dlx
 from dash_extensions.enrich import DashProxy
@@ -12,7 +13,7 @@ ns = Namespace("myNamespace", "mySubNamespace")
 geojson = dl.GeoJSON(data=data, pointToLayer=ns("pointToLayer"))
 # Create the app.
 app = DashProxy()
-app.layout = dl.Map([dl.TileLayer(), geojson], center=(56, 10), zoom=8, style={'height': '50vh'})
+app.layout = dl.Map([dl.TileLayer(), geojson], center=(56, 10), zoom=8, style={"height": "50vh"})
 
-if __name__ == '__main__':
-    app.run_server()
+if __name__ == "__main__":
+    app.run()

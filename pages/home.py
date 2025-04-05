@@ -3,10 +3,11 @@ from os import environ
 import dash
 import dash_mantine_components as dmc
 import requests
-
 from dash import html
 from dash_down.express import md_to_blueprint_dmc
+from dash_extensions import Purify
 from dash_iconify import DashIconify
+
 from utils.markdown import python_code
 from utils.ui import create_table_of_contents
 
@@ -45,35 +46,43 @@ def create_contributors_avatars():
 
 
 md_options = dict(directives=[python_code], dash_proxy_shell=lambda x, y: html.Center(y))
-layout = html.Div([
-    dmc.Container([
-        html.A(id="home", className="anchor"),
-        md_to_blueprint_dmc("pages/appetizer.md", **md_options).layout,
-        dmc.Space(h=16),
-        html.Div(dmc.Divider(), style=dict(width="100%")),
-        dmc.Space(h=16),
-        html.A(id="quick_start", className="anchor"),
-        md_to_blueprint_dmc("pages/quick_start.md", **md_options).layout,
-        dmc.Space(h=16),
-        html.Div(dmc.Divider(), style=dict(width="100%")),
-        dmc.Space(h=16),
-        (create_contributors_avatars() if "CONTRIB_TOKEN" in environ else None),
-        dmc.Space(h=16),
-        html.Div(dmc.Divider(), style=dict(width="100%")),
-        dmc.Space(h=16),
-        dmc.Center(
-            dmc.Group(
-                spacing="xs",
-                children=[
-                    dmc.Text("Made with"),
-                    DashIconify(icon="akar-icons:heart", width=19, color="red"),
-                    dmc.Text("by Emil Haldrup Eriksen"),
-                ],
-            )),
-    ], fluid=True),
-    create_table_of_contents([
-        ("#home", "Home", ""),
-        ("#quick-start", "Quick start", ""),
-        ("#contributors", "Contributors", "")
-    ])
-])
+with open("pages/appetizer.md", "r") as f:
+    purified = Purify(html=f.read())
+layout = html.Div(
+    [
+        dmc.Container(
+            [
+                html.A(id="home", className="anchor"),
+                dmc.TypographyStylesProvider(
+                    html.Center(purified),
+                ),
+                dmc.Space(h=16),
+                html.Div(dmc.Divider(), style=dict(width="100%")),
+                dmc.Space(h=16),
+                html.A(id="quick_start", className="anchor"),
+                md_to_blueprint_dmc("pages/quick_start.md", **md_options).layout,
+                dmc.Space(h=16),
+                html.Div(dmc.Divider(), style=dict(width="100%")),
+                dmc.Space(h=16),
+                (create_contributors_avatars() if "CONTRIB_TOKEN" in environ else None),
+                dmc.Space(h=16),
+                html.Div(dmc.Divider(), style=dict(width="100%")),
+                dmc.Space(h=16),
+                dmc.Center(
+                    dmc.Group(
+                        gap="xs",
+                        children=[
+                            dmc.Text("Made with"),
+                            DashIconify(icon="akar-icons:heart", width=19, color="red"),
+                            dmc.Text("by Emil Haldrup Eriksen"),
+                        ],
+                    )
+                ),
+            ],
+            fluid=True,
+        ),
+        create_table_of_contents(
+            [("#home", "Home", ""), ("#quick-start", "Quick start", ""), ("#contributors", "Contributors", "")]
+        ),
+    ]
+)

@@ -1,27 +1,25 @@
+from collections import defaultdict
+
 import dash_leaflet
 import dash_mantine_components as dmc
-from collections import defaultdict
+from dash_extensions.enrich import ALL, Input, Output, State, clientside_callback, dcc, html, page_container
 from dash_iconify import DashIconify
-from dash_extensions.enrich import dcc, html, page_container, clientside_callback, Output, Input, State
 
 
 def create_icon_section_label(label: str, icon: str, labelPosition: str = "left", my="sm") -> dmc.Divider:
     return dmc.Divider(
         labelPosition=labelPosition,
-        label=[
-            DashIconify(
-                icon=f"radix-icons:{icon}", width=15, style={"marginRight": 10}
-            ), label
-        ],
+        label=[DashIconify(icon=f"radix-icons:{icon}", width=15, style={"marginRight": 10}), label],
         my=my,
     )
 
 
+PRIMARY_COLOR = "blue"
 IGNORE_SECTIONS = ["Content", "Pages"]
-HOME = f"Dash Leaflet"
 HOME_SHORT = "DL"
+HOME_LONG = "Dash Leaflet"
 BADGE = dash_leaflet.__version__
-GITHUB_URL = "https://github.com/thedirtyfew/dash-leaflet"
+GITHUB_URL = "https://github.com/emilhe/dash-extensions"
 COMPONENT_CATEGORIES = ["Ui Layers", "Raster Layers", "Vector Layers", "Controls", "Misc"]
 SECTION_LABELS = {
     "Components": create_icon_section_label("Component API Reference", "component-1", my=10, labelPosition="right"),
@@ -31,205 +29,108 @@ SECTION_LABELS = {
     "Components/Vector Layers": create_icon_section_label("Vector Layers", "angle"),
     "Components/Raster Layers": create_icon_section_label("Raster Layers", "image"),
 }
-
+NAVLINK_NAVBAR = "navlink_navbar"
+NAVLINK_DRAWER = "navlink_drawer"
 
 # region Sourced from dmc docs: https://github.com/snehilvj/dmc-docs/blob/main/lib/appshell.py
 
-def create_home_link(label: str) -> dmc.Anchor:
-    return dmc.Anchor(
-        label,
-        size="xl",
-        href="/",
-        underline=False,
-    )
+# region TOC
 
 
-def create_main_nav_link(icon: str, label: str, href: str) -> dmc.Anchor:
-    return dmc.Anchor(
-        dmc.Group(
-            [
-                DashIconify(
-                    icon=icon, width=23, color=dmc.theme.DEFAULT_COLORS["indigo"][5]
-                ),
-                dmc.Text(label, size="sm"),
-            ]
-        ),
-        href=href,
-        variant="text",
-    )
-
-
-def create_header_link(icon: str, href: str, size: int = 22, color: str = "indigo") -> dmc.Anchor:
-    return dmc.Anchor(
-        dmc.ThemeIcon(
-            DashIconify(
-                icon=icon,
-                width=size,
-            ),
-            variant="outline",
-            radius=30,
-            size=36,
-            color=color,
-        ),
-        href=href,
-        target="_blank",
-    )
-
-
-def create_header(nav_data) -> dmc.Header:
-    return dmc.Header(
-        height=70,
-        fixed=True,
-        px=25,
-        children=[
-            dmc.Stack(
-                justify="center",
-                style={"height": 70},
-                children=dmc.Grid(
-                    children=[
-                        dmc.Col(
-                            [
-                                dmc.MediaQuery(
-                                    dmc.Group([
-                                        create_home_link(HOME), dmc.Badge(
-                                            BADGE,
-                                            variant="outline",
-                                            radius="xl",
-                                        )]),
-                                    smallerThan="sm",
-                                    styles={"display": "none"},
-                                ),
-                                dmc.MediaQuery(
-                                    create_home_link(HOME_SHORT),
-                                    largerThan="sm",
-                                    styles={"display": "none"},
-                                ),
-                            ],
-                            span="content",
-                            pt=12,
-                        ),
-                        dmc.Col(
-                            span="auto",
-                            children=dmc.Group(
-                                position="right",
-                                # spacing="xl",
-                                children=[
-                                    dmc.Select(
-                                        id="select-component",
-                                        style={"width": 200},
-                                        placeholder="Search",
-                                        nothingFound="No match found",
-                                        searchable=True,
-                                        clearable=True,
-                                        data=[
-                                            {
-                                                "label": component["name"],
-                                                "value": component["path"],
-                                            }
-                                            for component in nav_data
-                                            if component["name"]
-                                               not in ["Home", "Not found 404"]
-                                        ],
-                                        icon=DashIconify(
-                                            icon="radix-icons:magnifying-glass"
-                                        ),
-                                    ),
-                                    dmc.MediaQuery(
-                                        create_header_link(
-                                            "radix-icons:github-logo",
-                                            GITHUB_URL,
-                                        ),
-                                        smallerThan="sm",
-                                        styles={"display": "none"},
-                                    ),
-                                    dmc.ActionIcon(
-                                        DashIconify(
-                                            icon="radix-icons:blending-mode", width=22
-                                        ),
-                                        variant="outline",
-                                        radius=30,
-                                        size=36,
-                                        color="yellow",
-                                        id="color-scheme-toggle",
-                                    ),
-                                    dmc.MediaQuery(
-                                        dmc.MediaQuery(
-                                            dmc.ActionIcon(
-                                                DashIconify(
-                                                    icon="radix-icons:hamburger-menu",
-                                                    width=18,
-                                                ),
-                                                id="drawer-hamburger-button",
-                                                variant="outline",
-                                                size=36,
-                                            ),
-                                            largerThan="lg",
-                                            styles={"display": "none"},
-                                        ),
-                                        smallerThan="sm",
-                                        styles={"display": "none"},
-                                    )
-                                ],
-                            ),
-                        ),
-                    ],
-                ),
+def create_table_of_contents(toc_items):
+    children = []
+    for url, name, _ in toc_items:
+        children.append(
+            html.A(
+                dmc.Text(name, c="dimmed", size="sm", variant="text"),
+                style={"textTransform": "capitalize", "textDecoration": "none"},
+                href=url,
             )
-        ],
+        )
+
+    heading = dmc.Text("Table of Contents", mb=10, w=500)
+    toc = dmc.Stack([heading, *children], gap=4, px=25, mt=20)
+
+    return dmc.AppShellAside(
+        pos={"top": 70, "right": 0},
+        className="toc-navbar",
+        zIndex=10,
+        children=toc,
+        withBorder=False,
+    )
+
+
+# endregion
+
+# region Navbar
+
+
+def create_main_link(icon, label, href, idtype) -> dmc.NavLink:
+    return dmc.NavLink(
+        leftSection=DashIconify(
+            icon=icon,
+            width=23,
+            color=dmc.DEFAULT_THEME["colors"][PRIMARY_COLOR][6],
+        ),
+        label=label,
+        href=href,
+        id={"type": idtype, "index": href},
     )
 
 
 # NB: Heavily customized
-def create_side_nave_content(nav_data) -> dmc.Stack:
+def create_content(data, idtype):
     # Setup docs links.
     main_links = dmc.Stack(
-        spacing="sm",
+        gap=0,
         mt=20,
         children=[
-            create_main_nav_link(
+            create_main_link(
                 icon="material-symbols:rocket-launch-rounded",
                 label="Getting Started",
                 href="/docs/getting_started",
+                idtype=idtype,
             ),
-            # create_main_nav_link(
-            #     icon="material-symbols:apps",
-            #     label="Components",
-            #     href="/docs/components",
-            # ),
-            create_main_nav_link(
+            create_main_link(
+                icon="material-symbols:globe",
+                label="Component Overview",
+                href="/docs/component_overview",
+                idtype=idtype,
+            ),
+            create_main_link(
                 icon="material-symbols:magic-button",
                 label="Functional Properties",
                 href="/docs/func_props",
+                idtype=idtype,
             ),
-            create_main_nav_link(
+            create_main_link(
                 icon="material-symbols:event",
                 label="Events",
                 href="/docs/events",
+                idtype=idtype,
             ),
-            create_main_nav_link(
+            create_main_link(
                 icon="material-symbols:target",
                 label="GeoJSON Tutorial",
                 href="/docs/geojson_tutorial",
+                idtype=idtype,
             ),
-            create_main_nav_link(
+            create_main_link(
                 icon="material-symbols:chip-extraction",
                 label="Migration",
                 href="/docs/migration",
+                idtype=idtype,
             ),
-            # create_main_nav_link(
-            #     icon="material-symbols:bug-report",
-            #     label="Known issues",
-            #     href="/docs/migration",
-            # ),
         ],
     )
+
     # Create component links.
     sections = defaultdict(list)
-    for entry in nav_data:
+    for entry in data:
         label = entry["module"].split(".")[0]
         label = (" ".join(label.split("_"))).title()
-        if label.startswith("Components"):
-            sections[label].append((entry["name"], entry["path"]))
+        sections[label].append((entry["name"], entry["path"]))
+
     # Create component main section.
     links = []
     for label in ["Components"] + [f"Components/{c}" for c in COMPONENT_CATEGORIES]:
@@ -237,116 +138,108 @@ def create_side_nave_content(nav_data) -> dmc.Stack:
         links.append(SECTION_LABELS[label])
         links.extend(
             [
-                dmc.Anchor(name, size="sm", href=path, variant="text")
+                dmc.NavLink(
+                    label=name,
+                    href=path,
+                    h=32,
+                    className="navbar-link",
+                    pl=30,
+                    id={"type": idtype, "index": path},
+                )
                 for name, path in items
             ]
         )
 
-    return dmc.Stack(
-        spacing="0.3rem", children=[main_links, *links], px=25
+    return dmc.ScrollArea(
+        offsetScrollbars=True,
+        type="scroll",
+        style={"height": "100%"},
+        children=dmc.Stack(gap=0, children=[main_links, *links], px=25),
     )
 
 
-def create_side_navbar(nav_data) -> dmc.Navbar:
-    return dmc.Navbar(
-        fixed=True,
-        id="components-navbar",
-        position={"top": 70},
-        width={"base": 300},
-        children=[
-            dmc.ScrollArea(
-                offsetScrollbars=True,
-                type="scroll",
-                children=create_side_nave_content(nav_data),
-            )
-        ],
+def create_navbar_drawer(data):
+    clientside_callback(
+        """function(pathname) {
+            const lists = dash_clientside.callback_context.states_list;
+            const active = lists.map(l => l.map(i => i["id"]["index"] === pathname));
+            return active;
+        }""",
+        Output({"type": NAVLINK_NAVBAR, "index": ALL}, "active"),
+        Output({"type": NAVLINK_DRAWER, "index": ALL}, "active"),
+        Input("_pages_location", "pathname"),
+        State({"type": NAVLINK_NAVBAR, "index": ALL}, "id"),
+        State({"type": NAVLINK_DRAWER, "index": ALL}, "id"),
     )
 
-
-def create_navbar_drawer(nav_data) -> dmc.Drawer:
     return dmc.Drawer(
         id="components-navbar-drawer",
-        overlayOpacity=0.55,
-        overlayBlur=3,
-        zIndex=9,
-        size=300,
-        children=[
-            dmc.ScrollArea(
-                offsetScrollbars=True,
-                type="scroll",
-                style={"height": "100%"},
-                pt=20,
-                children=create_side_nave_content(nav_data),
-            )
+        overlayProps={"opacity": 0.55, "blur": 3},
+        offset=10,
+        radius="md",
+        withCloseButton=False,
+        size="75%",
+        children=create_content(data, NAVLINK_DRAWER),
+        trapFocus=False,
+    )
+
+
+def create_navbar(data):
+    return dmc.AppShellNavbar(children=create_content(data, NAVLINK_NAVBAR))
+
+
+# endregion
+
+# region Header
+
+
+def create_link(icon, href):
+    return dmc.Anchor(
+        dmc.ActionIcon(DashIconify(icon=icon, width=25), variant="transparent", size="lg"),
+        href=href,
+        target="_blank",
+        visibleFrom="xs",
+    )
+
+
+def create_version_menu() -> dmc.Badge:
+    return dmc.Badge(
+        BADGE,
+        variant="filled",
+        radius="xl",
+    )
+
+
+def create_search(data):
+    return dmc.Select(
+        id="select-component",
+        placeholder="Search",
+        mt=-2,
+        searchable=True,
+        clearable=True,
+        w=250,
+        nothingFoundMessage="Nothing Found!",
+        leftSection=DashIconify(icon="mingcute:search-3-line"),
+        data=[
+            {"label": component["name"], "value": component["path"]}
+            for component in data
+            if component["name"] not in ["Home", "Not found 404"]
         ],
+        visibleFrom="sm",
+        comboboxProps={"shadow": "md"},
     )
 
 
-def create_table_of_contents(toc_items) -> dmc.Aside:
-    children = []
-    for url, name, _ in toc_items:
-        children.append(
-            html.A(
-                dmc.Text(name, color="dimmed", size="sm", variant="text"),
-                style={"textTransform": "capitalize", "textDecoration": "none"},
-                href=url,
-            )
-        )
-
-    heading = dmc.Text("Table of Contents", mb=10, weight=500)
-    toc = dmc.Stack([heading, *children], spacing=4, px=25, mt=20)
-
-    return dmc.Aside(
-        position={"top": 70, "right": 0},
-        fixed=True,
-        className="toc-navbar",
-        width={"base": 300},
-        zIndex=10,
-        children=toc,
-        withBorder=False,
-    )
-
-
-def create_app_shell(nav_data, children) -> dmc.MantineProvider:
-    clientside_callback(
-        """ function(data) { return data } """,
-        Output("mantine-docs-theme-provider", "theme"),
-        Input("theme-store", "data"),
-    )
-
-    clientside_callback(
-        """function(n_clicks, data) {
-            if (data) {
-                if (n_clicks) {
-                    const scheme = data["colorScheme"] == "dark" ? "light" : "dark"
-                    return { colorScheme: scheme } 
-                }
-                return dash_clientside.no_update
-            } else {
-                return { colorScheme: "light" }
-            }
-        }""",
-        Output("theme-store", "data"),
-        Input("color-scheme-toggle", "n_clicks"),
-        State("theme-store", "data"),
-    )
-
-    # noinspection PyProtectedMember
-    clientside_callback(
-        """ function(children) { return null } """,
-        Output("select-component", "value"),
-        Input("_pages_content", "children"),
-    )
-
+def create_header(data):
     clientside_callback(
         """
-        function(value) {
+        function(value) { 
             if (value) {
                 return value
             }
         }
         """,
-        Output("url", "pathname"),
+        Output("url", "href"),
         Input("select-component", "value"),
     )
 
@@ -357,70 +250,176 @@ def create_app_shell(nav_data, children) -> dmc.MantineProvider:
         prevent_initial_call=True,
     )
 
-    return dmc.MantineProvider(
-        dmc.MantineProvider(
-            theme={
-                "fontFamily": "'Inter', sans-serif",
-                "primaryColor": "indigo",
-                "components": {
-                    "Button": {"styles": {"root": {"fontWeight": 400}}},
-                    "Alert": {"styles": {"title": {"fontWeight": 500}}},
-                    "AvatarGroup": {"styles": {"truncated": {"fontWeight": 500}}},
-                },
-            },
-            inherit=True,
-            children=[
-                         dcc.Store(id="theme-store", storage_type="local"),
-                         dcc.Location(id="url"),
-                         html.Div(
-                             [
-                                 create_header(nav_data),
-                                 create_side_navbar(nav_data),
-                                 create_navbar_drawer(nav_data),
-                                 html.Div(
-                                     dmc.Container(size="lg", pt=90, children=page_container),
-                                     id="wrapper",
-                                 ),
-                             ]
-                         ),
-                     ] + children,
-        ),
-        theme={"colorScheme": "light"},
-        id="mantine-docs-theme-provider",
-        withGlobalStyles=True,
-        withNormalizeCSS=True,
+    return dmc.AppShellHeader(
+        px=25,
+        children=[
+            dmc.Stack(
+                justify="center",
+                h=70,
+                children=dmc.Grid(
+                    justify="space-between",
+                    children=[
+                        dmc.GridCol(
+                            dmc.Group(
+                                [
+                                    dmc.Anchor(
+                                        HOME_LONG,
+                                        size="xl",
+                                        href="/",
+                                        underline=False,
+                                        pb=3,
+                                        visibleFrom="lg",
+                                    ),
+                                    dmc.Anchor(
+                                        HOME_SHORT,
+                                        size="xl",
+                                        href="/",
+                                        underline=False,
+                                        pb=3,
+                                        hiddenFrom="lg",
+                                    ),
+                                    create_version_menu(),
+                                ]
+                            ),
+                            span="content",
+                        ),
+                        dmc.GridCol(
+                            span="auto",
+                            children=dmc.Group(
+                                justify="flex-end",
+                                h=31,
+                                gap="xl",
+                                children=[
+                                    create_search(data),
+                                    create_link(
+                                        "radix-icons:github-logo",
+                                        GITHUB_URL,
+                                    ),
+                                    dmc.ActionIcon(
+                                        [
+                                            DashIconify(
+                                                icon="radix-icons:sun",
+                                                width=25,
+                                                id="light-theme-icon",
+                                            ),
+                                            DashIconify(
+                                                icon="radix-icons:moon",
+                                                width=25,
+                                                id="dark-theme-icon",
+                                            ),
+                                        ],
+                                        variant="transparent",
+                                        color="yellow",
+                                        id="color-scheme-toggle",
+                                        size="lg",
+                                    ),
+                                    dmc.ActionIcon(
+                                        DashIconify(
+                                            icon="radix-icons:hamburger-menu",
+                                            width=25,
+                                        ),
+                                        id="drawer-hamburger-button",
+                                        variant="transparent",
+                                        size="lg",
+                                        hiddenFrom="lg",
+                                    ),
+                                ],
+                            ),
+                        ),
+                    ],
+                ),
+            )
+        ],
     )
+
 
 # endregion
 
-def fix_page_load_anchor_issue(app, delay, input_id=None, output_id=None):
-    """
-    Fixes the issue that the pages is not scrolled to the anchor position on initial load.
-    :param app: the Dash app object
-    :param delay: in some cases, an additional delay might be needed for the page to load, specify in ms
-    :param input_id: id of input dummy element
-    :param output_id: id of output dummy element
-    :return: dummy elements, which must be added to the layout for the fix to work
-    """
-    # Create dummy components.
-    input_id = input_id if input_id is not None else "fix_page_load_anchor_issue_input"
-    output_id = output_id if output_id is not None else "fix_page_load_anchor_issue_output"
-    dummy_input = html.Div(id=input_id, style={"display": "hidden"})
-    dummy_output = html.Div(id=output_id, style={"display": "hidden"})
-    # Setup the callback that does the magic.
-    app.clientside_callback(
-        """
-        function(dummy_value) {{
-            setTimeout(function(){{
-                const match = document.getElementById(window.location.hash.substring(1))
-                if(match){{match.scrollIntoView();}}
-            }}, {});
-        }}
-        """.format(
-            delay
-        ),
-        Output(output_id, "children"),
-        [Input(input_id, "children")],
-        prevent_initial_call=False,
+# region App shell
+
+
+def create_app_shell(data, children):
+    clientside_callback(
+        "function(colorScheme) {return colorScheme}",
+        Output("m2d-mantine-provider", "forceColorScheme"),
+        Input("color-scheme-storage", "data"),
     )
-    return [dummy_input, dummy_output]
+
+    clientside_callback(
+        'function(n_clicks, theme) {return theme === "dark" ? "light" : "dark"}',
+        Output("color-scheme-storage", "data"),
+        Input("color-scheme-toggle", "n_clicks"),
+        State("color-scheme-storage", "data"),
+        prevent_initial_call=True,
+    )
+
+    return dmc.MantineProvider(
+        id="m2d-mantine-provider",
+        forceColorScheme="light",
+        theme={
+            "primaryColor": PRIMARY_COLOR,
+            # "fontFamily": "'Inter', sans-serif",
+            "components": {
+                "Button": {"defaultProps": {"fw": 400}},
+                "Alert": {"styles": {"title": {"fontWeight": 500}}},
+                "AvatarGroup": {"styles": {"truncated": {"fontWeight": 500}}},
+                "Badge": {"styles": {"root": {"fontWeight": 500}}},
+                "Progress": {"styles": {"label": {"fontWeight": 500}}},
+                "RingProgress": {"styles": {"label": {"fontWeight": 500}}},
+                "CodeHighlightTabs": {"styles": {"file": {"padding": 12}}},
+                "Table": {
+                    "defaultProps": {
+                        "highlightOnHover": True,
+                        "withTableBorder": True,
+                        "verticalSpacing": "sm",
+                        "horizontalSpacing": "md",
+                    }
+                },
+            },
+            "colors": {
+                "myColor": [
+                    "#F2FFB6",
+                    "#DCF97E",
+                    "#C3E35B",
+                    "#AAC944",
+                    "#98BC20",
+                    "#86AC09",
+                    "#78A000",
+                    "#668B00",
+                    "#547200",
+                    "#455D00",
+                ]
+            },
+        },
+        children=[
+            dcc.Location(id="url", refresh="callback-nav"),
+            dcc.Store(id="color-scheme-storage", storage_type="local"),
+            dmc.NotificationProvider(),
+            dmc.AppShell(
+                [
+                    create_header(data),
+                    create_navbar(data),
+                    create_navbar_drawer(data),
+                    dmc.AppShellMain(children=page_container),
+                ],
+                header={"height": 70},
+                padding="xl",
+                navbar={
+                    "width": 300,
+                    "breakpoint": "lg",
+                    "collapsed": {"mobile": True},
+                },
+                aside={
+                    "width": 300,
+                    "breakpoint": "xl",
+                    "collapsed": {"desktop": False, "mobile": True},
+                },
+            ),
+        ]
+        + children,
+    )
+
+
+# endregion
+
+# endregion

@@ -1,14 +1,14 @@
 import dash_leaflet as dl
-from dash_extensions.javascript import assign
 from dash_extensions.enrich import DashProxy
+from dash_extensions.javascript import assign
 
-colorscale = ['red', 'yellow', 'green', 'blue', 'purple']  # rainbow
+colorscale = ["red", "yellow", "green", "blue", "purple"]  # rainbow
 chroma = "https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.1.0/chroma.min.js"  # js lib used for colors
-color_prop = 'density'
+color_prop = "density"
 # Create a colorbar.
 vmin = 0
 vmax = 1000
-colorbar = dl.Colorbar(colorscale=colorscale, width=20, height=150, min=vmin, max=vmax, unit='/km2')
+colorbar = dl.Colorbar(colorscale=colorscale, width=20, height=150, min=vmin, max=vmax, unit="/km2")
 # Geojson rendering logic, must be JavaScript as it is executed in clientside.
 on_each_feature = assign("""function(feature, layer, context){
     if(feature.properties.city){  // don't bind anything for clusters (that do not have a city prop)
@@ -49,19 +49,26 @@ cluster_to_layer = assign("""function(feature, latlng, index, context){
     return L.marker(latlng, {icon : icon})
 }""")
 # Create geojson.
-geojson = dl.GeoJSON(url="/assets/us-cities.json",
-                     cluster=True,  # when true, data are clustered
-                     zoomToBounds=True,  # when true, zooms to bounds when data changes
-                     pointToLayer=point_to_layer,  # how to draw points
-                     onEachFeature=on_each_feature,  # add (custom) tooltip
-                     clusterToLayer=cluster_to_layer,  # how to draw clusters
-                     zoomToBoundsOnClick=True,  # when true, zooms to bounds of feature (e.g. cluster) on click
-                     superClusterOptions=dict(radius=150),   # adjust cluster size
-                     hideout=dict(colorProp=color_prop, circleOptions=dict(fillOpacity=1, stroke=False, radius=5),
-                                  min=vmin, max=vmax, colorscale=colorscale))
+geojson = dl.GeoJSON(
+    url="/assets/us-cities.json",
+    cluster=True,  # when true, data are clustered
+    zoomToBounds=True,  # when true, zooms to bounds when data changes
+    pointToLayer=point_to_layer,  # how to draw points
+    onEachFeature=on_each_feature,  # add (custom) tooltip
+    clusterToLayer=cluster_to_layer,  # how to draw clusters
+    zoomToBoundsOnClick=True,  # when true, zooms to bounds of feature (e.g. cluster) on click
+    superClusterOptions=dict(radius=150),  # adjust cluster size
+    hideout=dict(
+        colorProp=color_prop,
+        circleOptions=dict(fillOpacity=1, stroke=False, radius=5),
+        min=vmin,
+        max=vmax,
+        colorscale=colorscale,
+    ),
+)
 # Create the app.
 app = DashProxy(external_scripts=[chroma], prevent_initial_callbacks=True)
-app.layout = dl.Map([dl.TileLayer(), geojson, colorbar], center=[56, 10], zoom=6, style={'height': '50vh'})
+app.layout = dl.Map([dl.TileLayer(), geojson, colorbar], center=[56, 10], zoom=6, style={"height": "50vh"})
 
-if __name__ == '__main__':
-    app.run_server()
+if __name__ == "__main__":
+    app.run()

@@ -1,0 +1,29 @@
+[project]
+name = "dash-leaflet-docs"
+version = "0.0.1"
+description = "Interactive documentation for dash-leaflet."
+authors = [
+    { name = "emher", email = "emil.h.eriksen@gmail.com" },
+]
+license = "MIT"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "dash>=3.0.2",
+    "dash-leaflet==1.1.1",
+    "dash-mantine-components>=1.1.0",
+    "dash-iconify>=0.1.2",
+    "dash-down>=0.2.0",
+    "gunicorn>=20.1.0",
+    "requests>=2.28.1",
+    "fastapi>=0.111.0",
+    "pandas"
+]
+
+[project.urls]
+homepage = "https://github.com/emilhe/dash-leaflet-docs"
+repository = "https://github.com/emilhe/dash-leaflet-docs"
+
+[tool.ruff]
+line-length = 120
+target-version = "py313"
