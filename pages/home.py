@@ -42,7 +42,7 @@ def create_contributors_avatars():
             position="bottom",
         )
         children.append(avatar)
-    return dmc.Group(children, position="center", id="contributors")
+    return dmc.Group(children, justify="center", id="contributors")
 
 
 md_options = dict(directives=[python_code], dash_proxy_shell=lambda x, y: html.Center(y))
