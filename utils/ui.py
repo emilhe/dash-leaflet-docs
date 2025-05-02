@@ -19,7 +19,7 @@ IGNORE_SECTIONS = ["Content", "Pages"]
 HOME_SHORT = "DL"
 HOME_LONG = "Dash Leaflet"
 BADGE = dash_leaflet.__version__
-GITHUB_URL = "https://github.com/emilhe/dash-extensions"
+GITHUB_URL = "https://github.com/emilhe/dash-leaflet"
 COMPONENT_CATEGORIES = ["Ui Layers", "Raster Layers", "Vector Layers", "Controls", "Misc"]
 SECTION_LABELS = {
     "Components": create_icon_section_label("Component API Reference", "component-1", my=10, labelPosition="right"),
